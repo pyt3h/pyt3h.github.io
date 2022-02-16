@@ -1,0 +1,533 @@
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/default.min.css">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css?family=Noto+Serif:400,700&display=swap&subset=vietnamese" rel="stylesheet">
+<style>
+  body, table {
+    font-size: 15px;
+    font-family: "Noto Serif",serif;
+  }
+  h1 {
+    font-size: 36px;
+    font-family: sans-serif;
+    margin-bottom: 10px;
+  }
+  h2 {
+    font-size: 28px;
+    font-family: sans-serif;
+    margin-bottom: 10px;
+  }
+  h3 {
+    font-size: 20px;
+    font-family: sans-serif;
+    margin-bottom: 5px;
+  }
+
+  h4 {
+    font-size: 18px;
+    font-family: sans-serif;
+    margin-bottom: 5px;
+  }
+
+  .code {
+    font-family: monospace;
+  }
+
+  .bold {
+    font-weight: 700;
+  }
+</style>
+<script>hljs.highlightAll();</script>
+
+<div class="container mt-3">
+  <h2><u>1. Lập trình hướng đối tượng</u></h2>
+  <b><u>Khai báo class trong Python</u></b>
+  <pre>
+    <code class="language-python">
+      class &lt;ClassName&gt;:
+          # Hàm khởi tạo đối tượng
+          def __init__(self, &lt;var1&gt;, &lt;var2&gt;, ...):
+              self.&lt;var1&gt; = &lt;var1&gt;
+              self.&lt;var2&gt; = &lt;var2&gt;
+
+          # Các phương thức của class
+          def &lt;method1&gt;(self, ...):
+              # Nội dung hàm
+
+          # Các phương thức của class
+          def &lt;method2&gt;(self, ...):
+              # Nội dung hàm
+    </code>
+  </pre>
+  <ul>
+    <li>
+      Phương thức khởi tạo đối tượng có tên <b>__init__</b> cố định, phương thức này được dùng để tạo ra
+       một đối tượng mới (xem bên dưới).
+    </li>
+    <li class="mt-2">Các phương thức khác có thể đặt tên tùy ý, mỗi phương thức giống như một function của Python,
+      tuy nhiên tham số đầu <b>self</b> dành riêng để chỉ đối tượng hiện tại.
+    </li>
+  </ul>
+
+  <b><u>Khởi tạo đối tượng</u></b>
+  <p>Để khởi tạo đối tượng, sử dụng cú pháp:</p>
+  
+  <div class="offset-1">
+    <code class="language-python">
+      &lt;obj&gt; = &lt;ClassName&gt;(&lt;var1&gt;, &lt;var2&gt)
+    </code>
+  </div>
+
+  <p>Dùng tên class để gọi hàm khởi tạo đối tượng , danh sách các tham số sẽ được chuyển đến cho hàm <b>__init__</b> của class.</p>
+  
+  <b><u>Gọi phương thức của class</u></b>
+  <p>Để gọi phương thức của class, sử dụng cú pháp:</p>
+  <div class="offset-1">
+    <code class="language-python">
+      &lt;obj&gt.&lt;class_method&gt;(...)
+    </code>
+  </div>
+  <p class="pt-2">Đối tượng &lt;obj&gt; sẽ được chuyển thành tham số <b>self</b> trong phần xử lý của phương thức.</p>
+
+  <p>Ví dụ:</p>
+  <pre>
+    <code class="language-python">
+      class Person:
+          def __init__(self, name, address):
+              self.name = name
+              self.address = address
+              
+          def say_hello(self):
+              print(f'Xin chào, tên tôi là {self.name}')
+              
+          def update_address(self, new_address):
+              self.address = new_address
+
+      person = Person('Nguyễn Văn An', 'Hà Nội')
+      person.say_hello()
+      person.update_address('TP. HCM')
+      print(f'{person.name} sống tại {person.address}')
+    </code>
+  </pre>
+
+  <b><u>Thừa kế</u></b>
+  <p>Thừa kế là việc tạo ra một class mới (class con) dựa trên một class đã có (class cha).
+    Class con sẽ có toàn bộ các trường dữ liệu & phương thức của class cha, ngoài ra có 
+    thể định nghĩa thêm các trường dữ liệu và phương thức riêng của mình.
+  </p>
+  <p>Ví dụ:</p>
+  <pre>
+    <code class="language-python">
+      class Person:
+          def __init__(self, name, address):
+              self.name = name
+              self.address = address
+              
+          def say_hello(self):
+              print(f'Xin chào, tên tôi là {self.name}')
+              
+          def update_address(self, new_address):
+              self.address = new_address
+
+      class Student(Person):
+          def __init__(self, name, address, course):
+              super().__init__(name, address)
+              self.course = course
+
+      student = Student('Nguyễn Văn An', 'Hà Nội', 'Py2203')
+      student.say_hello()
+      student.update_address('TP. HCM')
+      
+    </code>
+  </pre>
+  <p><i>Lưu ý:</i> Ở phương thức của class con, muốn gọi đến phương thức cùng tên ở class cha thì sử dụng từ khoá <b>super</b></p>
+
+  <p>Ngoài việc kế thừa các phương thức đã có ở class cha, class con còn có thể sửa lại logic của một phương thức đã có.
+    Việc này gọi là <i>ghi đè</i> (overwrite). Ví dụ:
+  </p>
+
+  <pre>
+    <code class="language-python">
+      class Person:
+          def __init__(self, name, address):
+              self.name = name
+              self.address = address
+              
+          def say_hello(self):
+              print(f'Xin chào, tên tôi là {self.name}')
+              
+          def update_address(self, new_address):
+              self.address = new_address
+
+      class Student(Person):
+          def __init__(self, name, address, course):
+              super().__init__(name, address)
+              self.course = course
+          
+          def say_hello(self):
+              print(f'Xin chào, tên tôi là {self.name}, học lớp {self.course}')
+
+      student = Student('Nguyễn Văn An', 'Hà Nội', 'Py2203')
+      student.say_hello()  # gọi phương thức của class Student
+      
+    </code>
+  </pre>
+
+  <h2><u>2. Làm việc với JSON</u></h2>
+  <p>JSON (Javascript Object Encoding) là một chuẩn mã hoá đối tượng thành dữ liệu dạng text 
+    phỏng theo cách viết đối tượng của Javascript.
+  </p>
+  <p>Ngày nay, JSON là chuẩn trao đổi dữ liệu phổ biến (nhất) giữa các hệ thống Backend với Frontend,
+    và cả giữa các hệ thống backend với nhau.
+  </p>
+  <p>Các kiểu dữ liệu trong JSON khá tương đồng (về mặt cú pháp) với các kiểu dữ liệu trong Python (và Javascript):</p>
+  <ul>
+    <li>Kiểu Number: Số nguyên , số thực</li>
+    <li class="mt-1">Kiểu String: khác với Python, kiểu String của JSON chỉ chấp nhận dùng cặp ký tự nháy kép để bắt đầu/kết thúc string</li>
+    <li class="mt-1">Kiểu boolean: nhận 1 trong 2 giá trị <b>true</b>/<b>false</b></li>
+    <li class="mt-1">Kiểu List: tương tự Python</li>
+    <li class="mt-1">Kiểu Object: tương tự với Dictionary của Python, tuy nhiên các giá trị <b>key</b> của Json Object chỉ được phép có kiểu là string.</li>
+    <li class="mt-1">Giá trị <b>null</b>: Tương đương với <b>None</b> của Python</li>
+  </ul>
+  <p>Ví dụ: Để gửi đi một danh sách học sinh của một lớp học, dữ liệu được chuyển thành dạng JSON như sau:</p>
+  <pre>
+    <code class="language-json">
+      [
+        {
+          "name": "Nguyễn Văn A",
+          "date-of-birth": "01/01/2000",
+          "address": "Hà Nội"
+        },
+        {
+          "name": "Nguyễn Văn B",
+          "date-of-birth": "02/02/2000",
+          "address": "TP.HCM"
+        }
+      ]
+    </code>
+  </pre>
+  <p>Trong Python, thư viện <b>json</b> được dùng để chuyển dữ liệu của Python sang dạng JSON và ngược lại.</p>
+  <ul>
+    <li>Chuyển từ dữ liệu của Python sang JSON: dùng hàm <b>json.dumps</b></li>
+    <li class="mt-2">Chuyển từ dữ liệu JSON sang Python: dùng hàm <b>json.loads</b></li>
+  </ul>
+  <p>Ví dụ:</p>
+  <pre>
+    <code class="language-python">
+      import json
+
+      student_list = [
+        {'name': 'Nguyễn Văn A', 'date-of-birth': '01/01/2000', 'address': 'Hà Nội'},
+        {'name': 'Nguyễn Văn B', 'date-of-birth': '02/02/2000', 'address': 'TP.HCM'},
+      ]
+
+      student_list_json = json.dumps(student_list) # Chuyển từ Python ➝ JSON
+      print(student_list_json)
+
+      student_list2 = json.loads(student_list_json) # Chuyển từ JSON ➝ Python
+
+      for st in student_list2:
+        print(st['name'], st['date-of-birth'], st['address'])
+    </code>
+  </pre>
+
+  <h2><u>3. Làm việc với Base64</u></h2>
+  <p>Base64 là cách mã hoá dữ liệu nhị phân thành text để có thể truyền đi được trong các bản tin chỉ dạng text.</p>
+  <p>Mã hoá base64 sử dụng 64 kí tự: A-Z, a-z, 0-9 và 2 kí tự + /, tất cả đều là các kí tự text.</p>
+  <p>Trong Python, thư viện <b>base64</b> được dùng để mã hoá dữ liệu nhị phân thành base64 và giải mã dữ liệu base64 thành chuỗi byte.</p>
+
+  <ul>
+    <li>Mã hoá dữ liệu nhị phân thành base64: dùng hàm <b>base64.b64encode</b></li>
+    <li class="mt-2">Giải mã dữ liệu base64 thành chuỗi byte: dùng hàm <b>base64.b64decode</b></li>
+  </ul>
+
+  <p>Ví dụ:</p>
+  <pre>
+    <code class="language-python">
+      import base64
+
+      # Mã hoá chuỗi byte thành base64
+      data = bytes([0, 1, 2, 3, 4])
+      encoded_data = base64.b64encode(data)
+      print(encoded_data)    #  b'AAECAwQ='
+
+      # Giải mã base64 thành chuỗi byte
+      b64_data = b'AAECAwQ='
+      decoded_data = base64.b64decode(b64_data)
+      print(list(decoded_data))
+    </code>
+  </pre>
+  <p>Một trong những ứng dụng của <b>base64</b> là để truyền dữ liệu ảnh (dạng nhị phân) trong web-service.</p>
+
+  <h2><u>4. Làm việc với CSV</u></h2>
+  <p>CSV là loại file dùng để lưu các bảng dữ liệu (tương tự excel) nhưng sử dụng format dạng text.</p>
+  <p>Cấu trúc của file CSV khá đơn giản: mỗi bản ghi tương ứng với một dòng của file, trong một dòng,
+    các trường dữ liệu ngăn cách nhau bởi kí tự phân chia (thường là dấu phảy).
+  </p>
+  <p>Ví dụ, bảng điểm của một lớp học lưu dưới dạng CSV có dạng như sau:</p>
+  <pre>
+    <code class="language-csv">
+      Họ tên,Điểm hệ số 1,Điểm hệ số 2, Điểm hệ số 3
+      Nguyễn Văn A,7,8,7
+      Nguyễn Thị B,8,8,9
+      Nguyễn Thị C,8,8,7
+      Nguyễn Văn X,5,6,7
+    </code>
+  </pre>
+
+  <p>Các file CSV có tên mở rộng là <b>'.csv'</b> và có thể mở với các chương trình nhe Excel, Open Office,... để xem bảng dữ liệu trong đó.</p>
+  <p>Trong Python, việc đọc và ghi dữ liệu từ file CSV được thực hiện nhờ thư viện csv.</p>
+  <p>Ví dụ:</p>
+  <pre>
+    <code class="language-python">
+      import csv
+
+      # Đọc dữ liệu từ file csv
+      with open('student_marks.csv', encoding='utf-8') as fi:
+          reader = csv.reader(fi,delimiter=',')
+          header_row = next(reader)   # Dòng tiêu đề 
+          data_rows = list(reader)    # Các dòng dữ liệu
+
+      # Ghi dữ liệu vào file csv
+      with open('output.csv', 'w', newline='',  encoding='utf-8') as fo:
+          writer = csv.writer(fo, delimiter=',')
+          writer.writerow(header_row)     # Ghi dòng tiêu đề
+          writer.writerows(data_rows)     # Ghi các dòng dữ liệu
+
+    </code>
+  </pre>
+
+  <h2><u>5. Gọi web-service với thư viện requests</u></h2>
+  <p>Web-service là cách trao đổi dữ liệu qua giao thức http. Trong web-service, phía cung cấp dữ liệu
+    được gọi là <b>web-server</b>, phía nhận dữ liệu gọi là <b>web-client</b>. Trong phần này, chúng ta tìm hiểu cách
+    lấy dữ liệu về từ web-server đã có (Python đóng vai trò là web-client).
+  </p>
+  <p>
+    Để gọi web-service (lấy dữ liệu về từ web-server), nên sử dụng thư viện <b>requests</b>. Thư viện này
+    không có sẵn trong Python mà phải cài đặt thông qua công cụ <b>pip</b>:
+  </p>
+  <p>Từ cửa sổ command, gõ lệnh:</p>
+  <div class="offset-1">
+    <code>
+      pip install requests
+    </code>
+  </div>
+  <p class="pt-3">Sau khi cài đặt xong, có thể dùng thư viện <b>requests</b> để gọi web-service.</p>
+  <p>Ví dụ: Web-service dự báo thời tiết</p>
+  <p>
+    Thông tin thời tiết tại các thành phố trên thế giới có thể được lấy từ web-service ở địa chỉ:
+  </p>
+  <div class="offset-1">
+    <code>
+      http://api.openweathermap.org/data/2.5/weather?id={location_id}&units=metric&appid={appid}
+    </code>
+  </div>
+
+  <p class="pt-2">trong đó {location_id} là thành phố cần lấy thông tin, {appid} là key để truy cập service (
+      được cung cấp sau khi đăng ký (miễn phí) từ trang chủ của openweathermap.org)
+  </p>
+
+  <p>Ví dụ, để lấy thông tin thời tiết Hà Nội, sử dụng:</p>
+  <ul class="code">
+    <li>location_id = 1581129</li>
+    <li class="mt-2">appid = d6477696b63c2e661af64eead58c11d9</li>
+  </ul>
+
+  <p>Dùng trình duyệt để lấy dữ liệu trả về từ web-service:</p>
+  <div class="text-center my-4">
+    <img width="90%" src="images2/1.png" alt="">
+  </div>
+
+  <p>Dữ liệu json trả về ở dạng không có format, để dễ quan sát, có thể copy kết quả sang một 
+    số trang web format json, ví dụ: https://jsonbeautifier.org/
+  </p>
+  <div class="text-center my-4">
+    <img width="90%" src="images2/2.png" alt="">
+  </div>
+  <p>Khi dữ liệu được format, có thể nhìn thấy thông tin thời tiết trả về được chứa trong các trường
+    main/(temp, pressure, humidity).
+  </p>
+
+  <p>Chương trình sử dụng thư viện request để lấy dữ liệu thời tiết từ web-service:</p>
+  <pre>
+    <code class="language-python">
+      import requests
+      appid = 'd6477696b63c2e661af64eead58c11d9'
+      location_id = '1581129'
+      url = f"http://api.openweathermap.org/data/2.5/weather?id={location_id}&units=metric&appid={appid}"
+      result = requests.get(url).json()
+
+      print('Nhiệt độ: ', result['main']['temp'], 'độ C')
+      print('Độ ẩm: ', result['main']['humidity'], '%')
+    
+    </code>
+  </pre>
+  <p>Dòng lệnh lấy dữ liệu từ server về:</p>
+  <div class="offset-1">
+    <code class="language-python">
+      result = requests.get(url).json()
+    </code>
+  </div>
+
+  <br/>
+  <h2><u>6. Xử lý ngoại lệ</u></h2>
+  <p>Ngoại lệ là các lỗi có thể phát sinh trong quá trình chạy chương trình. Ví dụ:</p>
+  <ul>
+    <li>Truy nhập biến không tồn tại</li>
+    <li class="mt-2">Mở file không tồn tại trên ổ đĩa</li>
+    <li class="mt-2">Chuyển đổi một xâu không hợp lệ sang dạng số</li>
+    <li class="mt-2">Truy nhập vượt quá chỉ số của List</li>
+    <li class="mt-2">Truy nhập key không tồn tại trong Dictionary</li>
+    <li class="mt-2">...</li>
+  </ul>
+  <p>Khi ngoại lệ xảy ra, nếu không được xử lý, Python sẽ đưa ra thông báo lỗi và dừng chương trình.</p>
+  <p>Cách xử lý ngoại lệ:</p>
+  <div class="offset-1">
+    <code class="language-python">
+      try:
+          # do something
+      except:
+          print("Exception occurred")
+    </code>
+  </div>
+  
+  <p class="pt-2">Khi có ngoại lệ xảy ra, chương trình sẽ chạy vào block bên dưới <b>except</b>, 
+    sau đó chạy tiếp phần còn lại của chương trình</p>
+
+  <p>Một đoạn chương trình có thể có nhiều loại ngoại lệ phát sinh, để xử lý riêng cho từng loại ngoại lệ,
+    có thể chỉ định loại ngoại lệ trong dòng <b>except</b>:
+  </p>
+  <pre><code class="language-python">
+    try:
+        # do something
+
+    except ErrorType1:
+        print("Error type 1")
+
+     except ErrorType2:
+        print("Error type 2")
+
+     except:
+        print("Other exception")
+  </code></pre>
+
+  <p class="pt-3">Ví dụ:</p>
+  <pre>
+    <code class="language-python">
+      try:
+          x = float(input('x: '))
+          y = float(input('y: '))
+          z = x/y
+
+      except ValueError:
+          print("Invalid input number")
+
+      except ZeroDivisionError:
+          print("Cannot divide by 0")
+    </code>
+  </pre>
+
+  <h2><u>7. Unittest</u></h2>
+  <p>Việc viết Unit Test là tương đối quan trọng vì đảm bảo các chức năng cơ bản thực hiện theo đúng logic đã được thiết kế,
+     giảm trừ các lỗi phát sinh trong quá trình phát triển sản phẩm về sau.</p>
+  
+  <p>
+    Trong Python, việc viết Unit Test thường sử dụng thư viện <b></b>unittest</p>, với lớp đối tượng <b>unittest.TestCase</b>
+  </p>
+
+  <p>Ví dụ:</p>
+  <pre>
+    <code class="language-python">
+      import unittest
+
+      def add(a, b):
+          return a + b
+
+      class TestCase1(unittest.TestCase):
+
+          def test1(self):
+              self.assertEqual(add(1, 2), 3)
+
+          def test2(self):
+              self.assertTrue(add(1, 2) == 3)
+              self.assertFalse(add(1, 2) > 3)
+
+      if __name__ == '__main__':
+          unittest.main()
+    </code>
+  </pre>
+  <p>
+    Khi chương trình unittest được chạy (unittest.main()), tất cả các phương thức trong các class kế thừa class 
+    <b>unittest.TestCase</b> sẽ được kiểm tra. Nếu ngoại lệ xảy ra ở bất kì phương thức nào,
+    kết quả chung của lần test đó sẽ là <b>fail</b>.
+  </p>
+  <p>Trong các phương thức unittest, thường sử dụng các lệnh assert để đảm bảo kết quả chạy đúng, một số lệnh 
+    assert thường dùng:
+  </p>
+  <ul>
+    <li><b>assertEqual</b>: kiểm tra 2 biểu thức bằng nhau</li>
+    <li class="mt-2"><b>assertNotEqual</b>: kiểm tra 2 biểu thức khác nhau</li>
+    <li class="mt-2"><b>assertGreater</b>: kiểm tra biểu thức 1 lớn hơn biểu thức 2</li>
+    <li class="mt-2"><b>assertGreaterEqual</b>: kiểm tra biểu thức 1 lớn hơn hoặc bằng biểu thức 2</li>
+    <li class="mt-2"><b>assertLess</b>: kiểm tra biểu thức 1 nhỏ hơn biểu thức 2</li>
+    <li class="mt-2"><b>assertLessEqual</b>: kiểm tra biểu thức 1 nhỏ hơn hoặc bằng biểu thức 2</li>
+    <li class="mt-2"><b>assertTrue</b>: kiểm tra biểu thức có giá trị bằng True</li>
+    <li class="mt-2"><b>assertFalse</b>: kiểm tra biểu thức có giá trị bằng False</li>
+    <li class="mt-2"><b>assertIsNone</b>: kiểm tra biểu thức có giá trị bằng None</li>
+    <li class="mt-2"><b>assertIsNotNone</b>: kiểm tra biểu thức có giá trị khác None</li>
+    <li class="mt-2"><b>assertIsIn</b>: kiểm tra phần tử nằm trong tập giá trị</li>
+    <li class="mt-2"><b>assertIsNotIn</b>: kiểm tra phần tử không nằm trong tập giá trị</li>
+  </ul>
+
+  <h2><u>8. Virtual Environment</u></h2>
+  <p>Trong Python có 2 loại thư viện:</p>
+  <ul>
+    <li>Thư viện built-in: các thư viện có sẵn khi cài đặt Python, ví dụ: os, json, base64, datetime ,...</li>
+    <li class="mt-2">Thư viện bổ sung (3rd party): các thư viện được cài đặt thông qua công cụ pip của Python</li>
+  </ul>
+  <p>Một vấn đề với các thư viện bổ sung (3rd party) là mỗi thư viện lại có nhiều phiên bản, giữa các 
+    phiên bản có thể khác nhau về danh sách các hàm/module cung cấp.
+  </p>
+  <p>Khi một chương trình phụ thuộc vào một thư viện 3rd party, nó thường yêu cầu thư viện đó có 
+    phiên bản cố định (hoặc trong một giải , ví dụ >= 3.1, <= 3.5), để tránh các lỗi phát sinh khi 
+    thư viện 3rd party thay đổi ở các phiên bản về sau.
+  </p>
+  <p>Nếu trên một máy có nhiều chương trình cùng chạy, sẽ xảy ra khả năng các chương trình cùng phụ 
+    thuộc vào một thư viện 3rd party nhưng với phiên bản khác nhau.
+  </p>
+  <p>Để giải quyết vấn đề nay, Python cho phép tạo ra các môi trường ảo (Virtual Environment), mỗi môi trường ảo có
+    danh sách thư viện 3rd party riêng.
+  </p>
+  <b><u>Tạo mới Virtual Environment:</u></b>
+  <p>Mở cửa sổ command và thực hiện các lệnh:</p>
+  <div class="offset-1 mb-3">
+    <code>
+      mkdir &lt;project_name&gt;<br>
+      cd &lt;project_name&gt;<br>
+      python -m venv .
+    </code>
+  </div>
+  <b><u>Sử dụng Virtual Environment:</u></b>
+  <p>Mỗi lần chạy chương trình trong Virtual Environment, cần kích hoạt bằng lệnh:</p>
+  <div class="offset-1">
+    <code>
+      cd &lt;path_to_project&gt;<br>
+      Script\activate
+    </code>
+  </div>
+  <p class="pt-2">Sau khi thực hiện lệnh activate trên, con trỏ dòng lệnh sẽ xuất hiện kí hiệu (&lt;project_name&gt;) ở đầu:</p>
+  <div class="offset-1">
+    <code>
+      (&lt;project_name&gt;) C:\...
+    </code>
+  </div>
+  <p class="pt-3">Để cài đặt thư viện 3rd party trong Virtual Environment, sử dụng lệnh pip như cách cài đặt thư viện cho Python trên hệ thống:</p>
+  <div class="offset-1">
+    <code>
+      (&lt;project_name&gt;) pip install &lt;module&gt;==&lt;version&gt;
+    </code>
+  </div>
+  <p class="pt-2">Thư viện sẽ được cài đặt trong thư mục <b>Lib</b> của Virtual Environment,
+    và không ảnh hưởng đến thư mục Lib của Python trên hệ thống.
+  </p>
+</div>

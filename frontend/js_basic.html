@@ -1,0 +1,966 @@
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/default.min.css">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css?family=Noto+Serif:400,700&display=swap&subset=vietnamese" rel="stylesheet">
+<style>
+  body, table {
+    font-size: 15px;
+    font-family: "Noto Serif",serif;
+  }
+  h1 {
+    font-size: 36px;
+    font-family: sans-serif;
+    margin-bottom: 10px;
+  }
+  h2 {
+    font-size: 28px;
+    font-family: sans-serif;
+    margin-bottom: 10px;
+  }
+  h3 {
+    font-size: 20px;
+    font-family: sans-serif;
+    margin-bottom: 5px;
+  }
+
+  h4 {
+    font-size: 18px;
+    font-family: sans-serif;
+    margin-bottom: 5px;
+  }
+
+  .code {
+    font-family: monospace;
+  }
+
+  .bold {
+    font-weight: 700;
+  }
+</style>
+<script>hljs.highlightAll();</script>
+<div class="container mt-3">
+  <h1><u>I. Lập trình javascript cơ bản</u></h1>
+  <h2><u>1. Cài đặt môi trường phát triển javascript</u></h2>
+  <p>Để lập trình javascript cơ bản, nên sử dụng 
+    <a target="_blank" href="https://nodejs.org/en/download/">Node.js</a> 
+    và <a target="_blank" href="https://code.visualstudio.com/">Visual Studio Code</a>
+  </p>
+  <p>Sau khi cài đặt Node.js và VS Code, mở ứng dụng VS code, 
+    tạo mới file javascript và chạy chương trình bằng cách chọn từ menu 
+    <b>Run</b> &rarr; 
+    <b>Run Without Debug</b> &rarr; 
+    <b>Node.js</b>. 
+    Kết quả chạy chương trình được in ra ở tab <b>DEBUG CONSOLE</b>
+  </p>
+  <div class="text-center my-4">
+    <img width="90%" src="images2/1.png" alt="">
+  </div>
+  <h2><u>2. Các cú pháp cơ bản</u></h2>
+  <h3><u>Khai báo biến</u></h3>
+  <div class="col-10 offset-1 mt-3">
+    <pre><code class="language-javascript">
+      var x = 1;
+      let y = 2;
+      let z = x + y;
+      const st = "Xin chào";
+    </code></pre>
+  </div>
+  <p>Có thể dùng các từ khoá <b class="code">var</b>, <b class="code">let</b> hay <b class="code">const</b> để khai báo biến</p>
+  <p>Các biến khai báo với <b class="code">var</b> và <b class="code">let</b> có thể thay đổi giá trị trong chương trình.</p>
+  <p>Các biến khai báo với <b class="code">const</b> sẽ giữ giá trị không đổi trong toàn bộ chương trình (hằng số).</p>
+  <p>Sự khác biệt giữa <b class="code">var</b> và <b class="code">let</b> không nhiều, nhưng nên sử dụng <b class="code">let</b> 
+    vì đây là cách khai báo mới có trong các bản javascript gần đây và tránh được một số hiệu ứng không tốt từ <b class="code">var</b> ( có từ những bản đầu của javascript).</p>
+
+  <br>
+  <h3><u>In dữ liệu ra console</u></h3>
+  <div class="col-10 offset-1 mt-3">
+    <pre><code class="language-javascript">
+      var x = 1;
+      let y = 2;
+      let z = x + y;
+      console.log('x=', x, ', y=', y, ', z=', z);
+    </code></pre>
+  </div>
+  <p>Sử dụng lệnh <b class="code">console.log</b> để in dữ liệu ra console</p>
+  <div class="text-center my-4">
+    <img width="90%" src="images2/2.png" alt="">
+  </div>
+  <h3><u>Các phép toán cơ bản</u></h3>
+  <ul>
+    <li>Phép toán số học : 
+      <ul>
+        <li><b>+</b> : Cộng</li>
+        <li><b>-</b> : Trừ</li>
+        <li><b>*</b> : Nhân</li>
+        <li><b>/</b> : Chia</li>
+        <li><b>%</b> : Lấy số dư</li>
+      </ul>
+    </li>
+
+    <li class="mt-2">Phép toán thu gọn :
+      <ul>
+        <li><b>+=</b> : Lệnh <span class="code bold">a += b</span> tương đương với <span class="code bold">a = a + b</span></li>
+        <li><b>-=</b> : Lệnh <span class="code bold">a -= b</span> tương đương với <span class="code bold">a = a - b</span></li>
+        <li>...</li>
+      </ul>
+    </li>
+
+    <li class="mt-2">Phép toán tăng giảm :
+      <li><b>++</b> : Lệnh <span class="code bold">a++</span> hoặc <span class="code bold">++a</span> tương đương với <span class="code bold">a = a + 1</span></li>
+      <li><b>--</b> : Lệnh <span class="code bold">a--</span> hoặc <span class="code bold">--a</span> tương đương với <span class="code bold">a = a - 1</span></li>
+    </li>
+  </ul>
+  <p>Ví dụ:</p>
+  <div class="col-10 offset-1 mt-3">
+    <pre><code class="language-javascript">
+      let x = 1;
+      let y = 2;
+      x += 2;
+      y--;
+      let z = x + y;
+      let t = x - y;
+      let u = x * y;
+      let v = x / y;
+      let w = x % y;
+      console.log(z, t, u, v, w);
+    </code></pre>
+  </div>
+  <br>
+  <h3><u>Khối lệnh</u></h3>
+  <p>Khối lệnh là một tập hợp nhiều lệnh liên tiếp nhau được đặt trong cặp dấu ngoặc nhọn <b>{}</b></p>
+  <p>Khối lệnh thường được dùng trong các cú pháp rẽ nhánh (if-else) và lặp (for, while).</p>
+  <p>Giữa các lệnh trong khối lệnh ngăn cách nhau bởi dấu chấm phảy, hoặc bởi kí tự xuống dòng</p>
+  <p>Ví dụ:</p>
+  <div class="col-10 offset-1 mt-3">
+    <pre><code class="language-javascript">
+      {
+        let x = 1;
+        let y = 2;
+      }
+      {
+        let name = 'world'
+        console.log('Hello', name)
+      }
+    </code></pre>
+  </div>
+  <br>
+  <h3><u>Lệnh rẽ nhánh có điều kiện if-else</u></h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th style="width: 25%;">Cú pháp</th>
+        <th style="width: 35%;">Giải thích</th>
+        <th style="width: 40%;">Ví dụ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <code class="language-javascript">
+            <div class="my-2">if(&lt;dieu_kien&gt;) {</div>
+            <div class="my-2">&nbsp;&nbsp;&lt;khoi_lenh&gt;</div>
+            <div class="my-2">}</div>
+          </code>
+        </td>
+        <td>Nếu điều kiện đúng thì thực hiện khối lệnh</td>
+        <td>
+          <code class="language-javascript">
+            <div class="my-2">let x = 1;</div>
+            <br>
+            <div class="my-2">if(x > 0) {</div>
+            <div class="my-2">&nbsp;&nbsp;x = x - 1;</div>
+            <div class="my-2">}</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <code class="language-javascript">
+            <div class="my-2">if(&lt;dieu_kien&gt;) {</div>
+            <div class="my-2">&nbsp;&nbsp;&lt;khoi_lenh_1&gt;</div>
+            <div class="my-2">}else{</div>
+            <div class="my-2">&nbsp;&nbsp;&lt;khoi_lenh_2&gt;</div>
+            <div class="my-2">}</div>
+          </code>
+        </td>
+        <td>Nếu điều kiện đúng thì thực hiện khối lệnh 1, nếu không thực hiện khối lệnh 2</td>
+        <td>
+          <code class="language-javascript">
+            <div class="my-2">let x = -1;</div>
+            <br>
+            <div class="my-2">if(x > 0) {</div>
+            <div class="my-2">&nbsp;&nbsp;x = x - 1;</div>
+            <div class="my-2">}else {</div>
+            <div class="my-2">&nbsp;&nbsp;x = x + 1;</div>
+            <div class="my-2">}</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <code class="language-javascript">
+            <div class="my-2">if(&lt;dieu_kien_1&gt;) {</div>
+            <div class="my-2">&nbsp;&nbsp;&lt;khoi_lenh_1&gt;</div>
+            <div class="my-2">}else if(&lt;dieu_kien_2&gt;){</div>
+            <div class="my-2">&nbsp;&nbsp;&lt;khoi_lenh_2&gt;</div>
+            <div class="my-2">}else if(&lt;dieu_kien_3&gt;){</div>
+            <div class="my-2">&nbsp;&nbsp;&lt;khoi_lenh_3&gt;</div>
+            <div class="my-2">...</div>
+            <div class="my-2">}else{</div>
+            <div class="my-2">&nbsp;&nbsp;&lt;khoi_lenh_n&gt;</div>
+            <div class="my-2">}</div>
+          </code>
+        </td>
+        <td>
+          <p>Nếu điều kiện 1 đúng thì thực hiện khối lệnh 1</p>
+          <p>nếu không kiểm tra điều kiện 2, nếu đúng thực hiện khối lệnh 2,</p>
+          <p>nếu không tiếp tục kiểm tra điều kiện tiếp theo ...</p>
+          <p>Nếu không điều kiện nào đúng thì thực hiện khối lệnh cuối.</p>
+        </td>
+        <td>
+          <code class="language-javascript">
+            <div class="my-2">let rating = 4.5;</div>
+            <br>
+            <div class="my-2">if(rating < 2.5) {</div>
+            <div class="my-2">&nbsp;&nbsp;console.log('Sản phẩm kém');</div>
+            <div class="my-2">}else if(rating < 3.5) {</div>
+            <div class="my-2">&nbsp;&nbsp;console.log('Sản phẩm trung bình');</div>
+            <div class="my-2">}else if(rating < 4.0) {</div>
+            <div class="my-2">&nbsp;&nbsp;console.log('Sản phẩm khá tốt');</div>
+            <div class="my-2">}else{</div>
+            <div class="my-2">&nbsp;&nbsp;console.log('Sản phẩm tốt');</div>
+            <div class="my-2">}</div>
+          </code>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <h4><u>Các điều kiện logic dùng trong cú pháp if-else</u></h4>
+  <table class="table">
+    <thead>
+      <tr>
+        <th style="width: 25%;">Điều kiện</th>
+        <th style="width: 35%;">Ý nghĩa</th>
+        <th style="width: 40%;">Ví dụ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>&gt;</b></td>
+        <td>So sánh lớn hơn</td>
+        <td>
+          <code class="language-javascript">
+            <div class="my-2">if(1 > 2) console.log('1 > 2');</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td><b>&gt;=</b></td>
+        <td>So sánh lớn hơn hoặc bằng</td>
+        <td>
+          <code class="language-javascript">
+            <div class="my-2">if(1 >= 2) console.log('1 >= 2');</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td><b>&lt;</b></td>
+        <td>So sánh nhỏ hơn</td>
+        <td>
+          <code class="language-javascript">
+            <div class="my-2">if(1 < 2) console.log('1 < 2');</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td><b>&lt;=</b></td>
+        <td>So sánh nhỏ hơn hoặc bằng</td>
+        <td>
+          <code class="language-javascript">
+            <div class="my-2">if(1 <= 2) console.log('1 < 2');</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td><b>==</b></td>
+        <td>So sánh bằng nhau</td>
+        <td>
+          <code class="language-javascript">
+            <div class="my-2">if(1 == 2) console.log('1 == 2');</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td><b>!=</b></td>
+        <td>So sánh khác nhau</td>
+        <td>
+          <code class="language-javascript">
+            <div class="my-2">if(1 != 2) console.log('1 != 2');</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td><b>&&</b></td>
+        <td>Kết hợp 2 điều kiện theo logic <b>và</b></td>
+        <td>
+          <code class="language-javascript">
+            <div class="my-2">let x = 1;</div>
+            <div class="my-2">if(x > 0 && x < 100) console.log('0 < x < 100');</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td><b>||</b></td>
+        <td>Kết hợp 2 điều kiện theo logic <b>hoặc</b></td>
+        <td>
+          <code class="language-javascript">
+            <div class="my-2">let x = 1;</div>
+            <div class="my-2">if(x < 0 || x > 100) </div>
+            <div class="my-2">&nbsp;&nbsp;console.log('x < 0 hoặc x > 100');</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td><b>!</b></td>
+        <td>Phủ định một điều kiện</td>
+        <td>
+          <code class="language-javascript">
+            <div class="my-2">let x = 1;</div>
+            <div class="my-2">if(!(x < 0 || x > 100)) </div>
+            <div class="my-2">&nbsp;&nbsp;console.log('0 <= x <= 100');</div>
+          </code>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3><u>Phép toán dấu hỏi (ternary)</u></h3>
+  <p>Cú pháp:</p>
+  <code class="language-javascript">&lt;dieu_kien&gt; ? &lt;gia_tri_1&gt; : &lt;gia_tri_2&gt;</code>  
+
+  <p class="mt-3">Giải thích: Nếu điều kiện đúng thì biểu thức nhận giá trị 1, nếu không biểu thức nhận giá trị 2</p>
+
+  <p>Ví dụ:</p>
+  <div class="col-10 offset-1 mt-3">
+    <pre><code class="language-javascript">
+      let x = 1;
+      let y = 2;
+      let z = x < y ? x : y;
+      console.log('Số bé hơn trong 2 số:', z);
+    </code></pre>
+  </div>
+
+  <br>
+  <h3><u>Vòng lặp for</u></h3>
+  <p>Cú pháp:</p>
+  <code class="language-javascript">
+    <div class="my-2">for(&lt;khoi_tao_bien_lap&gt;; &lt;dieu_kien_tiep_tuc&gt;; &lt;cap_nhat_bien_lap&gt;) {</div>
+    <div class="my-2">&nbsp;&nbsp;&lt;khoi_lenh_lap&gt;</div>
+    <div class="my-2">}</div>
+  </code>  
+
+  <p class="mt-3">Giải thích:</p>
+  <ul>
+    <li><span class="code">&lt;khoi_tao_bien_lap&gt;</span> : Khởi tạo biến lặp, thường là các biến đếm tăng, giảm để thể hiện bước lặp</li>
+    <li class="mt-2">
+      <span class="code">&lt;dieu_kien_tiep_tuc&gt;</span> : 
+      <span>Điều kiện kiểm tra để xem có tiếp tục thực hiện khối lệnh lặp hay không.
+      Bắt đầu vòng lặp và sau mỗi bước lặp, điều kiện này được kiểm tra, nếu không thoả mãn, vòng lặp sẽ kết thúc.</span>
+    </li>
+    <li class="mt-2">
+      <span class="code">&lt;cap_nhat_bien_lap&gt;</span> : Cập nhật biến lặp sau mỗi bước thực hiện. Thao tác cập nhật thường dùng nhất là tăng/giảm 1 cho biến lặp.
+    </li>
+    <li class="mt-2">
+      <span class="code">&lt;khoi_lenh_lap&gt;</span> : Khối lệnh được thực hiện ở mỗi bước lặp.
+    </li>
+  </ul>
+
+  <p>Ví dụ:</p>
+  <div class="col-10 offset-1 mt-3">
+    <pre><code class="language-javascript">
+      // In ra các số chính phương từ 1 đến 100
+      for(let i = 1; i <= 10; i++) {
+        console.log(i, '*', i, '=', i*i);
+      }
+
+      // In ra bảng cửu chương
+      for(let i = 2; i <= 10; i++) {
+        for(let j = 2; j <= 10; j++){
+          console.log(i, '*', j, '=', i*j);
+        }
+        console.log('');
+      }
+    </code></pre>
+  </div>
+
+  <br>
+  <h3><u>Vòng lặp while</u></h3>
+  <p>Cú pháp:</p>
+  <code class="language-javascript">
+    <div class="my-2">while(&lt;dieu_kien_tiep_tuc&gt;;) {</div>
+    <div class="my-2">&nbsp;&nbsp;&lt;khoi_lenh_lap&gt;</div>
+    <div class="my-2">}</div>
+  </code>  
+
+  <p class="mt-3">Giải thích:</p>
+  <ul>
+    <li class="mt-2">
+      <span class="code">&lt;dieu_kien_tiep_tuc&gt;</span> : 
+      <span>Điều kiện kiểm tra để xem có tiếp tục thực hiện khối lệnh lặp hay không.
+      Bắt đầu vòng lặp và sau mỗi bước lặp, điều kiện này được kiểm tra, nếu không thoả mãn, vòng lặp sẽ kết thúc.</span>
+    </li>
+    <li class="mt-2">
+      <span class="code">&lt;khoi_lenh_lap&gt;</span> : Khối lệnh được thực hiện ở mỗi bước lặp.
+    </li>
+  </ul>
+
+  <p>Ví dụ:</p>
+  <div class="col-10 offset-1 mt-3">
+    <pre><code class="language-javascript">
+      // In ra các số chính phương từ 1 đến 100
+      let i = 1;
+      while(i <= 10) {
+        console.log(i, '*', i, '=', i*i);
+        i++;
+      }
+
+      // Tìm số tự nhiên nhỏ nhất chia 2 dư 1, chia 3 dư 2, chia 4 dư 3
+      let n = 1;
+      while(n%2 != 1 || n%3 != 2 || n%4 != 3) n++;
+      console.log(n);
+    </code></pre>
+  </div>
+
+  <h3><u>Kiểu dữ liệu String</u></h3>
+  <p>Kiểu string dùng để lưu trữ các dữ liệu dạng văn bản. Trong javascript dữ liệu string được đặt trong cặp nháy đơn ('') hoặc nháy kép ("")</p>
+  <p>Một số thao tác thông dụng trên dữ liệu string:</p>
+  <table class="table">
+    <thead>
+      <tr>
+        <th style="width:25%">Thao tác</th>
+        <th style="width:35%">Cú pháp</th>
+        <th style="width:40%">Ví dụ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Lấy chiều dài</td>
+        <td class="code">st.length</td>
+        <td>
+          <code class="language-javascript">
+            <div class="my-2">let ho_ten = 'Nguyễn Văn A';</div>
+            <div class="my-2">console.log(ho_ten.length);</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>Lấy một kí tự của string</td>
+        <td class="code">st[index]</td>
+        <td>
+          <code class="language-javascript">
+            <div class="my-2">let ho_ten = 'Nguyễn Văn A';</div>
+            <div class="my-2">console.log(ho_ten[0], ho_ten[7]);</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>Lấy một đoạn của string</td>
+        <td>
+          <p class="code">st.substring(start, end)</p>
+          <p><small><i>Lưu ý: nếu không truyền vào <b>end</b> thì lấy hết đến cuối string</i></small></p>
+        </td>
+        <td>
+          <code class="language-javascript">
+            <div class="my-2">let date = '01/02/2022';</div>
+            <div class="my-2">console.log('month=', date.substring(3, 5));</div>
+            <div class="my-2">console.log('year=', date.substring(6));</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>Ghép nhiều string</td>
+        <td class="code">st1 + st2 + ... + st_n</td>
+        <td>
+          <code class="language-javascript">
+            <div class="my-2">let ho = 'Nguyễn', ten_dem = 'Văn', ten = 'A';</div>
+            <div class="my-2">let ho_ten = ho + ' ' + ten_dem + ' ' + ten;</div>
+            <div class="my-2">console.log(ho_ten);</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>Ghép nhiều string sử dùng template</td>
+        <td>
+          <p class="code">`${st1}${st2}...${st_n}`</p>
+          <p><small><i>Lưu ý dùng kí tự backstick ` ` </i></small></p>
+        </td>
+        <td>
+          <code class="language-javascript">
+            <div class="my-2">let ho = 'Nguyễn', ten_dem = 'Văn', ten = 'A';</div>
+            <div class="my-2">let ho_ten = `${ho} ${ten_dem} ${ten}`;</div>
+            <div class="my-2">console.log(ho_ten);</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>Tách string thành từng phần theo từ phân cách (delimiter)</td>
+        <td class="code">st.split(delimiter)</td>
+        <td>
+          <code class="language-javascript">
+            <div class="my-2">let st = 'Nguyễn-Văn-A';</div>
+            <div class="my-2">let words = st.split('-')</div>
+            <div class="my-2">console.log(words);</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>Ghép mảng nhiều string bằng từ nối (delimiter)</td>
+        <td class="code">st_arr.join(delimiter)</td>
+        <td>
+          <code class="language-javascript">
+            <div class="my-2">let arr = ['Nguyễn', 'Văn', 'A'];</div>
+            <div class="my-2">let st = arr.join('-')</div>
+            <div class="my-2">console.log(st);</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>Kiểm tra string có chứa một string khác</td>
+        <td class="code">st1.includes(st2)</td>
+        <td>
+          <code class="language-javascript">
+            <div class="my-2">let username = 'nguyen-van-a';</div>
+            <div class="my-2">if(username.includes('-'))</div>
+            <div class="my-2">&nbsp;&nbsp;&nbsp;console.log('username không hợp lệ');</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>Tìm vị trí xuất hiện đầu tiên của một string trong một string khác</td>
+        <td>
+          <p class="code">st1.indexOf(st2)</p>
+          <p><small><i>Lưu ý: nếu không tìm thấy thì kết quả trả về là -1</i></small></p>
+        </td>
+        <td>
+          <code class="language-javascript">
+            <div class="my-2">let username = 'nguyen-van-a';</div>
+            <div class="my-2">let pos = username.indexOf('-');</div>
+            <div class="my-2">console.log(pos);</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>Tìm vị trí xuất hiện cuối cùng của một string trong một string khác</td>
+        <td>
+          <p class="code">st1.lastIndexOf(st2)</p>
+          <p><small><i>Lưu ý: nếu không tìm thấy thì kết quả trả về là -1</i></small></p>
+        </td>
+        <td>
+          <code class="language-javascript">
+            <div class="my-2">let username = 'nguyen-van-a';</div>
+            <div class="my-2">let pos = username.lastIndexOf('-');</div>
+            <div class="my-2">console.log(pos);</div>
+          </code>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>Chuyển thành dạng viết hoa</td>
+        <td>
+          <p class="code">st.toUpperCase()</p>
+        </td>
+        <td>
+          <code class="language-javascript">
+            <div class="my-2">let city = 'Hà Nội';</div>
+            <div class="my-2">console.log(city.toUpperCase());</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>Chuyển thành dạng viết thường</td>
+        <td>
+          <p class="code">st.toLowerCase()</p>
+        </td>
+        <td>
+          <code class="language-javascript">
+            <div class="my-2">let language = 'Javascript';</div>
+            <div class="my-2">console.log(language.toLowerCase());</div>
+          </code>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3><u>Kiểu dữ liệu List</u></h3>
+  <p>Kiểu List dùng để lưu trữ một dãy các phần tử (có thể cùng hoặc khác kiểu dữ liệu).
+    Trong javascript dữ liệu List được đặt trong cặp ngoặc vuông [].
+  </p>
+  <p>Một số thao tác thông dụng trên dữ liệu List:</p>
+  <table class="table">
+    <thead>
+      <tr>
+        <th style="width:25%">Thao tác</th>
+        <th style="width:35%">Cú pháp</th>
+        <th style="width:40%">Ví dụ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Lấy chiều dài</td>
+        <td class="code">lst.length</td>
+        <td>
+          <code class="language-javascript">
+            <div class="my-2">let lst = [1, 2, 3, 4, 5];</div>
+            <div class="my-2">console.log(lst.length);</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>Lấy một phần tử của list</td>
+        <td class="code">lst[index]</td>
+        <td>
+          <code class="language-javascript">
+            <div class="my-2">let lst = [1, 2, 3, 4, 5];</div>
+            <div class="my-2">console.log(lst[0], lst[4]);</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>Lấy một đoạn của list</td>
+        <td>
+          <p class="code">lst.slice(start, end)</p>
+          <p><small><i>Lưu ý: nếu không truyền vào <b>end</b> thì lấy hết đến cuối list</i></small></p>
+        </td>
+        <td>
+          <code class="language-javascript">
+            <div class="my-2">let lst = [1, 2, 3, 4, 5];</div>
+            <div class="my-2">console.log(lst.slice(1, 3));</div>
+            <div class="my-2">console.log(lst.slice(3));</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>Thêm một phần tử vào cuối list</td>
+        <td class="code">lst.push(new_element)</td>
+        <td>
+          <code class="language-javascript">
+            <div class="my-2">let lst = [1, 2, 3, 4, 5];</div>
+            <div class="my-2">lst.push(6);</div>
+            <div class="my-2">console.log(lst);</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>Lấy phần tử cuối ra khỏi list</td>
+        <td class="code">lst.pop()</td>
+        <td>
+          <code class="language-javascript">
+            <div class="my-2">let lst = [1, 2, 3, 4, 5];</div>
+            <div class="my-2">let last = lst.pop();</div>
+            <div class="my-2">console.log(lst, last);</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>Xoá một phần tử trong list</td>
+        <td class="code">lst.splice(index, 1)</td>
+        <td>
+          <code class="language-javascript">
+            <div class="my-2">let lst = [1, 2, 3, 4, 5];</div>
+            <div class="my-2">lst.splice(2,1);</div>
+            <div class="my-2">console.log(lst);</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>Kiểm tra list có chứa một phần tử</td>
+        <td class="code">lst.includes(element)</td>
+        <td>
+          <code class="language-javascript">
+            <div class="my-2">let lst = [1, 2, 3, 4, 5];</div>
+            <div class="my-2">if(lst.includes(1))</div>
+            <div class="my-2">&nbsp;&nbsp;&nbsp;console.log('1 exists in list');</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>Tìm vị trí xuất hiện đầu tiên của một phần tử trong list</td>
+        <td>
+          <p class="code">lst.indexOf(element)</p>
+          <p><small><i>Lưu ý: nếu không tìm thấy thì kết quả trả về là -1</i></small></p>
+        </td>
+        <td>
+          <code class="language-javascript">
+            <div class="my-2">let lst = [1, 2, 3, 4, 5];</div>
+            <div class="my-2">let pos = lst.indexOf(2);</div>
+            <div class="my-2">console.log(pos);</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>Tìm vị trí xuất hiện cuối cùng của một phần tử trong list</td>
+        <td>
+          <p class="code">lst.lastIndexOf(element)</p>
+          <p><small><i>Lưu ý: nếu không tìm thấy thì kết quả trả về là -1</i></small></p>
+        </td>
+        <td>
+          <code class="language-javascript">
+            <div class="my-2">let lst = [1, 2, 3, 2, 4, 5];</div>
+            <div class="my-2">let pos = lst.lastIndexOf(2);</div>
+            <div class="my-2">console.log(pos);</div>
+          </code>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3><u>Kiểu dữ liệu Object</u></h3>
+  <p>Kiểu Object dùng để lưu trữ một đối tượng với các trường dữ liệu con.
+    Trong javascript dữ liệu Object được đặt trong cặp ngoặc nhọn {}.
+  </p>
+  <p>Một số thao tác thông dụng trên dữ liệu Object:</p>
+  <table class="table">
+    <thead>
+      <tr>
+        <th style="width:25%">Thao tác</th>
+        <th style="width:35%">Cú pháp</th>
+        <th style="width:40%">Ví dụ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Lấy một trường dữ liệu của đối tượng</td>
+        <td>
+          <div class="my-2 code">obj.field_name</div> hoặc
+          <div class="my-2 code">obj[field_name]</div>
+        </td>
+        <td>
+          <code class="language-javascript">
+            <div class="my-2">let person = {</div>
+            <div class="my-2">&nbsp;&nbsp; name: "Nguyễn Văn A",</div>
+            <div class="my-2">&nbsp;&nbsp; "date-of-birth": '01/01/2000'</div>
+            <div class="my-2">};</div>
+            <div class="my-2">console.log(person.name, person['date-of-birth']);</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>Thêm mới/cập nhật một trường dữ liệu của đối tượng</td>
+        <td>
+          <div class="my-2 code">obj.field_name = value;</div> hoặc
+          <div class="my-2 code">obj[field_name] = value;</div>
+        </td>
+        <td>
+          <code class="language-javascript">
+            <div class="my-2">let person = {};</div>
+            <div class="my-2">person.name = "Nguyễn Văn A";</div>
+            <div class="my-2">person["date-of-birth"] = '01/01/2000'</div>
+            <div class="my-2">console.log(person.name, person['date-of-birth']);</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>Lấy danh sách các trường dữ liệu của đối tượng</td>
+        <td>
+          <div class="my-2 code">Object.keys(obj)</div>
+        </td>
+        <td>
+          <code class="language-javascript">
+            <div class="my-2">let person = {</div>
+            <div class="my-2">&nbsp;&nbsp; name: "Nguyễn Văn A",</div>
+            <div class="my-2">&nbsp;&nbsp; "date-of-birth": '01/01/2000'</div>
+            <div class="my-2">};</div>
+            <div class="my-2">console.log(Object.keys(person));</div>
+          </code>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3><u>Hàm (Function)</u></h3>
+  <p>Hàm (function) dùng để khai báo các chức năng được sử dụng lặp lại nhiều lần, 
+    hoặc để chia nhỏ chương trình thành các khối nhỏ để dễ phát triển/bảo trì.</p>
+  
+  <p>Cú pháp khai báo hàm:</p>
+  <code class="language-javascript">
+    <div class="my-2">function &lt;ten_ham&gt;(&lt;danh_sach_bien&gt;) {</div>
+    <div class="my-2">&nbsp;&nbsp;// Nội dung thân hàm</div>
+    <div class="my-2">&nbsp;&nbsp;return &lt;ket_qua&gt;;</div>
+    <div class="my-2">}</div>
+  </code>
+
+  <p class="mt-3">Giải thích:</p>
+  <ul>
+    <li><span class="code">&lt;ten_ham&gt;</span> : Tên hàm</li>
+    <li class="mt-2">
+      <span class="code">&lt;danh_sach_bien&gt;</span> : 
+      Danh sách các biến đầu vào của hàm, giữa các biến ngăn cách nhau bởi dấu phảy
+      </span>
+    </li>
+    <li class="mt-2">
+      <span class="code">&lt;ket_qua&gt;</span> : Kết quả trả về sau khi xử lý.
+    </li>
+  </ul>
+
+  <p>Ví dụ:</p>
+  <div class="col-10 offset-1 mt-3">
+    <pre><code class="language-javascript">
+      // Hàm lấy số lớn nhất trong 2 số
+      function max(a, b){
+        if(a > b) {
+          return a;
+        }else {
+          return b;
+        }
+      }
+      // Gọi hàm trong chương trình chính
+      console.log(max(2, 3));
+
+      // Hàm tính tổng một dãy số
+      function sum(arr) {
+        let s = 0;
+        for(let i = 0; i < arr.length; i++) s += arr[i];
+        return s;
+      }
+
+      // Gọi hàm trong chương trình chính
+      console.log(sum([1, 2, 3, 4, 5]));
+    </code></pre>
+  </div>
+
+  <h3><u>Hàm mũi tên (Lambda/ Arrow function)</u></h3>
+  <p>Lambda/Arrow Function là cách khai báo một hàm dưới dạng một biến dữ liệu.</p>
+
+  <p>Cú pháp khai báo:</p>
+  <code class="language-javascript">
+    <div class="my-2">let &lt;ten_bien_ham&gt; = function(&lt;danh_sach_bien&gt;) {</div>
+    <div class="my-2">&nbsp;&nbsp;// Nội dung thân hàm</div>
+    <div class="my-2">&nbsp;&nbsp;return &lt;ket_qua&gt;;</div>
+    <div class="my-2">}</div>
+  </code>
+  <p>hoặc dùng toán tử mũi tên (arrow):</p>
+  <code class="language-javascript">
+    <div class="my-2">let &lt;ten_bien_ham&gt; = (&lt;danh_sach_bien&gt;) => {</div>
+    <div class="my-2">&nbsp;&nbsp;// Nội dung thân hàm</div>
+    <div class="my-2">&nbsp;&nbsp;return &lt;ket_qua&gt;;</div>
+    <div class="my-2">}</div>
+  </code>
+  <p class="pt-3">Ứng dụng của Lambda/Arrow Function: dùng để truyền tham số dạng hàm cho một hàm khác (hàm của hàm)</p>
+
+  <p>Một số thao tác hay sử dụng với Lambda/Arrow Function:</p>
+  <table class="table">
+    <thead>
+      <tr>
+        <th style="width:15%">Thao tác</th>
+        <th style="width:20%">Cú pháp</th>
+        <th style="width:30%">Tác dụng</th>
+        <th style="width:35%">Ví dụ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>map</b></td>
+        <td class="code">
+          lst.map(func)
+        </td>
+        <td>
+          Biến một list thành một list mới bằng cách dùng hàm <b>func</b> tác động lên từng phần tử.
+        </td>
+        <td>
+          <code class="language-javascript">
+            <div class="my-2">let lst = [1, 2, 3, 4, 5];</div>
+            <div class="my-2">let lst_square = lst.map(x => x*x);</div>
+            <div class="my-2">console.log(lst_square); // [1, 4, 9, 16, 25]</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td><b>filter</b></td>
+        <td class="code">
+          lst.filter(func)
+        </td>
+        <td>
+          <div class="my-2">Lọc lấy các phần tử trong list thoả mãn một điều kiện. </div>
+          <div class="my-2">Hàm <b>func</b> là hàm trả về true/false thể hiện mỗi phần tử trong list có thoả mãn điều kiện lọc hay không.</div>
+        </td>
+        <td>
+          <code class="language-javascript">
+            <div class="my-2">let lst = [1, 2, 3, 4, 5];</div>
+            <div class="my-2">let odd_numbers = lst.filter(x => x%2 == 1);</div>
+            <div class="my-2">console.log(odd_numbers); // [1, 3, 5]</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td><b>find</b></td>
+        <td class="code">
+          lst.find(func)
+        </td>
+        <td>
+          <div class="my-2">
+            Tìm phần tử đầu tiên trong list thoả mãn một điều kiện. 
+          </div>
+          <div class="my-2">
+            Hàm <b>func</b> là hàm điều kiện tương tự như trong phần filter.
+          </div>
+          <div class="my-2">
+            Nếu trong list không có phần tử nào thoả mãn điều kiện thì trả về kết quả là <b>undefined</b>
+          </div>
+        </td>
+        <td>
+          <code class="language-javascript">
+            <div class="my-2">let lst = [1, 2, 3, 4, 5];</div>
+            <div class="my-2">let a = lst.filter(x => x%2 == 0);</div>
+            <div class="my-2">console.log(a); // 2</div>
+            <div class="my-2">let b = lst.filter(x => x < 0);</div>
+            <div class="my-2">console.log(b); // undefined</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td><b>some</b></td>
+        <td class="code">
+          lst.some(func)
+        </td>
+        <td>
+          <div class="my-2">
+            Kiểm tra xem trong list có ít nhất một phần tử thoả mãn một điều kiện hay không.
+          </div>
+          <div class="my-2">
+            Hàm <b>func</b> là hàm điều kiện tương tự như các phần trên.
+          </div>
+        </td>
+        <td>
+          <code class="language-javascript">
+            <div class="my-2">let lst = [1, 2, 3, 4, 5];</div>
+            <div class="my-2">console.log(lst.some(x => x%2 == 0)); // true</div>
+            <div class="my-2">console.log(lst.some(x => x < 0)); //false</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td><b>every</b></td>
+        <td class="code">
+          lst.every(func)
+        </td>
+        <td>
+          <div class="my-2">
+            Kiểm tra xem tất cả các phần tử của list có thoả mãn một điều kiện hay không.
+          </div>
+          <div class="my-2">
+            Hàm <b>func</b> là hàm điều kiện tương tự như các phần trên.
+          </div>
+        </td>
+        <td>
+          <code class="language-javascript">
+            <div class="my-2">let lst = [1, 2, 3, 4, 5];</div>
+            <div class="my-2">console.log(lst.every(x => x%2 == 0)); // false</div>
+            <div class="my-2">console.log(lst.every(x => x > 0)); //true</div>
+          </code>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>

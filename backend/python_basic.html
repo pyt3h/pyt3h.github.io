@@ -1,0 +1,1616 @@
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/default.min.css">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css?family=Noto+Serif:400,700&display=swap&subset=vietnamese" rel="stylesheet">
+<style>
+  body, table {
+    font-size: 15px;
+    font-family: "Noto Serif",serif;
+  }
+  h1 {
+    font-size: 36px;
+    font-family: sans-serif;
+    margin-bottom: 10px;
+  }
+  h2 {
+    font-size: 28px;
+    font-family: sans-serif;
+    margin-bottom: 10px;
+  }
+  h3 {
+    font-size: 20px;
+    font-family: sans-serif;
+    margin-bottom: 5px;
+  }
+
+  h4 {
+    font-size: 18px;
+    font-family: sans-serif;
+    margin-bottom: 5px;
+  }
+
+  .code {
+    font-family: monospace;
+  }
+
+  .bold {
+    font-weight: 700;
+  }
+</style>
+<script>hljs.highlightAll();</script>
+<div class="container mt-3">
+  <h1><u>I. Cài đặt môi trường phát triển</u></h1>
+  <h2><u>1. Cài đặt Python</u></h2>
+  <p>Download và cài đặt Python từ <a href="https://www.python.org/downloads/">trang chủ </a></p>
+  <p><i>Lưu ý:</i> </p>
+  <ul>
+    <li>Không cài đặt Python bằng Micrsoft Store của Windows, sẽ gặp khó khăn trong việc phát triển với một số thư viện về sau</li>
+    <li>Ở màn hình cài đặt đầu tiên, chọn <b>Add Python 3.x to PATH</b>, tính năng này cần để làm việc với số chức nâng cao về sau</li>
+  </ul>
+  <div class="text-center my-4">
+    <img width="70%" src="images/1.png" alt="">
+  </div>
+  <div class="my-2"><b><u>Tạo mới và chạy thử chương trình đầu tiên</u></b></div>
+  <p>Từ menu start của Windows tìm ứng dụng <b>IDLE</b> và mở ứng dụng này</p>
+  <div class="text-center my-4">
+    <img width="70%" src="images/2.png" alt="">
+  </div>
+
+  <p class="pt-3">Khi ứng dụng IDLE khởi động xong, cửa số shell interactive (với con trỏ >>> ) sẽ xuất hiện. Cửa số này cho 
+    phép nhập trực tiếp vào các dòng lệnh để thực hiện.
+  </p>
+  <div class="text-center my-4">
+    <img width="70%" src="images/3.png" alt="">
+  </div>
+  
+  <p class="pt-3">Để tạo và chạy một chương trình: Từ menu <b>File</b>, chọn <b>New File</b>, cửa sổ soạn thảo sẽ mở ra. 
+    </p>
+  <div class="text-center my-4">
+    <img width="70%" src="images/4.png" alt="">
+  </div>
+  
+  <p class="mt-3">Sau khi soạn thảo chương trình xong, từ menu <b>File</b> chọn <b>Save</b> để lưu lại chương trình trên ổ đĩa</p>
+  <div class="text-center my-4">
+    <img width="70%" src="images/5.png" alt="">
+  </div>
+
+  <p class="pt-3">Để chạy chương trình, từ menu <b>Run</b> chọn <b>Run Module (F5)</b>, chương trình sẽ được thực hiện,
+  và kết quả sẽ in ra cửa sổ shell.</p>
+  <div class="text-center my-4">
+    <img width="70%" src="images/6.png" alt="">
+  </div>
+
+  <h2><u>2. Cài đặt Python IDE</u></h2>
+  <p>IDLE cho phép soạn thảo và chạy chương trình Python nhưng không hỗ trợ nhiều các chức năng phát triển ứng dụng. Với các ứng dụng python có nhiều file, nên sử dụng IDE khác. Có thể sử dụng một trong các IDE:</p>
+  <ul>
+    <li>Pycharm</li>
+    <li>Visual Studio Code</li>
+    <li>Eclipse + Pydev</li>
+  </ul>
+  <p>
+    Với môi trường doanh nghiệp, Pycharm thường được sử dụng vì hỗ trợ Python tốt nhất. 
+    Với người học lập trình, Visual Studio Code phù hợp hơn vì nhẹ, không yêu cầu máy cấu hình cao,
+    trong khi vẫn hỗ trợ hầu như toàn bộ các tính năng cần thiết.
+  </p>
+  <div class="my-2"><b><u>Cài đặt Visual Studio Code để phát triển với Python</u></b></div>
+  <p>Tải và cài Visual Studio Code từ <a href="https://code.visualstudio.com/">trang chủ</a>.</p>
+  <p>
+    Sau khi cài đặt, khởi động Visual Studio Code. Trong lần chạy đầu tiên, cài đăt Extension cho Python như sau:
+    Click biểu tượng Extension (1) (dưới cùng thanh công cụ bên trái), trong phần tìm kiếm Extension (2) nhập Python,
+    danh sách các Extension hỗ trợ Python sẽ hiện lên ở Panel kết quả. Chọn Extension Python của Microsoft và cài đặt.
+  </p>
+  <div class="text-center my-4">
+    <img width="90%" src="images/7.png" alt="">
+  </div>
+
+  <br/>
+  <h1><u>II. Kiến thức lập trình Python cơ bản</u></h1>
+  <h2><u>1. Biến số , kiểu dữ liệu</u></h2>
+  <p>Biến số được sử dụng để lưu trữ các giá trị trong quá trình tính toán của chương trình</p>
+  <p>Cách thức khai báo biến trong Python :</p>
+  <code class="language-python">
+    &nbsp;&nbsp;&nbsp;&nbsp;bienSo = &lt;gia_tri&gt;
+  </code>
+  <p class="pt-3">
+    Trong đó <code>bienSo</code> là tên của biến số cần khai báo, <code>&lt;gia_tri&gt;</code> là giá trị ban đầu chúng ta muốn đặt cho biến số. 
+    Giá trị này có thể là một hằng số hoặc một biểu thức của các biến số đã được khai báo.
+  </p>
+  <p>Ví dụ:</p>
+  <code class="language-python">
+    &nbsp;&nbsp;&nbsp;&nbsp;x = 1 <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;y = 2 <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;z = x + y
+  </code>
+  <p class="pt-3">Để xóa một biến khỏi bộ nhớ, có thể sử dụng lệnh <code>del</code> :</p>
+  <code class="language-python">
+    &nbsp;&nbsp;&nbsp;&nbsp;del x, y, z
+  </code>
+  <p class="pt-3">Mỗi biến số sau khi được khai báo sẽ chứa giá trị nhất định, gọi là dữ liệu.
+    Giá trị dữ liệu này sẽ thuộc vào một trong các kiểu dữ liệu mà Python hỗ trợ:
+  </p>
+  <ul>
+    <li>Kiểu dữ liệu số</li>
+    <li class="mt-2">Kiểu dữ liệu String</li>
+    <li class="mt-2">Kiểu dữ liệu List</li>
+    <li class="mt-2">Kiểu dữ liệu Tuple</li>
+    <li class="mt-2">Kiểu dữ liệu Set</li>
+    <li class="mt-2">Kiểu dữ liệu Dictionary</li>
+    <li class="mt-2">Kiểu dữ liệu Object</li>
+  </ul>
+
+  <br/>
+  <h2><u>2. Vào ra dữ liệu</u></h2>
+  <h3><u>Đọc dữ liệu từ bàn phím</u></h3>
+  <p>Để lấy dữ liệu người dùng nhập vào từ bàn phím, Python sử dụng lệnh <code>input</code>: </p>
+  <code class="language-python">
+    &nbsp;&nbsp;&nbsp;&nbsp;giatri = input('Nhập giá trị cho biến : ')
+  </code>
+  <p class="pt-3">Ví dụ:</p>
+  <pre>
+    <code class="language-python">
+      # Chương trình chào hỏi người sử dụng
+      ten = input('Mời bạn cho biết tên của bạn : ')
+      print('Xin chào ', ten)
+    </code>
+  </pre>
+  <pre>
+    <code class="language-python">
+      # Chương trình yêu cầu người dùng nhập vào 2 số từ bàn phím, sau đó in ra tổng 2 số
+      a = input('Số thứ nhất : ')
+      a = float(a)
+
+      b = input('Số thứ hai : ')
+      b = float(b)
+
+      print('Tổng của 2 số là : ', a+b)
+    </code>
+  </pre>
+
+  <h3><u>In dữ liệu ra màn hình</u></h3>
+  <p>Lệnh <code>print</code> được sử dụng để in dữ liệu ra màn hình, cú pháp của lệnh này như sau:</p>
+  <code class="language-python">
+    &nbsp;&nbsp;&nbsp;&nbsp;print(&lt;danh sách giá trị ngăn cách nhau bởi dấu phảy&gt;)
+  </code>
+  <p class="pt-3">Ví dụ:</p>
+  <pre>
+    <code class="language-python">
+      # Chương trình minh hoạ các in dữ liệu ra màn hình
+      x = 1
+      y = 2
+      z = x + y
+      print(x, '+', y, '=', z)
+    </code>
+  </pre>
+
+  <h2><u>3. Các phép toán cơ bản</u></h2>
+  <h3><u>Phép toán số học</u></h3>
+  <ul>
+    <li><b>+</b> : Cộng</li>
+    <li><b>-</b> : Trừ</li>
+    <li><b>*</b> : Nhân</li>
+    <li><b>**</b> : Lũy thừa</li>
+    <li><b>/</b> : Chia</li>
+    <li><b>//</b> : Chia lấy phần nguyên</li>
+    <li><b>%</b> : Lấy số dư</li>
+  </ul>
+
+  <h3><u>Phép toán thu gọn</u></h3>
+  <ul>
+    <li><b>+=</b> : Lệnh <span class="code bold">a += b</span> tương đương với <span class="code bold">a = a + b</span></li>
+    <li><b>-=</b> : Lệnh <span class="code bold">a -= b</span> tương đương với <span class="code bold">a = a - b</span></li>
+    <li>...</li>
+  </ul>
+
+  <p>Ví dụ:</p>
+  <div class="col-10 offset-1 mt-3">
+    <pre><code class="language-python">
+      x = 1
+      y = 2
+      z = x + y
+      t = x - y
+      u = x * y
+      v = x / y
+      w = x % y
+      print(z, t, u, v, w)
+    </code></pre>
+  </div>
+
+  <br/>
+  <h2><u>4. Cấu trúc rẽ nhánh if-else</u></h2>
+  <p>Cấu trúc rẽ nhánh <b>if-else</b> dùng để thực hiện một đoạn chương trình dựa trên một điều kiện logic (true/false).</p>
+  <p>Các dạng của cấu trúc <b>if-else</b>:</p>
+  <table class="table">
+    <thead>
+      <tr>
+        <th style="width: 25%;">Cú pháp</th>
+        <th style="width: 35%;">Giải thích</th>
+        <th style="width: 40%;">Ví dụ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <code class="language-python">
+            <div class="my-2">if(&lt;dieu_kien&gt;):</div>
+            <div class="my-2">&nbsp;&nbsp;&nbsp;&lt;khoi_lenh&gt;</div>
+          </code>
+        </td>
+        <td>Nếu điều kiện đúng thì thực hiện khối lệnh</td>
+        <td>
+          <code class="language-python">
+            <div class="my-2">x = 1</div>
+            <div class="my-2">if x > 0:</div>
+            <div class="my-2">&nbsp;&nbsp;&nbsp;x = x - 1</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <code class="language-python">
+            <div class="my-2">if &lt;dieu_kien&gt;:</div>
+            <div class="my-2">&nbsp;&nbsp;&nbsp;&lt;khoi_lenh_1&gt;</div>
+            <div class="my-2">else:</div>
+            <div class="my-2">&nbsp;&nbsp;&nbsp;&lt;khoi_lenh_2&gt;</div>
+          </code>
+        </td>
+        <td>Nếu điều kiện đúng thì thực hiện khối lệnh 1, nếu không thực hiện khối lệnh 2</td>
+        <td>
+          <code class="language-python">
+            <div class="my-2">x = -1</div>
+            <div class="my-2">if x > 0:</div>
+            <div class="my-2">&nbsp;&nbsp;&nbsp;x = x - 1</div>
+            <div class="my-2">else:</div>
+            <div class="my-2">&nbsp;&nbsp;&nbsp;x = x + 1</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <code class="language-python">
+            <div class="my-2">if &lt;dieu_kien_1&gt; :</div>
+            <div class="my-2">&nbsp;&nbsp;&nbsp;&lt;khoi_lenh_1&gt;</div>
+            <div class="my-2">elif &lt;dieu_kien_2&gt; :</div>
+            <div class="my-2">&nbsp;&nbsp;&nbsp;&lt;khoi_lenh_2&gt;</div>
+            <div class="my-2">elif &lt;dieu_kien_3&gt;:</div>
+            <div class="my-2">&nbsp;&nbsp;&nbsp;&lt;khoi_lenh_3&gt;</div>
+            <div class="my-2">...</div>
+            <div class="my-2">else:</div>
+            <div class="my-2">&nbsp;&nbsp;&nbsp;&lt;khoi_lenh_n&gt;</div>
+          </code>
+        </td>
+        <td>
+          <p>Nếu điều kiện 1 đúng thì thực hiện khối lệnh 1</p>
+          <p>nếu không kiểm tra điều kiện 2, nếu đúng thực hiện khối lệnh 2,</p>
+          <p>nếu không tiếp tục kiểm tra điều kiện tiếp theo ...</p>
+          <p>Nếu không điều kiện nào đúng thì thực hiện khối lệnh cuối.</p>
+        </td>
+        <td>
+          <code class="language-python">
+            <div class="my-2">rating = 4.5</div>
+            <div class="my-2">if rating < 2.5:</div>
+            <div class="my-2">&nbsp;&nbsp;&nbsp;print('Sản phẩm kém')</div>
+            <div class="my-2">elif rating < 3.5:</div>
+            <div class="my-2">&nbsp;&nbsp;&nbsp;print('Sản phẩm trung bình')</div>
+            <div class="my-2">elif rating < 4.0:</div>
+            <div class="my-2">&nbsp;&nbsp;&nbsp;print('Sản phẩm khá tốt')</div>
+            <div class="my-2">else:</div>
+            <div class="my-2">&nbsp;&nbsp;&nbsp;print('Sản phẩm tốt')</div>
+          </code>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <u><i>Lưu ý:</i></u>
+  <ul>
+    <li>Cuối dòng các lệnh if/elif/else là dấu hai chấm. Python sử dụng dấu hai chấm để bắt đầu một khối lệnh con</li>
+    <li class="mt-2">Các dòng của khối lệnh con bên dưới if/elif/else được viết lùi vào một số khoảng trắng (thường là 4 khoảng trắng hoặc 1 tab) so với dòng cha. Các dòng của một khối lệnh phải viết thẳng hàng với nhau.</li>
+  </ul>
+  
+  <h4><u>Các điều kiện logic dùng trong cú pháp if-else</u></h4>
+  <table class="table">
+    <thead>
+      <tr>
+        <th style="width: 25%;">Điều kiện</th>
+        <th style="width: 35%;">Ý nghĩa</th>
+        <th style="width: 40%;">Ví dụ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>&gt;</b></td>
+        <td>So sánh lớn hơn</td>
+        <td>
+          <code class="language-python">
+            <div class="my-2">if(1 > 2):</div>
+            <div class="my-2">&nbsp;&nbsp;&nbsp;print('1 > 2')</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td><b>&gt;=</b></td>
+        <td>So sánh lớn hơn hoặc bằng</td>
+        <td>
+          <code class="language-python">
+            <div class="my-2">if(1 >= 2):</div>
+            <div class="my-2">&nbsp;&nbsp;&nbsp;print('1 >= 2')</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td><b>&lt;</b></td>
+        <td>So sánh nhỏ hơn</td>
+        <td>
+          <code class="language-python">
+            <div class="my-2">if(1 < 2):</div>
+            <div class="my-2">&nbsp;&nbsp;&nbsp;print('1 < 2')</div>
+            <div class="my-2"></div>
+            <div class="my-2">&nbsp;&nbsp;</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td><b>&lt;=</b></td>
+        <td>So sánh nhỏ hơn hoặc bằng</td>
+        <td>
+          <code class="language-python">
+            <div class="my-2">if(1 <= 2):</div>
+            <div class="my-2">&nbsp;&nbsp;&nbsp;print('1 < 2')</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td><b>==</b></td>
+        <td>So sánh bằng nhau</td>
+        <td>
+          <code class="language-python">
+            <div class="my-2">if(1 == 2):</div>
+            <div class="my-2">&nbsp;&nbsp;&nbsp;print('1 == 2')</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td><b>!=</b></td>
+        <td>So sánh khác nhau</td>
+        <td>
+          <code class="language-python">
+            <div class="my-2">if(1 != 2):</div>
+            <div class="my-2">&nbsp;&nbsp;&nbsp;print('1 != 2')</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td><b>and</b></td>
+        <td>Kết hợp 2 điều kiện theo logic <b>và</b></td>
+        <td>
+          <code class="language-python">
+            <div class="my-2">x = 1</div>
+            <div class="my-2">if x > 0 and x < 100:</div>
+            <div class="my-2">&nbsp;&nbsp;&nbsp;print('0 < x < 100')</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td><b>or</b></td>
+        <td>Kết hợp 2 điều kiện theo logic <b>hoặc</b></td>
+        <td>
+          <code class="language-python">
+            <div class="my-2">x = 1</div>
+            <div class="my-2">if x < 0 or x > 100:</div>
+            <div class="my-2">&nbsp;&nbsp;&nbsp;print'x < 0 hoặc x > 100'</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td><b>not</b></td>
+        <td>Phủ định một điều kiện</td>
+        <td>
+          <code class="language-python">
+            <div class="my-2">x = 1</div>
+            <div class="my-2">if not(x < 0 or x > 100):</div>
+            <div class="my-2">&nbsp;&nbsp;&nbsp;print('0 <= x <= 100')</div>
+          </code>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Một số ví dụ:</p>
+  <pre><code class="language-python">
+    # Chương trình yêu cầu người dùng nhập vào 2 số và in ra số bé hơn
+    a = input('Số thứ nhất : ')
+    a = float(a)
+
+    b = input('Số thứ hai : ')
+    b = float(b)
+
+    if a < b:
+        print('Số bé:', a)
+
+    else:
+        print('Số bé:', b)
+  </code></pre>
+
+  <pre><code class="language-python">
+    # Chương trình tính chỉ số BMI và đánh giá tình trạng thân hình của một người
+    height = input('Chiều cao (mét) : ')
+    height = float(height)
+
+    mass = input('Cân nặng (kg) : ')
+    mass = float(mass)
+
+    bmi = mass / (height * height)
+
+    if bmi < 16:
+        print('Thân hình gầy')
+
+    elif bmi < 18.5:
+        print('Thân hình hơi gầy')
+
+    elif bmi < 25:
+        print('Thân hình bình thường')
+
+    elif bmi < 30:
+        print('Thân hình hơi béo')
+
+    else:
+        print('Thân hình béo')
+
+  </code></pre>
+
+  <br/>
+  <h2><u>5. Cấu trúc lặp for</u></h2>
+  <p>Cấu trúc lặp for được dùng để thực hiện một vòng lặp với số lần lặp biết trước:</p>
+  <code class="language-python">
+    &nbsp;&nbsp;&nbsp;&nbsp;for &lt;bienLap&gt; in &lt;tapGiaTri&gt;: <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;khoi_lenh&gt;
+  </code>
+
+  <p class="pt-3">Các cách thể hiện tập giá trị lặp:</p>
+  <table class="table">
+    <thead>
+      <tr>
+        <th style="width: 25%;">Cách thể hiện tập giá trị</th>
+        <th style="width: 35%;">Cấu trúc</th>
+        <th style="width: 40%;">Ví dụ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <p>Liệt kê các thành phần của tập giá trị.</p> 
+          <p>Các phần từ viết cách nhau bởi dấu phảy và đặt trong cặp ngoặc vuông [].</p>
+        </td>
+        <td class="code">
+          [x1, x2, ...., xn]
+        </td>
+        <td class="code">
+          [1, 2, 3, 4, 5]
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>Dùng giải giá trị chặn cuối.</p>
+          <p>Giải giá trị này bắt đầu từ 0 và kết thúc trước giá trị chặn cuối.</p>
+        </td>
+        <td class="code">
+          range(&lt;end_value&gt;)
+        </td>
+        <td class="code">
+          range(5) ~ [0, 1, 2, 3, 4]
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>Dùng giải giá trị chặn đầu & cuối.</p>
+          <p>Giải giá trị này bắt đầu từ giấ trị đầu và kết thúc trước giá trị chặn cuối.</p>
+        </td>
+        <td class="code">
+          range(&lt;start&gt;, &lt;end_value&gt;)
+        </td>
+        <td class="code">
+          range(1, 5) ~ [1, 2, 3, 4]
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>Dùng giải giá trị chặn đầu & cuối kèm bước nhảy.</p>
+          <p>Giải giá trị này bắt đầu từ giấ trị đầu, kết thúc trước giá trị chặn cuối và tăng theo bước nhảy.</p>
+        </td>
+        <td class="code">
+          range(&lt;start&gt;, &lt;end_value&gt;, &lt;step&gt;)
+        </td>
+        <td class="code">
+          range(2, 10, 2) ~ [2, 4, 6, 8]
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <p>Một số ví dụ minh hoạ:</p>
+  <pre>
+    <code class="language-python">
+      # Chương trình tính tổng các số từ 1 đến 100
+      S = 0
+      for i in range(1, 101):
+          S += i
+
+      print('S = ', S)
+    </code>
+
+    <code class="language-python">
+      # Chương trình in ra bảng cửu chương
+      for i in range(2, 10):
+          for j in range(2, 10):
+              print(i, '*', j, '=', i*j)
+          print()
+    </code>
+  </pre>
+
+  <h2><u>6. Cấu trúc lặp while</u></h2>
+  <p>Cấu trúc lặp while được dùng để thực hiện một vòng lặp với số lần lặp không biết trước:</p>
+  <code class="language-python">
+    &nbsp;&nbsp;&nbsp;&nbsp;while &lt;dieukien&gt;:<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;khoi_lenh&gt;
+  </code>
+  <p>Một số ví dụ minh họa:</p>
+  <pre>
+    <code class="language-python">
+      # Chương trình kiểm tra một số có phải số nguyên tố không
+      x = int(input('x='))
+      i = 2
+      while i * i <= x:
+          if x % i == 0:
+              j = x // i
+              print(x, '=', i , '*', j)
+              break
+          i += 1
+      else:
+        print(x, ' là số nguyên tố')
+    </code>
+    <code class="language-python">
+      # Chương trình chuyển một số từ hệ thập phân sang hệ nhị phân
+      x = int(input('x='))
+      s = ''
+
+      while x > 0:
+          i = x % 2
+          s = str(i) + s
+          x = int(x/2)
+
+      print(s)
+    </code>
+  </pre>
+  
+  <h3><u>Các lệnh break và continue</u></h3>
+  <p>Trong các vòng lặp <b>for</b>, <b>while</b> có thể sử dụng các lệnh <b>break</b> và <b>continue</b> với mục đích:</p>
+  <ul>
+    <li>Lệnh <b>break</b>: dùng để kết thúc sớm vòng lặp. Khi gặp lệnh này, 
+      chương trình sẽ dừng vòng lặp và chuyển sang lệnh tiếp theo phía dưới vòng lặp</li>
+    <li class="mt-2">Lệnh <b>continue</b>: dùng để bỏ qua một bước lặp. Khi gặp lệnh này,
+      chương trình sẽ bỏ qua phần còn lại của bước lặp đang thực hiện để chuyển qua bước tiếp theo.</li>
+  </ul>
+  <p>Ví dụ:</p>
+  <pre>
+    <code class="language-python">
+      # Chương trình minh hoạ sử dụng lệnh break
+      # Tìm số nhỏ nhất có 2 chữ số chia 2 dư 1, chia 3 dư 2, chia 4 dư 3
+
+      for i in range(10, 100):
+          if i%2 == 1 and i%3 == 2 and i%4 == 3:
+              print(i)
+              break
+    </code>
+    <code class="language-python">
+      # Chương trình minh hoạ sử dụng lệnh continue
+      # Tìm tất cả các số có 2 chữ số chia 2 dư 1, chia 3 dư 2, chia 4 dư 3
+
+      for i in range(10, 100):
+          if i%2 != 1:
+              continue
+
+          if i%3 != 2:
+              continue
+            
+          if i%4 != 3:
+              continue
+
+          print(i)
+    </code>
+  </pre>
+
+  <h2><u>7. Kiểu dữ liệu String</u></h2>
+  <p>Kiểu string dùng để lưu trữ các dữ liệu dạng văn bản. Trong Python dữ liệu string được đặt trong cặp nháy đơn ('') hoặc nháy kép ("")</p>
+  <p>Một số thao tác thông dụng trên dữ liệu string:</p>
+  <table class="table">
+    <thead>
+      <tr>
+        <th style="width:25%">Thao tác</th>
+        <th style="width:35%">Cú pháp</th>
+        <th style="width:40%">Ví dụ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Lấy chiều dài</td>
+        <td class="code">len(&lt;st&gt;)</td>
+        <td>
+          <code class="language-python">
+            <div class="my-2">ho_ten = 'Nguyễn Văn A'</div>
+            <div class="my-2">print(len(ho_ten))</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>Lấy một kí tự của string</td>
+        <td class="code">&lt;st&gt;[&lt;index&gt;]</td>
+        <td>
+          <code class="language-python">
+            <div class="my-2">ho_ten = 'Nguyễn Văn A'</div>
+            <div class="my-2">print(ho_ten[0], ho_ten[7])</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>Lấy một đoạn của string</td>
+        <td>
+          <p class="code">&lt;st&gt;[&lt;start&gt;:&lt;end&gt;]</p>
+          <p><small><i>Lưu ý: nếu không truyền vào <b>start</b> thì lấy từ đầu string, nếu không truyền vào <b>end</b> thì lấy hết đến cuối string</i></small></p>
+        </td>
+        <td>
+          <code class="language-python">
+            <div class="my-2">date = '01/02/2022'</div>
+            <div class="my-2">print('day=', date[:2])</div>
+            <div class="my-2">print('month=', date[3:5])</div>
+            <div class="my-2">print('year=', date[6:])</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>Ghép nhiều string</td>
+        <td class="code">&lt;st1&gt; + &lt;st2&gt; + ... + &lt;st_n&gt;</td>
+        <td>
+          <code class="language-python">
+            <div class="my-2">ho = 'Nguyễn'</div>
+            <div class="my-2">ten_dem = 'Văn'</div>
+            <div class="my-2">ten = 'A'</div>
+            <div class="my-2">ho_ten = ho + ' ' + ten_dem + ' ' + ten</div>
+            <div class="my-2">print(ho_ten)</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>Ghép nhiều string sử dùng template</td>
+        <td>
+          <p class="code">f"{&lt;st1&gt;}{&lt;st2&gt;}...{&lt;st_n&gt;}"</p>
+        </td>
+        <td>
+          <code class="language-python">
+            <div class="my-2">ho = 'Nguyễn'</div>
+            <div class="my-2">ten_dem = 'Văn'</div>
+            <div class="my-2">ten = 'A'</div>
+            <div class="my-2">ho_ten = f"{ho} {ten_dem} {ten}"</div>
+            <div class="my-2">print(ho_ten)</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>Tách string thành từng phần theo từ phân cách (delimiter)</td>
+        <td class="code">&lt;st&gt;.split(&lt;delimiter&gt;)</td>
+        <td>
+          <code class="language-python">
+            <div class="my-2">st = 'Nguyễn-Văn-A'</div>
+            <div class="my-2">words = st.split('-')</div>
+            <div class="my-2">print(words)</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>Ghép mảng nhiều string bằng từ nối (delimiter)</td>
+        <td class="code">&lt;delimiter&gt;.join(&lt;st_array&gt;)</td>
+        <td>
+          <code class="language-python">
+            <div class="my-2">arr = ['Nguyễn', 'Văn', 'A']</div>
+            <div class="my-2">st = '-'.join(arr)</div>
+            <div class="my-2">print(st)</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>Kiểm tra string có chứa một string khác</td>
+        <td class="code">&lt;st2&gt; in &lt;st1&gt;</td>
+        <td>
+          <code class="language-python">
+            <div class="my-2">username = 'nguyen-van-a'</div>
+            <div class="my-2">if '-' in username:</div>
+            <div class="my-2">&nbsp;&nbsp;&nbsp;print('username không hợp lệ')</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>Tìm vị trí xuất hiện đầu tiên của một string trong một string khác</td>
+        <td>
+          <p class="code">&lt;st1&gt;.find(&lt;st2&gt;)</p>
+          <p><small><i>Lưu ý: nếu không tìm thấy thì kết quả trả về là -1</i></small></p>
+        </td>
+        <td>
+          <code class="language-python">
+            <div class="my-2">username = 'nguyen-van-a'</div>
+            <div class="my-2">pos = username.find('-')</div>
+            <div class="my-2">print(pos)</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>Tìm vị trí xuất hiện cuối cùng của một string trong một string khác</td>
+        <td>
+          <p class="code">&lt;st1&gt;.rfind(&lt;st2&gt;)</p>
+          <p><small><i>Lưu ý: nếu không tìm thấy thì kết quả trả về là -1</i></small></p>
+        </td>
+        <td>
+          <code class="language-python">
+            <div class="my-2">username = 'nguyen-van-a'</div>
+            <div class="my-2">pos = username.rfind('-')</div>
+            <div class="my-2">print(pos)</div>
+          </code>
+        </td>
+      </tr>
+      
+      <tr>
+        <td>Chuyển thành dạng viết hoa</td>
+        <td>
+          <p class="code">&lt;st&gt;.upper()</p>
+        </td>
+        <td>
+          <code class="language-python">
+            <div class="my-2">city = 'Hà Nội'</div>
+            <div class="my-2">print(city.upper())</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>Chuyển thành dạng viết thường</td>
+        <td>
+          <p class="code">&lt;st&gt;.lower()</p>
+        </td>
+        <td>
+          <code class="language-python">
+            <div class="my-2">language = 'Python'</div>
+            <div class="my-2">print(language.lower())</div>
+          </code>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Một số ví dụ:</p>
+  <pre>
+    <code class="language-python">
+      # Chương trình kiểm tra tính hợp lệ của mật khẩu
+      # Mật khẩu hợp lệ nếu: có từ 6 kí tự trở lên, chứa ít nhất 1 chữ số, chứa ít nhất 1 chữ cái
+      password = input('Nhập mật khẩu : ')
+
+      if len(password) < 6:
+          print('Mật khẩu quá ngắn')
+          exit()
+
+      chuaChuCai = False
+      for c in password:
+          C = c.upper()
+          if (C >= 'A' and C <= 'Z'):
+              chuaChuCai = True
+              break
+
+      if not chuaChuCai:
+          print('Mật khẩu cần chứa ít nhất một chữ cái (a-z/A-Z)')
+          exit()
+
+      chuaChuSo = False
+      for c in password:
+          if c >= '0' and c <= '9':
+              chuaChuSo = True
+              break
+
+      if not chuaChuSo:
+          print('Mật khẩu cần chứa ít nhất một chữ số (0-9)')
+          exit()
+
+      print('Mật khẩu hợp lệ !')
+    </code>
+    <code class="language-python">
+      # Chương trình chuyển một số trong phạm vi 0-99 thành phát âm tiếng Việt
+      bangso = ['không', 'một', 'hai', 'ba', 'bốn', 'năm', 'sáu', 'bảy', 'tám', 'chín']
+
+      x = int(input('x='))
+
+      if x < 10:
+          text = bangso[x]
+      else:
+          chuc = x // 10
+          donvi = x % 10
+
+          text = (bangso[chuc] + ' mươi') if chuc > 1 else 'mười'   
+
+          if donvi > 0:
+              text += ' '
+
+              if donvi == 5:
+                  text += 'lăm'
+
+              elif donvi == 1 and chuc > 1:
+                  text += 'mốt'
+
+              else:
+                  text += bangso[donvi]
+
+      print(text)
+    </code>
+  </pre>
+
+  <h2><u>8.Kiểu dữ liệu List</u></h2>
+  <p>Kiểu List dùng để lưu trữ một dãy các phần tử (có thể cùng hoặc khác kiểu dữ liệu).
+    Trong Python dữ liệu List được đặt trong cặp ngoặc vuông [].
+  </p>
+  <p>Một số thao tác thông dụng trên dữ liệu List:</p>
+  <table class="table">
+    <thead>
+      <tr>
+        <th style="width:25%">Thao tác</th>
+        <th style="width:35%">Cú pháp</th>
+        <th style="width:40%">Ví dụ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Lấy chiều dài</td>
+        <td class="code">len(&lt;lst&gt;)</td>
+        <td>
+          <code class="language-javascript">
+            <div class="my-2">lst = [1, 2, 3, 4, 5]</div>
+            <div class="my-2">print(len(lst))</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>Lấy một phần tử của list</td>
+        <td class="code">&lt;lst&gt;[&lt;index&gt;]</td>
+        <td>
+          <code class="language-javascript">
+            <div class="my-2">lst = [1, 2, 3, 4, 5]</div>
+            <div class="my-2">print(lst[0], lst[4])</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>Lấy một đoạn của list</td>
+        <td>
+          <p class="code">&lt;lst&gt;[&lt;start&gt;:&lt;end&gt;]</p>
+          <p><small><i>Lưu ý: nếu không truyền vào <b>start</b> thì lấy từ đầu list, nếu không truyền vào <b>end</b> thì lấy hết đến cuối list</i></small></p>
+        </td>
+        <td>
+          <code class="language-javascript">
+            <div class="my-2">lst = [1, 2, 3, 4, 5]</div>
+            <div class="my-2">print(lst[1: 3])</div>
+            <div class="my-2">print(lst[3:])</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>Thêm một phần tử vào cuối list</td>
+        <td class="code">&lt;lst&gt;.append(&lt;new_element&gt;)</td>
+        <td>
+          <code class="language-javascript">
+            <div class="my-2">lst = [1, 2, 3, 4, 5]</div>
+            <div class="my-2">lst.append(6)</div>
+            <div class="my-2">print(lst)</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>Lấy phần tử cuối ra khỏi list</td>
+        <td class="code">&lt;lst&gt;.pop()</td>
+        <td>
+          <code class="language-javascript">
+            <div class="my-2">lst = [1, 2, 3, 4, 5]</div>
+            <div class="my-2">last = lst.pop()</div>
+            <div class="my-2">print(lst, last)</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>Xoá một phần tử trong list</td>
+        <td class="code">del &lt;lst&gt;[&lt;index&gt;]</td>
+        <td>
+          <code class="language-javascript">
+            <div class="my-2">lst = [1, 2, 3, 4, 5]</div>
+            <div class="my-2">del lst[2]</div>
+            <div class="my-2">print(lst)</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>Kiểm tra list có chứa một phần tử</td>
+        <td class="code">&lt;element&gt; in &lt;lst&gt;</td>
+        <td>
+          <code class="language-javascript">
+            <div class="my-2">lst = [1, 2, 3, 4, 5]</div>
+            <div class="my-2">if 1 in lst:</div>
+            <div class="my-2">&nbsp;&nbsp;&nbsp;print('1 exists in list')</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>Tìm vị trí xuất hiện đầu tiên của một phần tử trong list</td>
+        <td>
+          <p class="code">&lt;lst&gt;.index(&lt;element&gt;)</p>
+          <p><small><i>Lưu ý: nếu không tìm thấy thì xảy ra ngoại lệ (exception)</i></small></p>
+        </td>
+        <td>
+          <code class="language-javascript">
+            <div class="my-2">lst = [1, 2, 3, 4, 5]</div>
+            <div class="my-2">pos = lst.index(2)</div>
+            <div class="my-2">print(pos)</div>
+          </code>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Một số ví dụ:</p>
+  <pre>
+    <code class="language-python">
+      # Chương trình tìm các số nguyên tố nhỏ hơn 1000
+      prime_list = []
+
+      for x in range(2, 1000):
+          is_prime = True
+
+          for prime in prime_list:
+              if x % prime == 0:
+                  is_prime = False
+                  break
+
+              if prime*prime > x:
+                    break   
+
+          if is_prime:
+              prime_list.append(x)
+
+      print(prime_list)
+    </code>
+  </pre>
+
+  <h2><u>9.Kiểu dữ liệu Tuple</u></h2>
+  <p>Kiểu Tuple được dùng chủ yếu để gộp các biến đơn lẻ thành một nhóm.
+    Trong Python dữ liệu Tuple được đặt trong cặp ngoặc vuông ().
+  </p>
+  <p>Hai thao tác chính với Tuple là gộp (pack) và tách (unpack):</p>
+  <pre>
+    <code class="language-python">
+      # Gộp nhiều biến thành tuple
+      student_info = ('Nguyễn Văn A', 2000, 'Hà Nội')
+
+      # Tách tuple thành các biến đơn lẻ
+      student_name, student_birth_year, student_address = student_info
+
+      # Dùng tuple để khai báo nhiều biến một lúc
+      student_name, student_birth_year, student_address = 'Nguyễn Văn A', 2000, 'Hà Nội'
+    </code>
+  </pre>
+
+  <h2><u>9.Kiểu dữ liệu Dictionary</u></h2>
+  <p>Kiểu dữ liệu Dictionary dùng để chứa một bảng biến đổi 1-1 giữa 2 tập hợp :</p>
+  <ul>
+    <li>Tập nguồn (hay tập khóa (key))</li>
+    <li class="mt-2">Tập đích (hay tập giá trị (value))</li>
+  </ul>
+  <p>Mỗi phần tử của tập nguồn có một phần tử tương ứng ở tập đích.</p>
+  <p>Cú pháp khai báo dictionary:</p>
+  <pre>
+    <code class="language-python">
+    d = {
+        &lt;key1&gt; : &lt;value1&gt;,
+        &lt;key2&gt; : &lt;value2&gt;,
+        ...
+    }
+    </code>
+  </pre>
+  <p>Các cặp <b>key-value</b> được ngăn cách nhau bởi dấu phảy, giữa <b>key</b> và <b>value</b> trong một cặp ngăn cách nhau bởi dấu hai chấm.</p>
+  <p>Một trong những ứng dụng thường dùng của kiểu Dictionary là để thế hiện một đối tượng với nhiều trường dữ liệu, khi đó mỗi key là tên một trường
+    dữ liệu, value là giá trị của trường dữ liệu đó.
+  </p>
+
+  <p>Ví dụ:</p>
+  <pre>
+    <code class="language-python">
+    student_info = {
+        "name": "Nguyễn Văn A",
+        "birth_year": 2000,
+        "address": "Hà Nội"
+    }
+    </code>
+  </pre>
+
+  <p>Một số thao tác trên kiểu dữ liệu <b>Dictionary</b>:</p>
+  <table class="table">
+    <thead>
+      <tr>
+        <th style="width:25%">Thao tác</th>
+        <th style="width:35%">Cú pháp</th>
+        <th style="width:40%">Ví dụ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Lấy giá trị một trường</td>
+        <td>
+          <div class="my-2 code">&lt;dict&gt;[&lt;key&gt;]</div> hoặc
+          <div class="my-2 code">&lt;dict&gt;.get(&lt;key&gt;)</div>
+          <small>
+            Sự khác biệt giữa 2 cách lấy giá trị: Nếu <i>key</i> không tồn tại, cách lấy theo ngoặc vuông sẽ sinh ra ngoại lệ (exception),
+            cách lấy theo hàm <b>get</b> trả về None.
+          </small>
+        </td>
+        <td>
+          <code class="language-python">
+            <div class="my-2">student_info = {</div>
+            <div class="my-2">&nbsp;&nbsp; "name": "Nguyễn Văn A",</div>
+            <div class="my-2">&nbsp;&nbsp; "date-of-birth": '01/01/2000'</div>
+            <div class="my-2">}</div>
+            <div class="my-2">print(student_info["name"])</div>
+            <div class="my-2">print(student_info.get('date-of-birth'))</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>Thêm mới/cập nhật một trường dữ liệu</td>
+        <td>
+          <div class="my-2 code">&lt;dict&gt;[&lt;key&gt;] = value</div>
+        </td>
+        <td>
+          <code class="language-python">
+            <div class="my-2">student_info = {</div>
+            <div class="my-2">&nbsp;&nbsp; "name": "Nguyễn Văn A",</div>
+            <div class="my-2">&nbsp;&nbsp; "date-of-birth": '01/01/2000'</div>
+            <div class="my-2">}</div>
+            <div class="my-2">student_info["address"] = 'Hà Nội'</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>Lấy tập nguồn (key)</td>
+        <td>
+          <div class="my-2 code">&lt;dict&gt;.keys()</div>
+        </td>
+        <td>
+          <code class="language-python">
+            <div class="my-2">student_info = {</div>
+            <div class="my-2">&nbsp;&nbsp; "name": "Nguyễn Văn A",</div>
+            <div class="my-2">&nbsp;&nbsp; "date-of-birth": '01/01/2000'</div>
+            <div class="my-2">}</div>
+            <div class="my-2">print(student_info.keys())</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>Lấy tập đích (value)</td>
+        <td>
+          <div class="my-2 code">&lt;dict&gt;.values()</div>
+        </td>
+        <td>
+          <code class="language-python">
+            <div class="my-2">student_info = {</div>
+            <div class="my-2">&nbsp;&nbsp; "name": "Nguyễn Văn A",</div>
+            <div class="my-2">&nbsp;&nbsp; "date-of-birth": '01/01/2000'</div>
+            <div class="my-2">}</div>
+            <div class="my-2">print(student_info.values())</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>Lấy danh sách các cặp (key, value)</td>
+        <td>
+          <div class="my-2 code">&lt;dict&gt;.items()</div>
+        </td>
+        <td>
+          <code class="language-python">
+            <div class="my-2">student_info = {</div>
+            <div class="my-2">&nbsp;&nbsp; "name": "Nguyễn Văn A",</div>
+            <div class="my-2">&nbsp;&nbsp; "date-of-birth": '01/01/2000'</div>
+            <div class="my-2">}</div>
+            <div class="my-2">print(student_info.items())</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>Duyệt các trường của Dictionary</td>
+        <td>
+          <div class="my-2 code">for key, value in &lt;dict&gt;.items():</div>
+          <div class="my-2 code">&nbsp;&nbsp;//process key, value</div>
+        </td>
+        <td>
+          <code class="language-python">
+            <div class="my-2">student_info = {</div>
+            <div class="my-2">&nbsp;&nbsp; "name": "Nguyễn Văn A",</div>
+            <div class="my-2">&nbsp;&nbsp; "date-of-birth": '01/01/2000'</div>
+            <div class="my-2">}</div>
+            <div class="my-2">for key, value in student_info.items():</div>
+            <div class="my-2">&nbsp;&nbsp; print(key, ':', value)</div>
+          </code>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Một số ví dụ:</p>
+  <pre>
+    <code class="language-python">
+      # Đếm số lần xuất hiện của các từ trong một đoạn văn bản
+      text = 'Một năm có mười hai tháng, tháng hai có hai mươi tám ngày, các tháng còn lại có ba mươi hoặc ba mươi mốt ngày'
+
+      text = text.lower()
+      for c in ['.', ',' , ':']:
+        text = text.replace(c, ' ')
+
+      words_count = {}
+
+      for word in text.split():
+        words_count[word] = words_count.get(word, 0) + 1
+
+      for word in words_count:
+        print(word , ' : ', words_count[word])
+    </code>
+    <code class="language-python">
+      # Chuyển phát âm tiếng Việt của một số trong phạm vi 1-99 thành giá trị số. Ví dụ: tám mươi lăm → 85
+      bang_so1 = {'một': 1, 'hai': 2, 'ba': 3, 'bốn': 4, 'năm': 5, 'sáu': 6, 'bảy': 7, 'tám': 8, 'chín': 9, 'mười': 10}
+
+      bang_so2 = {'một': 1, 'hai': 2, 'ba': 3, 'bốn': 4, 'lăm': 5, 'sáu': 6, 'bảy': 7, 'tám': 8, 'chín': 9}
+
+      bang_so3 = {'mươi': 0, 'mốt': 1, 'hai': 2, 'ba': 3, 'bốn': 4, 'tư': 4, 'lăm': 5, 'sáu': 6, 'bảy': 7, 'tám': 8, 'chín': 9}
+
+      text = input('text=')
+      words = text.lower().split()
+      N = len(words)
+
+      if N == 1:
+        if words[0] in bang_so1:
+            print(bang_so1[words[0]])        
+        else:
+            print('Không tồn tại số')
+            
+        exit()
+
+      chuc, donvi = -1, -1
+
+      if (N == 3 and words[1] == 'mươi') or N == 2:
+          chuc = bang_so1.get(words[0], -1)
+          donvi = bang_so3.get(words[-1], -1)
+
+      if N == 2 and words[0] == 'mười':
+          chuc = 1
+          donvi = bang_so2.get(words[1], -1)
+
+      if chuc >= 0 and donvi >= 0:
+          print(10 * chuc + donvi)
+      else:
+          print('Không tồn tại số')
+    </code>
+  </pre>
+
+  <h2><u>10. Kiểu dữ liệu Set</u></h2>
+  <p>Kiểu dữ liệu Set dùng để chứa các phần tử của một tập hợp, trong đó mỗi phần tử chỉ xuất hiện một lần duy nhất.
+    Trong Python dữ liệu Set được đặt trong cặp ngoặc nhọn {}
+  </p>
+  <p>So với kiểu List, kiểu Set có điểm khác biệt:</p>
+  <ul>
+    <li>Trong một Set không có 2 phần tử cùng giá trị.</li>
+    <li>Set không có thứ tự giữa các phần tử, do đó không truy nhập được phần tử theo chỉ số như List</li>
+  </ul>
+
+  <p>Một số thao tác trên kiểu dữ liệu <b>Set</b>:</p>
+  <table class="table">
+    <thead>
+      <tr>
+        <th style="width:25%">Thao tác</th>
+        <th style="width:35%">Cú pháp</th>
+        <th style="width:40%">Ví dụ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Thêm một phần tử</td>
+        <td>
+          <div class="my-2 code">&lt;set&gt;.add(&lt;new_value&gt;)</div>
+        </td>
+        <td>
+          <code class="language-python">
+            <div class="my-2">s = {1, 2}</div>
+            <div class="my-2">s.add(3)</div>
+            <div class="my-2">print(s)</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>Xoá một phần tử</td>
+        <td>
+          <div class="my-2 code">&lt;set&gt;.remove(&lt;value&gt;)</div>
+        </td>
+        <td>
+          <code class="language-python">
+            <div class="my-2">s = {1, 2, 3}</div>
+            <div class="my-2">s.remove(2)</div>
+            <div class="my-2">print(s)</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>Kiểm tra set có chứa một phần tử</td>
+        <td>
+          <div class="my-2 code">&lt;value&gt; in &lt;set&gt;</div>
+        </td>
+        <td>
+          <code class="language-python">
+            <div class="my-2">s = {1, 2, 3}</div>
+            <div class="my-2">if 1 in s:</div>
+            <div class="my-2">&nbsp;&nbsp;&nbsp;print('1 exists in set')</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>Kiểm tra set không chứa một phần tử</td>
+        <td>
+          <div class="my-2 code">&lt;value&gt; not in &lt;set&gt;</div>
+        </td>
+        <td>
+          <code class="language-python">
+            <div class="my-2">s = {1, 2, 3}</div>
+            <div class="my-2">if 4 not in s:</div>
+            <div class="my-2">&nbsp;&nbsp;&nbsp;print('4 does not exist in set')</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>Lấy hợp của 2 set</td>
+        <td>
+          <div class="my-2 code">&lt;set1&gt;.union(&lt;set2&gt;)</div>
+        </td>
+        <td>
+          <code class="language-python">
+            <div class="my-2">s1 = {1, 2, 3}</div>
+            <div class="my-2">s2 = {3, 4, 5}</div>
+            <div class="my-2">print(s1.union(s2))   # {1, 2, 3, 4, 5}</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>Lấy giao của 2 set</td>
+        <td>
+          <div class="my-2 code">&lt;set1&gt;.intersection(&lt;set2&gt;)</div>
+        </td>
+        <td>
+          <code class="language-python">
+            <div class="my-2">s1 = {1, 2, 3}</div>
+            <div class="my-2">s2 = {3, 4, 5}</div>
+            <div class="my-2">print(s1.intersection(s2))  # {3}</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>Lấy phần khác nhau của 2 set</td>
+        <td>
+          <div class="my-2 code">&lt;set1&gt;.difference(&lt;set2&gt;)</div>
+        </td>
+        <td>
+          <code class="language-python">
+            <div class="my-2">s1 = {1, 2, 3}</div>
+            <div class="my-2">s2 = {3, 4, 5}</div>
+            <div class="my-2">print(s1.difference(s2))  # {1, 2}</div>
+          </code>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2><u>11. Hàm (Function)</u></h2>
+  
+  <p>Hàm (function) dùng để khai báo các chức năng được sử dụng lặp lại nhiều lần, 
+    hoặc để chia nhỏ chương trình thành các khối nhỏ để dễ phát triển/bảo trì.</p>
+
+  <p>Cú pháp khai báo hàm:</p>
+  <code class="language-javascript">
+    <div class="my-2">def &lt;ten_ham&gt;(&lt;danh_sach_bien&gt;):</div>
+    <div class="my-2">&nbsp;&nbsp;&nbsp;// Nội dung thân hàm</div>
+    <div class="my-2">&nbsp;&nbsp;&nbsp;return &lt;ket_qua&gt;</div>
+  </code>
+
+  <p class="mt-3">Trong đó:</p>
+  <ul>
+    <li><span class="code">&lt;ten_ham&gt;</span> : Tên hàm</li>
+    <li class="mt-2">
+      <span class="code">&lt;danh_sach_bien&gt;</span> : 
+      Danh sách các biến đầu vào của hàm, giữa các biến ngăn cách nhau bởi dấu phảy
+      </span>
+    </li>
+    <li class="mt-2">
+      <span class="code">&lt;ket_qua&gt;</span> : Kết quả trả về sau khi xử lý.
+    </li>
+  </ul>
+
+  <p>Ví dụ:</p>
+  <pre><code class="language-python">
+    # Hàm lấy số lớn nhất trong 2 số
+    def max_2_number(a, b):
+        if(a > b):
+            return a
+        else:
+            return b
+
+    # Gọi hàm trong chương trình chính
+    print(max_2_number(2, 3))
+
+    # Hàm tính tổng một dãy số
+    def arr_sum(arr):
+        s = 0
+        for x in arr: s += x
+        return s
+    
+    # Gọi hàm trong chương trình chính
+    print(arr_sum([1, 2, 3, 4, 5]))
+  </code></pre>
+
+  <h3><u>Hàm trả về nhiều giá trị:</u></h3>
+  <p>Để trả về nhiều giá trị trong hàm, sử dụng tuple để gộp các giá trị thành một nhóm:</p>
+  <pre><code class="language-python">
+    # Hàm sắp xếp 2 số
+    def sort_2_number(a, b):
+        if a < b:
+            return a, b
+        else:
+            return b, a
+  </code></pre>
+
+  <h3><u>Giá trị mặc định của hàm:</u></h3>
+  <p>Khi khai báo hàm ,có thể gắn giá trị mặc định cho một số tham số đầu vào, khi gọi hàm, nếu tham số nào không
+    được truyền vào thì nó sẽ được nhận giá trị mặc định (nếu có). Ví dụ:
+  </p>
+  <pre><code class="language-python">
+    # Hàm in ra địa chỉ từ các thông tin thành phần
+    def print_address(street, city, country='Việt Nam'):
+        print(f'{street}, {city}, {country}')
+
+    print_address('123 Cầu Giấy', 'Hà Nội')  # no 'country' sent into function
+  </code></pre>
+
+  <h2><u>12. Module</u></h2>
+  <p>Khi xây dựng một chương trình lớn, thông thường các chức năng sẽ được chia nhỏ thành các module để việc phát triển và bảo trì được dễ dàng.</p>
+  <p>Ví dụ: Tạo 2 file trong một thư mục với tên <b>lib.py</b> và <b>main.py</b>.
+    File <b>lib.py</b> chứa một số hàm thư viện, file <b>main.py</b> là chương trình chính:
+  </p>
+  <pre>
+    <code class="language-python">
+      # lib.py
+      def sum_2_number(a, b):
+          return a + b
+    </code>
+    <code class="language-python">
+      # main.py
+      import lib
+      print(lib.sum_2_number(2, 3))
+    </code>
+  </pre>
+  <p>Trong file <b>main.py</b> lệnh <b>import lib</b> được dùng để truy xuất đến các chức năng được khai báo
+    trong file <b>lib.py</b>. Sau khai báo import này, trong thân chương trình <b>main.py</b> có thể gọi 
+    đến các hàm đã khai báo trong <b>lib.py</b> bằng cách gắn tiến tố <b>lib.</b> trước tên các hàm:
+  </p>
+  <code class="language-python">
+    &nbsp;&nbsp;&nbsp;&nbsp;print(lib.sum_2_number(2, 3))
+  </code>
+  <p class="pt-3">Ngoài cách trên, có thể sử dụng hàm của các module theo cú pháp:</p>
+  <code class="language-python">
+    &nbsp;&nbsp;&nbsp;&nbsp;from &lt;module&gt; import &lt;function&gt;
+  </code>
+  <p class="pt-3">Khi đó trong chương trình sử dụng module, không cần viết tiền tố tên module trước tên hàm nữa. Ví dụ:</p>
+  <pre>
+    <code class="language-python">
+      # lib.py
+      def sum_2_number(a, b):
+          return a + b
+    </code>
+    <code class="language-python">
+      # main.py
+      from lib import sum_2_number
+      print(sum_2_number(2, 3))
+    </code>
+  </pre>
+
+  <h2><u>13. File I/O</u></h2>
+  <p>Các file lưu dữ liệu lâu dài trên ổ đĩa. Hai thao tác chính làm việc với file là đọc & ghi dữ liệu</p>
+  <h3><u>Mở file</u></h3>
+  <p>Cú pháp lệnh mở file trong Python:</p>
+  <code class="language-python">
+    &nbsp;&nbsp;&nbsp;&nbsp;&lt;file_handle&gt; = open(&lt;file_name&gt;, &lt;mode&gt;, encoding=&lt;encoding&gt;)
+  </code>
+  <p class="pt-3">Trong đó:</p>
+  <ul>
+    <li><b>&lt;file_name&gt;</b>: tên file cần mở</li>
+    <li class="mt-2">
+      <b>&lt;mode&gt;</b>: chế độ mở file:
+      <ul>
+        <li><b>'r'</b> (mặc định): mở file để đọc</li>
+        <li><b>'w'</b>: mở file để ghi mới, nếu file đã tồn tại thì xoá file cũ, tạo file mới </li>
+        <li><b>'a'</b>: mở file để ghi bổ sung, nếu file đã tồn tại thì ghi tiếp vào cuối file</li>
+        <li><b>'rb'</b> : mở file để đọc theo dạng nhị phân (binary)</li>
+        <li><b>'wb'</b>: mở file để ghi mới theo dạng nhị phân</li>
+        <li><b>'ab'</b>: mở file để ghi bổ sung theo dạng nhị phân</li>
+      </ul>
+    </li>
+    <li class="mt-2"><b>&lt;encoding&gt;</b>: Chế độ mã hoá văn bản khi đọc/ghi file text, thường sử dụng <b>"utf-8"</b>.</li>
+    <li><b>&lt;file_handle&gt;</b>: thẻ điều khiển trả về, sử dụng để thực hiện các thao tác đọc/ghi file về sau</li>
+  </ul>
+
+  <h3><u>Đọc file</u></h3>
+  <p>- Đọc toàn bộ nội dung file: sử dụng hàm <b>read</b> để nhận về toàn bộ nội dung của file:</p>
+  <code class="language-python">
+    &nbsp;&nbsp;&nbsp;&nbsp;data = &lt;file_handle&gt;.read()
+  </code>
+
+  <p class="pt-2">&nbsp;&nbsp;
+    Nếu file được mở theo chế độ văn bản, dữ liệu trả về có dạng <b>string</b>, nếu file  được mở theo chế độ nhị phân,
+    dữ liệu trả về có dạng <b>bytes</b>
+  </p>
+
+  <p>- Đọc file và tách thành từng dòng (chỉ với file văn bản): sử dụng hàm <b>readlines</b> để nhận về nội dung của file dưới dạng một danh sách các dòng văn bản:</p>
+  <code class="language-python">
+    &nbsp;&nbsp;&nbsp;&nbsp;lines = &lt;file_handle&gt;.readlines()
+  </code>
+
+  <p class="pt-3">- Đọc từng dòng một của file (chỉ với file văn bản): sử dụng vòng lặp <b>for</b> trên chính thẻ điều khiển file:</p>
+  <code class="language-python">
+    &nbsp;&nbsp;&nbsp;&nbsp;for line in &lt;file_handle&gt;: <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# process line
+  </code>
+
+  <h3 class="mt-3"><u>Ghi file</u></h3>
+  <p>- Để ghi dữ liệu vào file, sử dụng hàm <b>write</b>:</p>
+  <code class="language-python">
+    &nbsp;&nbsp;&nbsp;&nbsp;&lt;file_handle&gt;.write(data)
+  </code>
+  <p class="pt-2">&nbsp;&nbsp;Nếu file được mở theo chế độ văn bản, dữ liệu ghi vào cần có kiểu là <b>string</b>, nếu file  được mở theo chế độ nhị phân,
+    dữ liệu ghi vào cần có kiểu là <b>bytes</b>
+  </p>
+
+  <h3><u>Đóng file</u></h3>
+  <p>Sau khi đọc/ghi file xong, cần đóng file để tránh mất mát dữ liệu:</p>
+  <code class="language-python">
+    &nbsp;&nbsp;&nbsp;&nbsp;&lt;file_handle&gt;.close()
+  </code>
+
+  <p class="pt-3">Một số ví dụ:</p>
+  <pre>
+    <code class="language-python">
+      # Đọc vào một file văn bản, tạo ra một file văn bản mới bằng cách bỏ đi các dòng trống.
+      infile = open('input.txt', encoding='utf-8')
+      outfile = open('output.txt', 'w', encoding='utf-8')
+
+      for line in infile:
+          if line.strip() != '':
+              outfile.write(line)
+
+      infile.close()
+      outfile.close()
+    </code>
+    <code class="language-python">
+      # Đọc vào một file văn bản, đếm số lần xuất hiện của các từ trong file
+      words_count = {}
+
+      f = open('input.txt', encoding='utf-8')
+
+      for line in f.readlines():
+          line = line.strip().lower()
+          for c in ['.', ',' , ':']:
+              line = line.replace(c, ' ')
+      
+          for word in line.split():
+              words_count[word] = words_count.get(word, 0) + 1
+
+      for word in words_count:
+          print(word , ' : ', words_count[word])
+    </code>
+  </pre>
+  <h2><u>14. Dữ liệu kiểu Date/DateTime</u></h2>
+  <p>Dữ liệu kiểu Date & Time được cung cấp bởi thư viện <b>datetime</b> của hệ thống:</p>
+  <p>Tạo mới dữ liệu date/datetime:</p>
+  <code class="language-python">
+    <div class="my-2 offset-1">from datetime import date, datetime</div>
+    <div class="my-2 offset-1">&lt;date&gt; = date(&lt;year&gt;, &lt;month&gt;, &lt;day&gt;)</div>
+    <div class="my-2 offset-1">&lt;datetime&gt; = datetime(&lt;year&gt;, &lt;month&gt;, &lt;day&gt;, &lt;hour&gt;, &lt;minute&gt;, &lt;second&gt;)</div>
+  </code>
+  <p>Ví dụ:</p>
+  <pre>
+    <code class="language-python">
+      from datetime import date, datetime
+
+      d = date(2022,1,1)                  # 01/01/2022
+      dt = datetime(2022,2,1,23,59,59)    # 23:59:59 01/02/2022
+    </code>
+  </pre>
+  <p>Lấy ngày/giờ hiện tại:</p>
+  <pre>
+    <code class="language-python">
+      from datetime import date, datetime
+
+      d = date.today()          # today
+      dt = datetime.now()       # current datetime
+    </code>
+  </pre>
+  <p>Lấy các thông tin ngày, tháng, năm, giờ, phút giây của dữ liệu date/datetime:</p>
+  <pre>
+    <code class="language-python">
+      from datetime import datetime
+
+      dt = datetime.now()
+      print(dt.year, dt.month, dt.day, dt.hour, dt.minute, dt.second)
+    </code>
+  </pre>
+  <p>Chuyển đổi dữ liệu date/datetime sang string: sử dụng hàm <b>strftime</b>:</p>
+  <pre>
+    <code class="language-python">
+      from datetime import datetime
+
+      dt = datetime.now()
+      print(dt.strftime('%d-%m-%Y'))
+      print(dt.strftime('%d/%m/%Y %H:%M:%S'))
+    </code>
+  </pre>
+  <p>Ý nghĩa của các thành phần trong format ngày tháng:</p>
+  <ul>
+    <li>%d: ngày</li>
+    <li class="mt-1">%m: tháng</li>
+    <li class="mt-1">%Y: năm</li>
+    <li class="mt-1">%H: giờ (0-23)</li>
+    <li class="mt-1">%I: giờ (0-12)</li>
+    <li class="mt-1">%p: buổi (AM/PM)</li>
+    <li class="mt-1">%M: phút</li>
+    <li class="mt-1">%S: giây</li>
+  </ul>
+
+  <p>Chuyển đổi dữ liệu từ string sang date/datetime: sử dụng hàm <b>strptime</b>:</p>
+  <pre>
+    <code class="language-python">
+      from datetime import datetime
+
+      d = datetime.strptime('01/01/2022', '%d/%m/%Y')
+      dt = datetime.strptime('01-02-2022 23:59:59', '%d-%m-%Y %H:%M:%S')
+    </code>
+  </pre>
+
+  <h3>Khoảng thời gian (timedelta)</h3>
+  <p>Dữ liệu kiểu khoảng thời gian (timedelta) được dùng để đo sự chênh lệch giữa 2 thời điểm (datetime).</p>
+  <p>Khai báo dữ liệu timedelta:</p>
+  <code class="language-python">
+    <div class="my-2 offset-1">from datetime import timedelta</div>
+    <div class="my-2 offset-1">duration = timedelta(days=&lt;days&gt;, seconds=&lt;seconds&gt;)</div>
+  </code>
+  <p class="pt-2">Hai thành phần trong timedelta là ngày (<b>days</b>) và giây (<b>seconds</b>)</p>
+  <p>Tính khoảng thời gian giữa 2 thời điểm: sử dụng phép trừ giữa 2 biến <b>datetime</b>:</p>
+  <pre>
+    <code class="language-python">
+      from datetime import datetime
+
+      dt1 = datetime(2022, 1, 1)
+      dt2 = datetime.now()
+
+      duration = dt2 - dt1
+      print(f'Duration: {duration.days} days, {duration.seconds} seconds')
+    </code>
+  </pre>
+  <p>Tính thời điểm cách một thời điểm một khoảng thời gian: sử dụng phép cộng giữa biến <b>datetime</b> với biến <b>timedelta</b>:</p>
+  <pre>
+    <code class="language-python">
+      from datetime import datetime, timedelta
+
+      now = datetime.now()
+      this_time_next_week = now + timedelta(days=7)
+      print(this_time_next_week)
+    </code>
+  </pre>
+</div>

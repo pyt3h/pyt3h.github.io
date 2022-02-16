@@ -1,0 +1,854 @@
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/default.min.css">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css?family=Noto+Serif:400,700&display=swap&subset=vietnamese" rel="stylesheet">
+<style>
+  body, table {
+    font-size: 15px;
+    font-family: "Noto Serif",serif;
+  }
+  h1 {
+    font-size: 36px;
+    font-family: sans-serif;
+    margin-bottom: 10px;
+  }
+  h2 {
+    font-size: 28px;
+    font-family: sans-serif;
+    margin-bottom: 10px;
+  }
+  h3 {
+    font-size: 20px;
+    font-family: sans-serif;
+    margin-bottom: 5px;
+  }
+
+  h4 {
+    font-size: 18px;
+    font-family: sans-serif;
+    margin-bottom: 5px;
+  }
+
+  .code {
+    font-family: monospace;
+  }
+
+  .bold {
+    font-weight: 700;
+  }
+</style>
+<script>hljs.highlightAll();</script>
+<div class="container mt-3">
+  <h1><u>I. Giới thiệu về JSX</u></h1>
+  <p>JSX là cách viết biểu thức Javascript dưới dạng giống với HTML.</p>
+  <p>Ví dụ:</p>
+  <div class="col-10 offset-1 mt-3">
+    <code class="language-javascript">
+      const element = &lt;h1&gt;Hello, {name}&lt;/h1&gt;;
+    </code>
+  </div>
+  <p class="pt-3">Ứng dụng của JSX: Dùng để xây dựng UI theo hướng kết hợp giữa marking (html) 
+    & logic xử lý (javascript) trong một khối code chung.</p>
+
+  <p>React sử dụng JSX (tuy không bắt buộc) để phát triển ứng dụng.</p>
+
+  <h2><u>Biên dịch JSX với Babel</u></h2>
+  <p>Do JSX không phải là ngôn ngữ được trình duyệt mặc định hỗ trợ, để sử dụng JSX, cần dùng thư viện Babel để dịch JSX sang Javascript</p>
+  <p>Cách đơn giản nhất để sử dụng Babel là nhúng script Babel vào đầu chương trình html (như nhúng các script js thông thường)</p>
+  <div class="col-10 offset-1 mt-3">
+    <pre><code class="language-javascript">
+      &lt;script src="https://unpkg.com/babel-standalone@6/babel.min.js"&gt;&lt;/script&gt;
+      &lt;script src="https://unpkg.com/react@17/umd/react.development.js"&gt;&lt;/script&gt;
+
+      &lt;script type="text/babel"&gt;
+        const element = &lt;h1&gt;Hello, {name}&lt;/h1&gt;;
+      &lt;/script&gt;
+    </code></pre>
+  </div>
+
+  <p class="pt-3">Cách này có ưu điểm là đơn giản và dễ thực hiện, nhưng có nhược điểm là mất thời gian biên dịch mỗi khi người dùng tải trang ứng dụng.</p>
+  <p>Trong phần sau, chúng ta sẽ sử dụng tool <b>create-react-app</b> để biên dịch React/JSX cho môi trường production.</p>
+  
+  <br/>
+  <h1><u>II. Một số khái niệm cơ bản trong React</u></h1>
+  <h2><u>Khung ứng dụng</u></h2>
+  <div class="col-10 offset-1 mt-3">
+    <pre><code class="language-javascript">
+      &lt;script src="https://unpkg.com/babel-standalone@6/babel.min.js"&gt;&lt;/script&gt;
+      &lt;script src="https://unpkg.com/react@17/umd/react.development.js"&gt;&lt;/script&gt;
+      &lt;script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"&gt;&lt;/script&gt;
+
+      &lt;script type="text/babel"&gt;
+      function App() {
+        let name = 'world';
+        return &lt;div&gt;Hello {name}!&lt;/div&gt;;
+      }
+
+      ReactDOM.render(&lt;App /&gt;, document.getElementById('app'));
+      &lt;/script&gt;
+
+      &lt;body&gt;
+      &nbsp;&nbsp;&lt;div id="app"&gt;&lt;/div&gt;
+      &lt;/body&gt;
+    </code></pre>
+  </div>
+  <p class="pt-3">Nội dung ứng dụng được hiển thị trong một element gốc 
+    <span class="code">(&lt;div id="app"&gt;&lt;/div&gt;)</span> thông qua hàm 
+    <span class="code">ReactDOM.render</span> .
+  </p>
+  <p>Tham số đầu tiên của hàm <span class="code">ReactDOM.render</span> là một function trả về nội dung hiển thị dưới dạng JSX,
+    hoặc một class kế thừa class React.Component. Chi tiết xem phần Component ở dưới.
+  </p>
+
+  <br/>
+  <h2><u>Component</u></h2>
+  <p>Component là một phần của ứng dụng được tách ra dưới dạng một hàm/class.</p>
+  <p>Cách sử dụng component để viết UI tương tự như cách dùng function/module để viết logic, có 2 tác dụng chính là:</p>
+  <ul>
+    <li>Dễ phát triển, bảo trì (do chương trình được chia nhỏ thành nhiều khối)</li>
+    <li class="mt-2">Tái sử dụng được các block giống nhau, không phải viết lại các block theo dạng copy/paste</li>
+  </ul>
+  <h3><u>Khai báo Component</u></h3>
+  <p>Có 2 cách khai báo Component: dùng function và dùng class.</p>
+  <div class="my-2"><b>Khai báo Component bằng function:</b></div>
+  <pre><code class="language-javascript">
+    function App() {
+      let name = 'world';
+      return &lt;div&gt;Hello {name}!&lt;/div&gt;;
+    }
+  </code></pre>
+  <p>Kết quả trả về của hàm là một đoạn JSX thể hiện nội dung hiển thị của Component.</p>
+
+  <div class="my-2"><b>Khai báo Component bằng Class</b></div>
+  <pre><code class="language-javascript">
+    class App extends React.Component {
+      render(){
+        let name = 'world';
+        return &lt;div&gt;Hello {name}!&lt;/div&gt;;
+      }
+    }
+  </code></pre>
+
+  <p>Class dùng để khai báo Component phải kế thừa class React.Component. 
+    Nội dung hiển thị của Component được trả về từ hàm <b>render()</b> của class này.
+  </p>
+
+  <div class="my-2"><i><b>Sự khác nhau giữa 2 cách khai báo Component:</b></i></div>
+  <p>Khai báo bằng function đơn giản và gọn nhẹ, thích hợp cho các Component không có trạng thái. 
+      Khai báo bằng Class phù hợp cho các Component có trạng thái và cần được cập nhật hiển thị khi có các sự kiện.
+  </p>
+  <p>
+    Tuy nhiên trong các phiên bản gần đây, React bổ sung tính năng <b>Hook</b> cho phép các component dạng function
+    cũng có thể chứa trạng thái và cập nhật hiển thị theo sự kiện. Về cơ bản, 2 cách khai báo Component hiện nay 
+    <b>tương đương</b> nhau.
+  </p>
+
+  <br/>
+  <h3><u>Thuộc tính của Component</u></h3>
+  <p>Thuộc tính của Component là các tham số đầu vào của các hàm hiển thị JSX.</p>
+  <p>Thuộc tính được truyền vào Component bằng cách viết tương tự như thuộc tính của các thẻ html, tuy nhiên
+    giá trị thuộc tính là một biểu thức Javascript và được đặt trong cặp dấu ngoặc nhọn {}
+  </p>
+  <pre><code class="language-javascript">
+    ReactDOM.render(&lt;App name={'world'} /&gt;, document.getElementById('app'));
+  </code></pre>
+  <p>Ở ví dụ trên, thuộc tính <b>name</b> được truyền vào cho Component <b>App</b>.</p>
+
+  <p>Trong phần thân hàm/class của Component, thuộc tính được lấy ra từ biến <b>props</b> 
+    đóng vai trò như biến đầu vào của hàm hiển thị.</p>
+
+  <pre><code class="language-javascript">
+    // Với function-based component
+    function App(props) {
+      let name = props.name;    // lấy thuộc tính được truyền vào từ bên ngoài
+      return &lt;div&gt;Hello {name}!&lt;/div&gt;;
+    }
+
+    // Với class-based component
+    class App extends React.Component {
+      render(){
+        let name = this.props.name; // lấy thuộc tính được truyền vào từ bên ngoài
+        return &lt;div&gt;Hello {name}!&lt;/div&gt;;
+      }
+    }
+  </code></pre>
+  <p>Trong một Component lại có các Component con và có thể truyền các thuộc tính xuống bên dưới cho các Component con đó,
+    ví dụ:
+  </p>
+  <pre><code class="language-javascript">
+    function Header(props) {
+      return &lt;h1&gt;{props.title}&lt;/h1&gt;;
+    }
+
+    class Body extends React.Component {
+      render(){
+        let content = this.props.content;
+        return &lt;div&gt;{content}&lt;/div&gt;;
+      }
+    }
+
+    function App() {
+      return (&lt;div&gt;
+        &lt;Header title="Title"/&gt;
+        &lt;Body content={
+          &lt;div&gt;
+            &lt;p&gt;Line 1&lt;/p&gt;
+            &lt;p&gt;Line 2&lt;/p&gt;
+          &lt;/div&gt;
+        }/&gt;
+      &lt;/div&gt;);
+    }
+    ReactDOM.render(&lt;App /&gt;, document.getElementById('app'));
+  </code></pre>
+
+  <br/>
+  <h3><u>Trạng thái (state) của Component</u></h3>
+  <p>Trạng thái là các biến dữ liệu thay đổi theo các sự kiện tương tác với người dùng. Khi trạng thái thay đổi,
+    Component sẽ được hiển thị lại (re-render).
+  </p>
+  
+  <h4><u>Khai báo trạng thái</u></h4>
+  
+  <div class="my-2"><b>Khai báo trạng thái cho class-based Component:</b></div>
+  <p>Với class-based component, trạng thái được khai báo trong <b>constructor</b> của class:</p>
+  
+  <pre><code class="language-javascript">
+    class Counter extends React.Component {
+      constructor() {
+        super();
+        this.state = { value: 0 }
+      }
+      render(){
+        return &lt;div&gt;{this.state.value}&lt;/div&gt;;
+      }
+    }
+  </code></pre>
+  <p>
+    Biến <b>state</b> của class được khai báo trong constructor chứa các dữ liệu trạng thái của component.
+    Trong hàm <span class="bold">render</span>, để truy xuất trạng thái này, sử dụng <span><b>this.state</b></span>
+  </p>
+
+  <div class="my-2"><b>Khai báo trạng thái cho function-based Component:</b></div>
+  <p>Với function-based component, trạng thái được khai báo bằng cách sử dụng <i>hook</i> <b>useState</b> của React:</p>
+  <pre><code class="language-javascript">
+    function Counter() {
+      const [value, setValue] = React.useState(0);
+      return &lt;div&gt;{value}&lt;/div&gt;;
+    }
+  </code></pre>
+  <p>Hàm <b>useState</b> là một <i>hook</i> của React. <i>Hook</i> là tính năng được đưa vào trong các phiên bản
+    React gần đây nhằm giúp function-based Component có thể thực hiện được các tính năng tương tự như của class-based Component.
+  </p> 
+  <p>Hàm <b>useState</b> nhận một tham số đầu vào và trả về kết quả gồm 2 giá trị:</p>
+  <code class="language-javascript">
+    &nbsp;&nbsp;&nbsp;&nbsp;const [value, setValue] = React.useState(0);
+  </code>
+  <ul class="mt-3">
+    <li>Tham số đầu vào là giá trị khởi tạo của biến trạng thái.</li>
+    <li class="mt-2">Kết quả trả về gồm 2 giá trị: giá trị đầu là biến trạng thái, giá trị sau là một hàm để cập nhật biến trạng thái.</li>
+  </ul>
+
+  <p>
+    <i>Lưu ý:</i> Sử dụng <b>useState</b> chỉ khai báo được một biến trạng thái. Muốn có nhiều biến trạng thái như với class-based Component, 
+    phải sử dụng nhiều lệnh <b>useState</b>, hoặc sử dụng <i>hook</i> <b>useReducer</b> của React (không được đề cập trong tài liệu này).
+  </p>
+  
+  <br>
+  <h4><u>Cập nhật trạng thái</u></h4>
+  <div class="my-2"><b>Cập nhật trạng thái cho class-based Component:</b></div>
+  <p>Với class-based Component, việc cập nhật trạng thái được thực hiện thông qua hàm <b>setState</b> của class React.Component.</p>
+  <p>Ví dụ:</p>
+  <pre><code class="language-javascript">
+    class Counter extends React.Component {
+
+      constructor(){
+        super();
+        this.state = {value: 0};
+      }
+
+      increase = () => {
+        this.setState({value: this.state.value + 1});
+      }
+
+      render(){
+        return(
+          &lt;div&gt;
+            &lt;span&gt;{this.state.value}&lt;/span&gt;
+            &lt;button onClick={this.increase}&gt;Increase&lt;/button&gt;
+          &lt;/div&gt;
+        );
+     }
+    }
+
+    ReactDOM.render(&lt;Counter /&gt;, document.getElementById('app'));
+  </code></pre>
+
+  <p>Ở ví dụ trên, biến trạng thái <b>value</b> được cập nhật khi người dùng click vào button <b>Increase</b>:</p>
+  <code class="language-javascript">
+    &nbsp;&nbsp;&nbsp;&nbsp;this.setState({value: this.state.value + 1});
+  </code>
+  <p class="pt-3"><i>Lưu ý : </i>Nếu component có nhiều biến trạng thái thì việc <b>setState</b> với một/một số biến trạng thái 
+    không làm ảnh hưởng giá trị của các biến trạng thái còn lại, ví dụ:
+  </p>
+  <pre><code class="language-javascript">
+    class Comp extends React.Component {
+
+      constructor(){
+        super();
+        this.state = {a: 1, b: 2};
+      }
+
+      onBtnClick = () => {
+        this.setState({a: 2}); // new state: {a: 2, b: 2}
+      }
+
+      render(){
+        //...
+      }
+    }
+  </code></pre>
+
+  <div class="my-2"><b>Cập nhật trạng thái cho function-based Component:</b></div>
+  <p>Với function-based Component, việc cập nhật trạng thái thực hiện thông qua hàm cập nhật trả về từ <b>useState</b></p>
+  <p>Ví dụ:</p>
+
+  <pre><code class="language-javascript">
+    function Counter() {
+      const [value, setValue] = React.useState(0);
+      const increase = () => setValue(value + 1);
+      return (
+        &lt;div&gt;
+          &lt;span&gt;{value}&lt;/span&gt;
+          &lt;button onClick={increase}&gt;Increase&lt;/button&gt;
+        &lt;/div&gt;
+      );
+    }
+
+    ReactDOM.render(&lt;Counter /&gt;, document.getElementById('app'));
+  </code></pre>
+  <p>Ở ví dụ trên, biến trạng thái <b>value</b> được cập nhật ở dòng: </p>
+  <code class="language-javascript">
+    &nbsp;&nbsp;&nbsp;&nbsp;const increase = () => setValue(value + 1);
+  </code>
+
+  <br/><br/>
+  <h2><u>Event</u></h2>
+  <p>Tương tự như với Javascript thông thường, trong React, các component có các hàm để xử lý các sự kiện tương tác với người dùng.</p>
+  <p>Hai sự kiện thường dùng là <b>onClick</b> và <b>onChange:</b></p>
+  <pre><code class="language-javascript">
+    function App() {
+      const btnHandler = () => {
+        alert('Click');
+      }
+
+      const changeHandler = (e) => {
+        alert(e.target.value);
+      }
+      
+      return (
+        &lt;div&gt;
+          &lt;input onChange={changeHandler}/&gt;
+          &lt;button onClick={btnHandler}&gt;Ok&lt;/button&gt;
+        &lt;/div&gt;
+      );
+    }
+
+    ReactDOM.render(&lt;App /&gt;, document.getElementById('app'));
+  </code></pre>
+
+  <div><b>Dùng onChange để lấy lấy dữ liệu người dùng</b></div>
+  <p class="pt-2">Trong React, để lấy dữ liệu người dùng nhập vào các phần tử control (input, textarea, select, ...),
+    cách thường dùng là khai báo biến trạng thái cho các element, sau đó khi có sự kiện <b>onChange</b>
+    thì cập nhật dữ liệu vào biến trạng thái.
+  </p>
+  <p>Ví dụ:</p>
+  <pre><code class="language-javascript">
+    function App() {
+      const [name, setName] = React.useState('');
+      const [gender, setGender] = React.useState('');
+      
+      const nameChangeHandler = (e) => {
+        setName(e.target.value);
+      }
+
+      const genderChangeHandler = (e) => {
+        setGender(e.target.value);
+      }
+      return (
+        &lt;div&gt;
+        &lt;p&gt;Name: &lt;input 
+            onChange={nameChangeHandler}
+            value={name}
+          /&gt; {name}
+          &lt;/p&gt;
+          &lt;p&gt;
+            Gender: &lt;select 
+              onChange={genderChangeHandler}
+              value={gender}
+            &gt;
+              &lt;option value=""&gt;----&lt;/option&gt;
+              &lt;option value="M"&gt;Male&lt;/option&gt;
+              &lt;option value="F"&gt;Female&lt;/option&gt;
+              &lt;option value="O"&gt;Other&lt;/option&gt;
+            &lt;/select&gt; {gender}
+          &lt;/p&gt;
+        &lt;/div&gt;
+      );
+    }
+
+    ReactDOM.render(&gt;App /&gt;, document.getElementById('app'));
+  </code></pre>
+
+  <br>
+  <h2><u>Hiển thị có điều kiện</u></h2>
+  <p>Trong React, để hiện/ẩn một block dựa trên một điều kiện logic, thường dùng phép tính logic and (&&) của Javascript.</p>
+  <p>Ví dụ:</p>
+  <pre><code class="language-javascript">
+    function App() {
+      const [show, setShow] = React.useState(true);
+      const message = "Hello world!";
+
+      return (
+        &lt;div&gt;
+          {show && &lt;div&gt;{message}&lt;/div&gt;}
+          &lt;button 
+            onClick={() => setShow(!show)}
+          >Toggle message&lt;/button&gt;
+        &lt;/div&gt;
+      )
+    }
+
+    ReactDOM.render(&lt;App /&gt;, document.getElementById('app'));
+  </code></pre>
+
+  <p class="pt-3">Ở ví dụ trên, dòng điều khiển hiện/ẩn message là:</p>
+  <code class="language-javascript">
+    &nbsp;&nbsp;&nbsp;&nbsp;{show && &lt;div&gt;{message}&lt;/div&gt;}
+  </code>
+  <p class="pt-3">Biểu thức này có giá trị bằng <b class="code">&lt;div&gt;{message}&lt;/div&gt;</b> 
+    khi show bằng <b>true</b>, và có giá trị bằng <b>null</b> (không hiển thị gì) khi show bằng <b>false</b>.</p>
+
+  <br>
+  <h2><u>Hiển thị danh sách</u></h2>
+  <p>Trong React, để hiển thị một danh sách các phần tử có cấu trúc giống nhau, thường sử dụng hàm <b>map</b> của Javascript.</p>
+  <p>Ví dụ:</p>
+  <pre><code class="language-javascript">
+    const productList = [
+      {code: 'IPX', name: 'IPhone X', price: 10.5},
+      {code: 'IP11', name: 'IPhone 11', price: 11.5},
+      {code: 'IP12', name: 'IPhone 12', price: 12.5},
+    ];
+
+    function App() {
+      return (
+        &lt;table border="1">
+          &lt;thead&gt;
+            &lt;tr&gt;
+              &lt;th&gt;Code&lt;/th&gt;
+              &lt;th&gt;Name&lt;/th&gt;
+              &lt;th&gt;Price&lt;/th&gt;
+            &lt;/tr&gt;
+          &lt;/thead&gt;
+          &lt;tbody&gt;
+            {productList.map((product,index) =>
+              &lt;tr key={index}&gt;
+                &lt;td&gt;{product.code}&lt;/td&gt;
+                &lt;td&gt;{product.name}&lt;/td&gt;
+                &lt;td&gt;{product.price} M&lt;/td&gt;
+              &lt;/tr&gt;
+            )}
+          &lt;/tbody&gt;
+        &lt;/table&gt;
+      )
+    }
+
+    ReactDOM.render(&lt;App /&gt;, document.getElementById('app'));
+  </code></pre>
+
+  <p class="pt-3">Ở ví dụ trên, đoạn code sinh ra danh sách các sản phẩm trong bảng là:</p>
+  <pre><code class="language-javascript">
+    {productList.map((product,index) =>
+      &lt;tr key={index}&gt;
+        &lt;td&gt;{product.code}&lt;/td&gt;
+        &lt;td&gt;{product.name}&lt;/td&gt;
+        &lt;td&gt;{product.price} M&lt;/td&gt;
+      &lt;/tr&gt;
+    )}
+  </code></pre>
+  <p>
+    Trong javascript, hàm <b>map</b> được dùng để biến đổi một danh sách thành một danh sách mới qua phép biến đổi thành phần (tham số của hàm <b>map</b>).
+  </p>
+  <p>
+    Ở đoạn code trên, hàm biến đổi thành phần biến mỗi bản ghi <b>product</b> thành một thẻ <b>tr</b> tương ứng với một dòng trong bảng dữ liệu:
+  </p>
+  <code class="language-javascript">
+    &nbsp;&nbsp;&nbsp;&nbsp;productList.map((product,index) => &lt;tr key={index}&gt;...&lt;/tr&gt;)
+  </code>
+  <p class="pt-3">
+    Biến chỉ số <b>index</b> được dùng làm <b>key</b> cho phần tử <b>tr</b>. Việc sử dụng <b>key</b>
+    trong một danh sách giúp React phát hiện xem phần tử nào thay đổi/được thêm mới/xoá để cập nhật hiển thị tương ứng.
+  </p>
+  <p>
+    Giá trị <b>key</b> cần duy nhất cho mỗi phần tử, do đó thường chọn là biến chỉ số <b>index</b> hoặc trường <b>id</b> của bản ghi.
+  </p>
+
+  <br/>
+  <h1><u>III. Phát triển ứng dụng React với create-react-app</u></h1>
+  <p>Việc nhúng Babel để dịch JSX trên trình duyệt chỉ để giúp người mới học React dễ tiếp cận.</p>
+  <p>Trên thực tế, các ứng dụng React đều được phát triển với công cụ <b>create-react-app</b></p>
+  <p>Để sử dụng công cụ này, cần cài đặt <a href='https://nodejs.org/en/download/'>Node.js</a></p>
+  <h2><u>1. Tạo mới ứng dụng</u></h2>
+  <p>Từ cửa sổ command (Windows cmd, Linux Shell, VsCode Terminal, ...) gõ lệnh:</p>
+  <div class="my-3 code offset-1">
+    npx create-react-app my-app
+  </div>
+  <div class="text-center my-4">
+    <img width="90%" src="images3/1.png" alt="">
+  </div>
+  <p>Ứng dụng React sẽ được tạo ra trong thư mục cùng tên với tên ứng dụng (<b>my-app</b> ở ví dụ trên)</p>
+  <p>Để chạy ứng dụng , gõ:</p>
+  <div class="my-3 code offset-1">
+    <div>cd my-app</div>
+    <div>npm start</div>
+  </div>
+  <p>
+    Cửa sổ trình duyệt sẽ tự động được mở ra và trỏ đến địa chỉ của server ứng dụng: <b>http://localhost:3000</b>.
+    Nếu trình duyệt không tự động mở, cần mở trình duyệt có trên máy (Chrome/FireFox/Edge ...) 
+    và gõ trực tiếp địa chỉ trên vào thanh địa chỉ.
+  </p>
+  <div class="text-center my-4">
+    <img width="90%" src="images3/2.png" alt="">
+  </div>
+
+  <br/>
+  <h2><u>2. Phát triển ứng dụng</u></h2>
+  <p>Để phát triển ứng dụng, sử dụng IDE để mở thư mục ứng dụng. 
+    IDE hay sử dụng để phát triển React là <a href="https://code.visualstudio.com/">Visual Studio Code</a>
+  </p>
+  <div class="text-center my-4">
+    <img width="90%" src="images3/3.png" alt="">
+  </div>
+
+  <p>Thư mục ứng dụng có nhiều file khác nhau, trong đó file để chứa ứng dụng gốc là <b>App.js</b></p>
+  <p>
+    Khi tạo mới project, <b>create-react-app</b> sinh ra một số mã html cho file này. 
+    Có thể xoá toàn bộ phần này và viết một app từ đầu như ở phần I.
+  </p>
+  <div class="text-center my-4">
+    <img width="90%" src="images3/4.png" alt="">
+  </div>
+
+  <h4><u>Tạo khung ứng dụng</u></h4>
+  <p>
+    React không quy định cụ thể cấu trúc của ứng dụng, do đó có nhiều cách tạo khung ứng dụng ban đầu khác nhau.
+    Phần này giới thiệu một khung đơn giản nhất. Trên thực tế sẽ có thêm các phần liên quan đến <b>router</b> và <b>store</b> (sẽ giới thiệu ở phần sau)
+  </p>
+  <div class="text-center my-4">
+    <img width="90%" src="images3/5.png" alt="">
+  </div>
+  <p>Trong thư mục <b>src</b> của ứng dụng, tạo 2 thư mục với tên <b>pages</b> và <b>components</b></p>
+  <ul>
+    <li>
+      Thư mục <b>pages</b> dùng để chứa các trang của ứng dụng. Một ứng dụng sẽ có nhiều trang và người dùng 
+      có thể chuyển qua lại giữa các trang qua các đường link.
+    </li>
+    <li class="mt-2">
+      Thư mục <b>components</b> dùng để chứa các component dùng chung trong ứng dụng. Các component này có thể
+      được sử dụng từ bất kỳ trang nào trong phần <b>pages</b>.
+    </li>
+  </ul>
+  <p>
+    Ứng dụng gốc trong file <b>App.js</b> sẽ import các trang trong phần <b>pages</b> và hiển thị trang 
+    tương ứng với địa chỉ người dùng truy nhập vào. Trên thực tế
+    trong <b>App.js</b> sẽ có router để điều hướng truy nhập các trang thành phần. (Tham khảo phần IV bên dưới)
+  </p>
+
+  <h1><u>IV. Một số thư viện thường sử dụng kèm với React</u></h1>
+  <p>
+    Ứng dụng do <b>create-react-app</b> tạo ra thường chỉ có React và một số thư viện cơ bản.
+    Các ứng dụng thực tế thường yêu cầu cài đặt thêm khá nhiều các thư viện khác.
+    Để cài đặt một thư viện, mở cửa sổ command trong thư mục gốc ứng dụng và gõ lệnh:
+  </p>
+
+  <div class="code offset-1 mb-3">
+    npm install &lt;tên_thư_viện&gt;
+  </div>
+
+  <p>Một số thư viện thường sử dụng:</p>
+  <ul>
+    <li><b>axios</b>: Thư viện dùng cho việc gọi web service</li>
+    <li class="mt-2"><b>bootstrap</b>: Thư viện CSS Bootstrap</li>
+    <li class="mt-2"><b>react-bootstrap</b>: Thư viện gói một số UI của Bootstrap dưới dạng React Component</li>
+    <li class="mt-2"><b>react-router-dom</b>: Thư viện router, điều hướng truy nhập các trang ứng dụng</li>
+    <li class="mt-2"><b>react-redux</b>: Thư viện store, chia sẻ trạng thái giữa các Component</li>
+  </ul>
+
+  <p>Phần này giới thiệu 2 thư viện quan trọng là <b>react-router-dom</b> và <b>react-redux</b></p>
+
+  <h2><u>react-router-dom</u></h2>
+  <p>Đây là thư viện giúp cho việc điều hướng truy nhập các trang thành phần của ứng dụng.</p>
+  <p>Cài đặt thư viện:</p>
+  <div class="code offset-1 mb-3">
+    npm install react-router-dom
+  </div>
+
+  <div class="text-center my-4">
+    <img width="80%" src="images3/6.png" alt="">
+  </div>
+
+  <p>Sau khi cài đặt xong, trong file <b>package.json</b> ở thư mục gốc của ứng dụng sẽ xuất hiện thư viện <b>react-router-dom</b> trong phần dependencies.</p>
+
+  <h3><u>Cấu hình router:</u></h3>
+  <p>Mở file <b>index.js</b> trong thư mục gốc ứng dụng và thêm router như ở hình dưới:</p>
+  <div class="text-center my-4">
+    <img width="80%" src="images3/7.png" alt="">
+  </div>
+
+  <p>Tạo thư mục <b>pages</b> trong thư mục gốc ứng dụng, sau đó tạo 2 file <b>Page1.js</b> và <b>Page2.js</b> trong thư mục <b>Page</b></p>
+  <p>Nhập nội dung cho các file <b>App.js</b>, <b>Page1.js</b>, <b>Page2.js</b> như hình dưới đây:</p>
+  
+  <div class="text-center my-4">
+    <img width="95%" src="images3/8.png" alt="">
+  </div>
+
+  <p>Khởi động ứng dụng (<b>npm start</b>), giao diện ứng dụng trên trình duyệt sẽ như sau:</p>
+  <div class="row my-4">
+    <div class="col-6">
+      <img width="95%" src="images3/9.png" alt="">
+    </div>
+    <div class="col-6">
+      <img width="95%" src="images3/10.png" alt="">
+    </div>
+  </div>
+
+  <p>
+    Phía trên cùng của ứng dụng là navigator với các link để chuyển trang, phía dưới là nội dung trang được chọn.
+  </p>
+  <p>
+    Khi click vào các link trên navigator thì trang tương ứng sẽ được hiển thị. Ngoài ra, trên thanh địa chỉ 
+    trình duyệt, địa chỉ trang cũng thay đổi theo.
+  </p>
+
+  <h2><u>react-redux</u></h2>
+  <p>Cài đặt thư viện:</p>
+  <div class="code offset-1 mb-3">
+    npm install react-redux
+  </div>
+
+  <p>Đây là thư viện giúp cho việc chia sẻ các biến trạng thái giữa các Component với nhau.</p>
+  <p>Quá trình trao đổi dữ liệu (biến trạng thái) giữa Component cha và Component con được thực hiện qua thuộc tính (
+    xem phần Component.) Để trao đổi dữ liệu giữa Component thuộc các cấp khác nhau, cần sử dụng một kho dữ liệu 
+    chung (store) theo mô hình như sau:
+  </p>
+  
+  <div class="text-center my-4">
+    <img width="80%" height="400" src="images3/11.svg" alt="">
+  </div>
+
+  <p>Khi có sự kiện ở Component 1, action được thực hiện (dispatch) để làm thay đổi trạng thái của store.
+    Component 2 đăng ký theo dõi sự thay đổi này (subscribe) và cập nhật lại hiển thị khi trạng thái thay đổi.
+  </p>
+
+  <h3><u>Cấu hình store:</u></h3>
+  <p>Tạo file <b>store.js</b> trong thư mục <b>src</b> của ứng dụng với nội dung như sau:</p>
+  <pre><code class="language-javascript">
+    import {createStore} from 'redux';
+
+    const initialState = {
+      // declare state here
+    }
+    
+    const reducer = (state=initialState, action) => {
+      //TODO: Process action
+    
+      return newState;
+    }
+    
+    const store = createStore(reducer);
+    
+    export default store;
+  </code></pre>
+  <p class="pt-3">
+    Phần <b>initialState</b> dùng để chứa giá trị ban đầu của các biến trạng thái (được chia sẻ cho
+    tất cả các component trong ứng dụng). 
+  </p>
+  <p>
+    Phần <b>reducer</b> dùng để chứa logic xử lý của các action làm thay đổi biến trạng thái.
+    <i><b>Sau khi xử lý xong, kết quả trả về của reducer sẽ được dùng làm trạng thái mới của store.</b></i>
+  </p>
+
+
+  <p>Trong file <b>index.js</b> bổ sung thêm phần cấu hình store như sau:</p>
+  <div class="text-center my-4">
+    <img width="80%" src="images3/12.png" alt="">
+  </div>
+
+  <h3><u>Sử dụng store:</u></h3>
+  <p>Store có thể được sử dụng từ bất kỳ Component nào của ứng dụng.</p>
+  <p>Như trình bày ở trên, có 2 chiều sử dụng store:</p>
+  <ul>
+    <li>Làm thay đổi trạng thái store: <i>dispatch action</i></li>
+    <li class="mt-2">Theo dõi sự thay đổi trạng thái của store: <i>subscribe state change</i></li>
+  </ul>
+
+  <b><u>Gửi action tới store:</u></b>
+  <p class="pt-2">Để gửi action đến store, sử dụng <i>hook</i> <b>useDispatch</b> của <b>react-redux</b>:</p>
+  <pre>
+    <code class="language-javascript">
+      import {useDispatch} from "react-redux"
+
+      function Comp() {
+        const dispatch = useDispatch();
+
+        const eventHandler = () => {
+          ...
+          dispatch({
+            type: ..., 
+            payload: ...
+          });
+          ...
+        }
+        ...
+      }
+    </code>
+  </pre>
+  <p>
+    Bên trong hàm render của Component, hook <b>useDispatch</b> được gọi để lấy về đối tượng <b>dispatch</b>:
+  </p>
+  <code class="language-javascript">
+    &nbsp;&nbsp;&nbsp;&nbsp;const dispatch = useDispatch();
+  </code>
+  <p class="pt-3">
+    Bên trong các hàm xử lý sự kiện của Component, sử dụng đối tượng <b>dispatch</b> ở trên để gửi các action đến store:
+  </p>
+  <code class="language-javascript">
+    &nbsp;&nbsp;&nbsp;&nbsp;dispatch({<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type: ...,<br> 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;payload: ...<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;});
+  </code>
+  <p class="pt-3">Giá trị của <b>type</b> là tên hành động muốn gửi (mỗi hành động có logic xử lý riêng ở store), 
+    giá trị của <b>payload</b> là dữ liệu gửi đến action.
+  </p>
+  <p>Ở phía store (<i>store.js</i>), <i>reducer</i> sẽ nhận được action kèm theo payload gửi từ component tới:</p>
+  <pre><code class="language-javascript">
+    //store.js
+    ...
+    
+    const reducer = (state=initialState, action) => {
+      console.log('type=', action.type);
+      console.log('payload=', action.payload);
+      //TODO: Process action
+      return state;
+    }
+    
+    ...
+  </code></pre>
+
+  <b><u>Đăng ký theo dõi thay đổi trạng thái của store:</u></b>
+  <p class="pt-2">Để theo dõi sự thay đổi trạng thái của store, sử dụng <i>hook</i> <b>useSelector</b> của <b>react-redux</b>:</p>
+  <pre>
+    <code class="language-javascript">
+      import {useSelector} from "react-redux"
+
+      function Comp() {
+        const value1 = useSelector(state => state.value1);
+        const value2 = useSelector(state => state.value2);
+        //const value3 = useSelector(state => state.value3); // do not use this, as 'value3' is not used in component's render
+        ...
+        return (
+          &lt;&gt;
+            State value 1: {value1}
+            State value 2: {value2}
+            ...
+          &lt;/&gt;
+        )
+      }
+    </code>
+  </pre>
+  <p>Tham số của <b>useSelector</b> là một function nhận giá trị vào là toàn bộ trạng thái của store,
+    và trả về một/một số trường của trạng thái đó:
+   </p>
+   <code class="language-javascript">
+     &nbsp;&nbsp;&nbsp;&nbsp;const value1 = useSelector(state => state.value1);
+   </code>
+   <p class="pt-3">Nếu component đăng ký theo dõi trường nào (<i>value1</i>, <i>value2</i> ở ví dụ trên), thì khi những trường đó thay đổi, 
+    component sẽ được hiển thị lại (re-render). Do đó để tránh việc component bị hiển thị lại một cách không cần thiết, 
+    <b>chỉ đăng ký theo dõi những trường được sử dụng trong phần render JSX của component</b> .
+  </p>
+
+  <b><u>Ví dụ: Counter app</u></b>
+  <p class="pt-2">Ứng dụng counter có một biến trạng thái (ban đầu bằng 0), khi người dùng click vào button tăng thì counter tăng thêm 1,
+    khi người dùng click vào button giảm thì counter giảm đi 1.
+  </p>
+  <p>
+    Trong <b>store.js</b>, khai báo trạng thái ban đầu <b>initialState</b> gồm 1 trường <b>counter</b> với khởi đầu bằng 0,
+    trong <b>reducer</b>, cung cấp logic để xử lý 2 action tăng và giảm counter:
+  </p>
+  <pre><code class="language-javascript">
+    // store.js
+    import {createStore} from 'redux';
+
+    const initialState = {
+      counter: 0
+    }
+
+    const reducer = (state=initialState, action) => {
+      if(action.type === 'increase') {
+        return {counter: state.counter + (action.payload ?? 1)};
+
+      }else if(action.type === 'decrease') {
+        return {counter: state.counter - (action.payload ?? 1)};
+      }
+
+      return state;
+    }
+
+    const store = createStore(reducer);
+
+    export default store;
+  </code></pre>
+
+  <p>Trong file <b>App.js</b>, sử dụng các <i>hook</i> <b>useDispatch</b> và <b>useSelector</b>
+    để gửi các action và nhận thay đổi trạng thái của counter:
+  </p>
+  <pre><code class="language-javascript">
+    // App.js
+    import { useSelector, useDispatch  } from "react-redux";
+
+    function App() {
+      const dispatch = useDispatch();
+      const counter = useSelector(state => state.counter);
+
+      const increase = () => {
+        dispatch({
+          type: 'increase',
+          payload: 1
+        });
+      }
+
+      const decrease = () => {
+        dispatch({
+          type: 'decrease',
+          payload: 1
+        });
+      }
+
+      return (
+        &lt;&gt;
+          Counter: {counter} 
+          {" "}
+          &lt;button onClick={increase}&gt;+&lt;/button&gt;
+          {" "}
+          &lt;button onClick={decrease}&gt;-&lt;/button&gt;
+        &lt;/&gt;
+      );
+    }
+
+    export default App;
+  </code></pre>
+  <p>Khi chạy ứng dụng, kết quả sẽ như sau:</p>
+  <div class="text-center my-4">
+    <img width="60%" src="images3/13.png" alt="">
+  </div>
+</div>
