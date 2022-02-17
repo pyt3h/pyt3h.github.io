@@ -1,0 +1,1948 @@
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/default.min.css">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css?family=Noto+Serif:400,700&display=swap&subset=vietnamese" rel="stylesheet">
+<style>
+  body, table {
+    font-size: 15px;
+    font-family: "Noto Serif",serif;
+  }
+  h1 {
+    font-size: 36px;
+    font-family: sans-serif;
+    margin-bottom: 10px;
+  }
+  h2 {
+    font-size: 28px;
+    font-family: sans-serif;
+    margin-bottom: 10px;
+  }
+  h3 {
+    font-size: 20px;
+    font-family: sans-serif;
+    margin-bottom: 5px;
+  }
+
+  h4 {
+    font-size: 18px;
+    font-family: sans-serif;
+    margin-bottom: 5px;
+  }
+
+  .code {
+    font-family: monospace;
+  }
+
+  .bold {
+    font-weight: 700;
+  }
+</style>
+<script>hljs.highlightAll();</script>
+<div class="container mt-3">
+  <h1><u>I. Django cơ bản</u></h1>
+  <h2><u>Cài đặt thư viện</u></h2>
+  <p>Để phát triển ứng dụng web với django, cần cài đặt các thư viện sau:</p>
+  <div class="offset-1 code">
+    pip install django
+  </div>
+  <p class="pt-2">Kiểm tra django đã được cài đặt: chạy python shell và gõ lệnh:</p>
+  <div class="offset-1 code">
+    <div>>> import django</div>
+    <div>>> print(django.get_version())</div>
+  </div>
+  <br/>
+  <h2><u>Tạo mới project</u></h2>
+  <p>Sử dụng công cụ <b>django-admin</b> (có sẵn sau khi cài django) để tạo mới project: từ cửa sổ command,
+    dùng lệnh sau để tạo mới một project:
+  </p>
+  <div class="offset-1 code">
+    django-admin startproject &lt;project_name&gt;
+  </div>
+  <p class="pt-2">Project mới được tạo ra sẽ có cấu trúc như sau:</p>
+  <div class="offset-1 code">
+    <div>&lt;project_name&gt;</div>
+    <div>&nbsp;&nbsp;&nbsp;manage.py</div>
+    <div>&nbsp;&nbsp;&nbsp;&lt;project_name&gt;</div>
+    <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__init__.py</div>
+    <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;settings.py</div>
+    <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;urls.py</div>
+    <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wsgi.py</div>
+  </div>
+  
+  <b><u>Khởi động server:</u></b>
+  <p>Mở cửa sổ command tại thư mục gốc của project và gõ lệnh:</p>
+  <div class="offset-1 code">
+    python manage.py runserver
+  </div>
+  <div class="text-center my-4">
+    <img width="90%" src="images4/1.png" alt="">
+  </div>
+
+  <p>Mở trình duyệt và truy nhập địa chỉ ứng dụng tại http://127.0.0.1:8000</p>
+  <div class="text-center my-4">
+    <img width="80%" src="images4/2.png" alt="">
+  </div>
+
+  <p>Theo mặc định, server django sẽ chạy ở cổng 8000 và sử dụng địa chỉ IP 127.0.0.1, để thay
+    đổi cổng và IP của server, sử dụng lệnh sau:
+  </p>
+  <div class="offset-1 code">
+    python manage.py runserver &lt;ip:port&gt;
+  </div>
+  <p>Ví dụ:</p>
+  <div class="offset-1">
+    <div><span class="code me-5" style="padding-right: 120px;">python manage.py runserver 8080</span> # chạy ứng dụng tại cổng 8080</div>
+    <div><span class="code me-5">python manage.py runserver 0.0.0.0:8080:8080</span> # chạy ứng dụng ở cổng 8080, tất cả IP của máy</div>
+  </div>
+  <br/>
+  <h2><u>Tạo mới ứng dụng</u></h2>
+  <p>Một project django thường có nhiều ứng dụng (app). Để tạo mới một ứng dụng, mở cửa sổ command tại thư mục gốc của project và gõ lệnh:</p>
+  <div class="offset-1 code">
+    python manage.py startapp &lt;app&gt;
+  </div>
+  <p class="pt-3">Sau khi app mới được tạo ra, cấu trúc thư mục project có dạng như sau:</p>
+  <div class="offset-1 code">
+    <div>&lt;project_name&gt;</div>
+    <div style="color: red;">&nbsp;&nbsp;&nbsp;&lt;app&gt;</div>
+    <div style="color: red;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;admin.py</div>
+    <div style="color: red;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;apps.py</div>
+    <div style="color: red;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;migrations</div>
+    <div style="color: red;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;models.py</div>
+    <div style="color: red;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tests.py</div>
+    <div style="color: red;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;views.py</div>
+    <div style="color: red;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__init__.py</div>
+    <div>&nbsp;&nbsp;&nbsp;manage.py</div>
+    <div>&nbsp;&nbsp;&nbsp;&lt;project_name&gt;</div>
+    <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__init__.py</div>
+    <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;settings.py</div>
+    <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;urls.py</div>
+    <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wsgi.py</div>
+  </div>
+  <p class="pt-3">Ý nghĩa các file trong app:</p>
+  <ul>
+    <li class="mt-2"><b>admin.py</b>: Dùng để đăng ký các model của database vào trang admin của Django</li>
+    <li class="mt-2"><b>apps.py</b>: Chứa cấu hình ứng dụng</li>
+    <li class="mt-2"><b>migrations</b>: Thư mục chứa các script về update database được sinh ra tự động </li>
+    <li class="mt-2"><b>models.py </b>: Nơi khai báo các model của database</li>
+    <li class="mt-2"><b>test.py </b>: Chứa các Unittest</li>
+    <li class="mt-2"><b>views.py </b>: Chứa logic xử lý request</li>
+  </ul>
+
+  <b><u>Cho phép app hoạt động</u></b>
+  <p class="pt-2">
+    Để app hoạt động, phải thêm tên app vào phần cấu hình <b>INSTALLED_APPS</b> trong file <b>settings.py</b>
+    của project.
+  </p>
+  <div class="offset-1 code">
+    <div>INSTALLED_APPS = [</div>
+    <div>&nbsp;&nbsp;&nbsp;'app',  # add this line, note : comma (,) after 'app'</div>
+    <div>&nbsp;&nbsp;&nbsp;...,  </div>
+    <div></div>
+  </div>
+  <br/>
+  <h2><u>Hàm xử lý request</u></h2>
+  <p>
+    Hàm xử lý request được đặt trong file <b>views.py</b> của app có tác dụng xử lý các yêu cầu 
+    do người dùng gửi đến. Hàm xử lý request có thể trả về nội dung dưới dạng html (website),
+    hoặc trả về nội dung dưới dạng dữ liệu json/xml/... (web-service).
+  </p>
+  <p>Ví dụ:</p>
+  <pre>
+    <code class="language-python">
+      # File: app/views.py
+      
+      import json
+      from django.shortcuts import HttpResponse
+      
+      # Create your views here.
+
+      def index(request):
+          return HttpResponse(
+              '''
+                  <h1>Django App</h1>
+                  <p>Hello from Django.</p>
+              '''
+          )
+
+      def hello_service(request):
+          return HttpResponse(
+              json.dumps({'message': 'Hello'}),
+              content_type='application/json'
+          )
+    </code>
+    
+    <code class="language-python">
+      # File: &lt;project_name&gt;/urls.py
+
+      from django.contrib import admin
+      from django.urls import path
+      from app.views import *                 # new
+
+      urlpatterns = [
+          path('', index),                    # new
+          path('api/hello', hello_service),   # new
+          path('admin/', admin.site.urls),
+      ]
+    </code>
+  </pre>
+  <p>Ví dụ trên khai báo 2 hàm xử lý request:</p>
+  <ul>
+    <li>Hàm <b>index</b>: trả về nội dung dạng html, được map vào địa chỉ '' (trang chủ) trong <b>urlpatterns</b> </li>
+    <li class="mt-2">Hàm <b>hello_service</b>: trả về nội dung dạng json, được map vào địa chỉ 'api/hello' trong <b>urlpatterns</b> </li>
+  </ul>
+  <p>Khi truy nhập trang chủ (<span class="code">http://127.0.0.1:8000</span>), kết quả trả về là một website:</p>
+  <div class="text-center my-4">
+    <img width="60%" src="images4/3.png" alt="">
+  </div>
+
+  <p>Khi truy nhập địa chỉ <span class="code">http://127.0.0.1:8000/api/hello</span>, kết quả trả về là một web-service:</p>
+  <div class="text-center my-4">
+    <img width="60%" src="images4/4.png" alt="">
+  </div>
+
+  <h2><u>Mapping url</u></h2>
+  <p>Mapping url là việc cấu hình để mỗi trỏ các đường link truy nhập server (url) đến các hàm xử lý request tương ứng.</p>
+  <p>Ở ví dụ phần trên, chúng ta đã map 2 url vào 2 hàm xử lý request:</p>
+  
+  <div class="offset-2">
+    <table class="code">
+      <tbody>
+        <tr>
+          <td>/</td>
+          <td style="width: 20%;text-align: center;">→</td>
+          <td>index</td>
+        </tr>
+        <tr>
+          <td>/api/hello</td>
+          <td style="width: 20%;text-align: center;">→</td>
+          <td>hello_service</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="pt-3">Việc này được thực hiện thông qua các khai báo trong phần <b>urlpatterns</b> của file <b>urls.py</b> của project:</p>
+  <div class="offset-1">
+    <code>
+        <div>urlpatterns = [</div>
+        <div>&nbsp;&nbsp;&nbsp; path('', index), </div>
+        <div>&nbsp;&nbsp;&nbsp; path('api/hello', hello_service), </div>
+        <div>&nbsp;&nbsp;&nbsp; ... </div>
+        <div>]</div>
+    </code>
+  </div>
+  
+  <p class="pt-3">
+    Khi có nhiều ứng dụng, việc khai báo toàn bộ mapping của các ứng dụng trong 1 file sẽ trở nên khó theo dõi.
+    Do đó django cho phép chia nhỏ mapping ra theo từng ứng dụng. Có thể hình dung việc này tương
+    tự như cách chia folder thành nhiều cấp trên ổ đĩa.
+  </p>
+
+  <b><u>Chia nhỏ url mapping theo từng ứng dụng:</u></b>
+  <p>Để chia nhỏ url mapping theo từng ứng dụng (app), thực hiện các bước sau: </p>
+  <ul>
+    <li>Tạo file <b>urls.py</b> trong thư mục của mỗi app</li>
+    <li class="mt-2">Include các file <b>urls.py</b> của các app vào file <b>urls.py</b> của project</li>
+    <li class="mt-2">Khai báo mapping riêng cho mỗi app trong file <b>urls.py</b> của app đó.</li>
+  </ul>
+  <p>Ví dụ:</p>
+  <p>
+    Nếu project chỉ có một app như trong các ví dụ trước thì việc chia mapping như sau: tạo file <b>app/urls.py</b>,
+    sau đó điền nội dung các file như sau:
+  </p>
+  <pre>
+    <code class="language-python">
+      # File: app/views.py
+      
+      import json
+      from django.shortcuts import HttpResponse
+      
+      # Create your views here.
+
+      def index(request):
+          return HttpResponse(
+              '''
+                  <h1>Django App</h1>
+                  <p>Hello from Django.</p>
+              '''
+          )
+
+      def hello_service(request):
+          return HttpResponse(
+              json.dumps({'message': 'Hello'}),
+              content_type='application/json'
+          )
+    </code>
+    
+    <code class="language-python">
+      # File: &lt;project_name&gt;/urls.py
+
+      from django.contrib import admin
+      from django.urls import path
+      from django.urls import include           # new
+
+      urlpatterns = [
+          path('admin/', admin.site.urls),
+          path('app/', include('app.urls')),    # new
+      ]
+    </code>
+
+    <code class="language-python">
+      # File: app/urls.py
+
+      from django.urls import path
+      from .views import *
+
+      urlpatterns = [
+          path('', index),
+          path('api/hello', hello_service),
+      ]
+    </code>
+  </pre>
+
+  <p>
+    Để truy nhập trang web do hàm <b>index</b> trả về, dùng địa chỉ: <span class="code">http://127.0.0.1:8000<b>/app</b></span>,
+    lưu ý so với phần trước, phía cuối đường link có thêm đuôi <span class="code">/app</span>
+  </p>
+  <div class="text-center my-4">
+    <img width="60%" src="images4/5.png" alt="">
+  </div>
+  <p>Tương tự ,để truy nhập web-service do hàm <b>hello_serivce</b> cung cấp, sử dụng địa chỉ:
+    <span class="code">http://127.0.0.1:8000/<b>app</b>/api/hello</span>
+  </p>
+  <div class="text-center my-4">
+    <img width="60%" src="images4/6.png" alt="">
+  </div>
+
+  <p>So với ví dụ trước, các link truy nhập ứng dụng có thêm phần <b>/app</b> phía sau địa chỉ gốc của server,
+    điều này là do trong phần <b>urlpatterns</b> của project đã có khai báo:
+  </p>
+  <div class="offset-1">
+    <code>
+      path('app/', include('app.urls')),
+    </code>
+  </div>
+  <p class="pt-3">Khai báo này khiến toàn bộ các url con trong file <b>app/urls.py</b> được gắn thêm 
+    phần <span class="code">'app/'</span> ở trước.
+  </p>
+  <p>Khi có nhiều app khác nhau thì phần tiền tố trên có thể đặt theo tên app, ví dụ: 
+    <span class="code">'app1/'</span>, <span class="code">'app2/'</span>, ...
+    Việc này tương tự việc chia file thành nhiều thư mục con trên ổ đĩa.
+  </p>
+
+  <h2><u>Lấy tham số từ url</u></h2>
+  <p>Thông thường trên các url truy nhập website/web-service có thêm các tham số tuỳ biến. Có thể 
+    hình dung các tham số này tương tự như các tham số đầu vào của các hàm xử lý, ví dụ:
+  </p>
+  <div class="offset-1">
+    <code>
+      http://&lt;domain:port&gt;/api/get-weather-data<b>?location=Hanoi</b>
+    </code>
+  </div>
+  <p class="pt-3">Phần tham số được đặt cuối url và ngăn cách với phần địa chỉ bằng dấu ?:</p>
+  <div class="offset-1">
+    <code>
+      <b>?location=Hanoi</b>
+    </code>
+  </div>
+  <p class="pt-3">Nếu có nhiều tham số thì các tham số được ngăn cách nhau bởi dấu &:</p>
+  <div class="offset-1">
+    <code>
+      <b>?location=Hanoi&unit=metric</b>
+    </code>
+  </div>
+  <p class="pt-3">Ở phía hàm xử lý request, các tham số cần được tách ra để thực hiện logic xử lý phù hợp</p>
+  <p>Trong django, các tham số từ url được chứa trong đối tượng <b>request.GET</b>, đối tượng này
+    có kiểu dữ liệu là <b>Dictionary</b> với các key là tên của tham số, còn value là giá trị của tham số</p>
+
+  <p>Ví dụ:</p>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Query string (from URL)</th>
+        <th>request.GET</th>
+      </tr>
+    </thead>
+    <tbody class="code">
+      <tr>
+        <td>?location=Hanoi</td>
+        <td>{"location": "Hanoi"}</td>
+      </tr>
+      <tr>
+        <td>?location=Hanoi&unit=metric</td>
+        <td>{"location": "Hanoi", "unit": "metric"}</td>
+      </tr>
+    </tbody>
+  </table>
+  <pre>
+    <code class="language-python">
+      def get_weather_data(request):
+          location = request.GET.get("location")
+          unit = request.GET.get("unit")
+          print("location=", location, ", unit=", unit)
+
+          ...
+    </code>
+  </pre>
+
+  <b><u>Tham số dạng biến đường dẫn</u></b>
+  <p class="pt-2">Ngoài cách truyền tham số qua query string như bên trên, còn có thể sử dụng tham số dưới dạng biến 
+    đường dẫn, ví dụ:
+  </p>
+  <div class="offset-1">
+    <code>
+      <div>http://&lt;domain:port&gt;/api/get-weather-data/<b>Hanoi</b></div>
+      <div class="mt-2">http://&lt;domain:port&gt;/api/get-weather-data/<b>HCMCity</b></div>
+    </code>
+  </div>
+  <p class="pt-3">Trong Django, để lấy giá trị biến đường dẫn, cần khai báo trong cả <b>urlpatterns</b> và hàm xử lý request:</p>
+  <pre>
+    <code class="language-python">
+      # File: app/views.py
+      
+      ...
+      def get_weather_data(request, location):
+          print('location=', location)
+          ...
+
+    </code>
+    
+    <code class="language-python">
+      # File: app/urls.py
+
+      ...
+
+      urlpatterns = [
+          path('api/get-weather-data/&lt;location&gt;', get_weather_data),
+          ...
+      ]
+    </code>
+  </pre>
+  <p>Trong <b>urlpatterns</b>, biến đường dẫn được đặt trong cặp ngoặc nhọn:</p>
+  <div class="offset-1">
+    <code>
+      path('api/get-weather-data/<b>&lt;location&gt;</b>', get_weather_data),
+    </code>
+  </div>
+  <p class="pt-3">Trong hàm xử lý request, giá trị của biến đường dẫ được chuyển vào tham số phụ sau tham số <b>request</b>:</p>
+  <div class="offset-1">
+    <code>
+      <div>def get_weather_data(request, <b>location</b>):</div>
+      <div class="mt-2">&nbsp;&nbsp;&nbsp;...</div>
+    </code>
+  </div>
+  <p>Ví dụ:</p>
+  <pre>
+    <code class="language-python">
+      # File: app/views.py
+      
+      import json
+      from django.shortcuts import HttpResponse
+
+      data = {
+        'Hanoi': {'temp': 19, 'humidity': 90},
+        'HCMCity': {'temp': 32, 'humidity': 80},
+      }
+      
+      def get_weather_data(request):
+          location = request.GET.get('location')
+          result = data.get(location, {'error': 'Unknown location'})
+          
+          return HttpResponse(json.dumps(result), 
+                  content_type='application/json')
+
+      def get_weather_data2(request, location):
+          result = data.get(location, {'error': 'Unknown location'})
+          
+          return HttpResponse(json.dumps(result), 
+                  content_type='application/json')
+    </code>
+    
+    <code class="language-python">
+      # File: &lt;project_name&gt;/urls.py
+
+      from django.contrib import admin
+      from django.urls import path
+      from django.urls import include           # new
+
+      urlpatterns = [
+          path('admin/', admin.site.urls),
+          path('api/', include('app.urls')),    # new
+      ]
+    </code>
+
+    <code class="language-python">
+      # File: app/urls.py
+
+      from django.urls import path
+      from .views import *
+
+      urlpatterns = [
+          path('get-weather-data', get_weather_data),
+          path('get-weather-data2/&lt;location&gt;', get_weather_data2),
+      ]
+    </code>
+  </pre>
+  <p>Ứng dụng trên cung cấp 2 API để lấy thông tin thời tiết:</p>
+  <p>Theo tham số từ query string: <span class="code">/api/get_weather_data?location=&lt;location&gt;</span></p>
+  <div class="text-center my-4">
+    <img width="60%" src="images4/7.png" alt="">
+  </div>
+
+  <p>Theo biến đường dẫn: <span class="code">/api/get_weather_data2/&lt;location&gt;</span></p>
+  <div class="text-center my-4">
+    <img width="60%" src="images4/8.png" alt="">
+  </div>
+
+  <h2><u>Làm việc với Database qua ORM</u></h2>
+  <p>ORM (Object Relational Mapping) là cách làm việc với database thông qua các class của ngôn ngữ lập trình</p>
+  <p>Mỗi bảng trong database sẽ tương ứng với một class của ngôn ngữ lập trình, mỗi cột của bảng dữ liệu
+    tương ứng với mỗi trường của đối tượng.
+  </p>
+  <p><i>Ưu điểm của ORM</i>: chương trình ngắn gọn, cách viết truy vấn database giống với viết chương trình bình thường.</p>
+  <p><i>Nhược điểm của ORM</i>: khó viết các query phức tạp, một số trường hợp hiệu năng không cao.</p>
+
+  <h3><u>Khai báo đối tượng ORM</u></h3>
+  <p>Trong Django, việc khai báo các đối tượng mapping với các bảng của database được thực hiện trong file 
+    <b>models.py</b> của ứng dụng.
+  </p>
+  <pre>
+    <code class="language-python">
+      # app/models.py
+
+      from django.db import models
+
+      class Product(models.Model):
+          code = models.CharField(max_length=30, unique=True) 
+          name = models.CharField(max_length=200)
+          price = models.FloatField()
+      
+          # Hàm hiển thị
+          def __str__(self):
+              return self.name
+    </code>
+  </pre>
+
+  <p>Các đối tượng mapping cần kế thừa class <b>django.db.models.Model</b>, trong mỗi đối tượng, thực hiện
+    khai báo các trường dữ liệu tương ứng với các cột của bảng trong database. Một số loại trường dữ liệu thông dụng:
+  </p>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Kiểu dữ liệu Django</th>
+        <th>Kiểu dữ liệu database</th>
+      </tr>
+    </thead>
+    <tbody class="code">
+      <tr>
+        <td>CharField</td>
+        <td>VARCHAR</td>
+      </tr>
+      <tr>
+        <td>TextField</td>
+        <td>TEXT</td>
+      </tr>
+      <tr>
+        <td>FloatField</td>
+        <td>FLOAT</td>
+      </tr>
+      <tr>
+        <td>IntegerField</td>
+        <td>INT</td>
+      </tr>
+      <tr>
+        <td>BigIntegerField</td>
+        <td>BIGINT</td>
+      </tr>
+      <tr>
+        <td>BooleanField</td>
+        <td>SMALLINT</td>
+      </tr>
+      <tr>
+        <td>DateField</td>
+        <td>DATE</td>
+      </tr>
+      <tr>
+        <td>DateTimeField</td>
+        <td>DATETIME</td>
+      </tr>
+      <tr>
+        <td>FileField</td>
+        <td>VARCHAR (lưu trong database đường link đến file)</td>
+      </tr>
+      <tr>
+        <td>ImageField</td>
+        <td>VARCHAR (lưu trong database đường link đến ảnh)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Các trường dữ liệu có thể có thêm các thuộc tính ràng buộc:</p>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Thuộc tính</th>
+        <th>Ý nghĩa</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="code">unique</td>
+        <td>Giá trị của trường dữ liệu phải duy nhất</td>
+      </tr>
+      <tr>
+        <td class="code">max_length</td>
+        <td>Độ dài tối đa trường dữ liệu</td>
+      </tr>
+      <tr>
+        <td class="code">null</td>
+        <td>Trường dữ liệu được phép nhận giá trị null</td>
+      </tr>
+      <tr>
+        <td class="code">blank</td>
+        <td>Trường dữ liệu (kiểu string) được phép nhận giá trị blank</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <b><u>Liên kết giữa các bảng</u></b>
+  <p class="pt-2">
+    Các quan hệ trong SQL (OneToMany, ManyToOne, ManyToMany) cũng được thể hiện bằng các trường liên
+    kết trong class của model. Ví dụ:
+  </p>
+  <pre>
+    <code class="language-python">
+      from django.db import models
+
+      # Create your models here.
+      class Category(models.Model):
+          code = models.CharField(max_length=20, unique=True)
+          name = models.CharField(max_length=100)
+
+      class Attribute(models.Model):
+          name = models.CharField(max_length=100)
+          value = models.CharField(max_length=200)
+
+      class Product(models.Model):
+          category = models.ForeignKey(Category, on_delete=models.PROTECT)
+          attributes = models.ManyToManyField(Attribute)
+          code = models.CharField(max_length=20, unique=True)
+          name = models.CharField(max_length=100)
+          price = models.FloatField()
+
+    </code>
+  </pre>
+
+  <p>
+    Ở ví dụ trên, trong bảng <b>Product</b>, trường <b>category</b> là foreign key liên kết đến bảng
+    <b>Category</b>:
+  </p>
+  <div class="offset-1">
+    <code><b>category = models.ForeignKey(Category, on_delete=models.PROTECT)</b></code>
+  </div>
+
+  <p class="pt-3">Mối quan hệ này thể hiện: <i>mỗi sản phẩm thuộc một nhóm nhất định.</i></p>
+
+  </p class="pt-3"><i>Lưu ý: </i> Django sử dụng <b>đối tượng</b> chứ không phải <b>id</b> để thể hiện  
+    quan hệ ManyToOne, (do đó trường <b>category</b> của class <b>Product</b> có kiểu là <b>Object</b> (Category) chứ 
+    không phải <b>Integer</b>.
+  </p>
+
+  <p>
+    Khi khai báo một trường ForeignKey, phải chỉ định giá trị cho thuộc tính <b>on_delete</b>. Giá trị này dùng để
+    xác định xem nếu một bản ghi ở bảng cha (Category) bị xoá thì các bản ghi ở bảng con (Product) sẽ bị ảnh hưởng 
+    ra sao:
+  </p>
+  <ul>
+    <li><span class="bold code">on_delete=models.PROTECT</span>: Nếu xoá một bản ghi ở bảng cha mà vẫn còn tồn tại bản ghi con tương ứng với bản ghi cha đó thì <b>không cho phép xoá</b></li>
+    <li class="mt-2"><span class="bold code">on_delete=models.CASCADE</span>: Nếu xoá bản ghi ở bảng cha thì <b>đồng thời xoá luôn</b> các bản ghi con tương ứng với bản ghi cha đó</li>
+    <li class="mt-2"><span class="bold code">on_delete=models.SET_NULL</span>: Nếu xoá bản ghi ở bảng cha thì giá trị FK của các bản ghi con tương ứng với bản ghi cha đó <b>đặt thành NULL</b></li>
+  </ul>
+
+  <p>
+    Tương tự, trường <b>attributes</b> thể hiện liên kết ManyToMany tới bảng Attribute:
+  </p>
+
+  <div class="offset-1">
+    <code><b>attributes = models.ManyToManyField(Attribute)</b></code>
+  </div>
+
+  <p class="pt-3">Mối quan hệ này thể hiện: <i>mỗi sản phẩm có thể có nhiều thuộc tính.</i></p>
+  
+  <h3><u>Migrate database</u></h3>
+  <p>
+    Một khi thêm/bớt/sửa các đối tượng hay các trường của đối tượng trong file <b>models.py</b> thì cấu trúc
+    của các bảng trong database sẽ không thay đổi theo ngay lập tức. Để đồng bộ thay đổi trong code (<b>models.py</b>)
+    với database, cần thực hiện thao tác gọi là <b>migrate database</b>
+  </p>
+
+  <p>Với Django, thông thường việc migrate database được thực hiện qua 2 lệnh (chạy lệnh trong cửa sổ command tại thư mục gốc của project):</p>
+  <ul>
+    <li>
+      <span class="code bold">python manange.py makemigrations</span>: lệnh này <b>tạo ra</b> các script lưu sự thay đổi  
+      so với lần update gần nhất trước đó. Các file script lưu thay đổi này được đặt trong folder <b>migrations</b>
+      của ứng dụng và được đánh số tăng dần. <b><i>Lệnh này chỉ tạo ra các script và chưa làm thay đổi gì đến database.</i></b>
+      <div class="text-center my-4">
+        <img src="images4/9.png" alt="">
+      </div>
+    </li>
+    <li>
+      <span class="code bold">python manange.py migrate</span>: lệnh này <b>thực hiện</b> các script đã được tạo ra
+      ở phần <b>makemigrations</b>. <b><i>Sau lệnh này, cấu trúc của các bảng trong database mới đồng bộ với các class
+      trong code của Django.</i></b>
+    </li>
+  </ul>
+
+  <h3><u>Truy xuất Database qua ORM</u></h3>
+  <h4><u>Thêm mới bản ghi:</u></h4>
+  <pre>
+    <code class="language-python">
+      category = Category.objects.create(code='IPHONE', name='IPhone')
+
+      product = Product.objects.create(
+        category=category,
+        code='IPX',
+        name='IPhone X',
+        price=10500000
+      )
+    </code>
+  </pre>
+
+  <p>hoặc</p>
+  <pre>
+    <code class="language-python">
+      category = Category(code='IPhone', name='IPhone')
+      category.save()
+
+      product = Product(
+        category=category,
+        code='IPX',
+        name='IPhone X',
+        price=10500000
+      )
+      product.save()
+    </code>
+  </pre>
+
+  <p>Ở cách 1, bản ghi trong database được tạo ra ngay sau lệnh <b>create</b>. 
+    <i>Lưu ý:</i> phải dùng thuộc tính trung gian <b>.objects</b> phía sau các class ORM
+    để thực hiện thao tác <b>create</b> này
+  </p>
+
+  <p>
+    Ở cách 2, sau khi đối tượng được khởi tạo bằng constructor của ORM class, nó chỉ tồn tại trong bộ nhớ
+    mà chưa được lưu xuống database. Chỉ khi phương thức <b>save</b> được gọi, dữ liệu đối tượng mới được
+    đẩy từ bộ nhớ xuống database.
+  </p>
+
+  <p>Cách 2 phù hợp cho các trường hợp cần phải xử lý tính toán các trường dữ liệu, sau khi tính toán xong mới lưu vào database.</p>
+
+  <h4><u>Chỉnh sửa bản ghi:</u></h4>
+  <p>
+    Để chỉnh sửa một bản ghi, cần lấy được bản ghi từ database vào trong bộ nhớ (<b>objects.get</b>),
+    chỉnh sửa các thuộc tính trong bộ nhớ, sau đó lưu thay đổi xuống database (<b>save</b>)
+  </p>
+
+  <pre>
+    <code class="language-python">
+      product = Product.objects.get(code='IPX')
+      product.price = 9500000
+      product.save()
+    </code>
+  </pre>
+  
+  <h4><u>Xoá bản ghi:</u></h4>
+  <p>Để xoá bản ghi, gọi phương thức <b>delete</b> của ORM class</p>
+  <pre>
+    <code class="language-python">
+      product = Product.objects.get(code='IPX')
+      product.delete()
+    </code>
+  </pre>
+
+  <h4><u>Lấy về một bản ghi</u></h4>
+  <p>Để lấy về một bản ghi, sử dụng phương thức <b>.objects.get</b> của ORM class:</p>
+  <pre>
+    <code class="language-python">
+      product1 = Product.objects.get(id=1)
+      product2 = Product.objects.get(code='IPX')
+    </code>
+  </pre>
+  <p>
+    Bên trong phương thức <b>.objects.get</b> cần chỉ định một điều kiện tìm kiếm (thường theo id hoặc mã định danh),
+    nếu điều kiện tìm kiếm không trả về kết quả nào hoặc trả về nhiều hơn 1 kết quả, lệnh này sẽ báo lỗi.
+  </p>
+
+  <h4><u>Tìm kiếm bản ghi</u></h4>
+  <p>
+    Để tìm kiếm bản ghi, sử dụng phương thức <b>.objects.filter</b> của ORM class và truyền vào danh sách
+    các điều kiện tìm kiếm. Ví dụ:
+  </p>
+  <pre>
+    <code class="language-python">
+      product_list = Product.objects.filter(price=10)                 # các sản phẩm có giá 10 triệu
+      product_list_2 = Product.objects.filter(code__startswith='IP')  # các sản phẩm có mã bắt đầu bằng IP
+    </code>
+  </pre>
+
+  <p>Một số điều kiện filter thường sử dụng:</p>
+  <table class="table">
+    <thead>
+      <tr>
+        <th style="width: 40%;">Điều kiện tìm kiếm</th>
+        <th style="width: 60%;">Ví dụ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Bằng nhau</td>
+        <td>
+          <code>
+            Product.objects.filter(price=10)
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>Bắt đầu bằng một chuỗi kí tự</td>
+        <td>
+          <code>
+            Product.objects.filter(name<b>__startswith</b>='ỊPhone')
+          </code>
+          <p class="pt-3"><small><i>lưu ý <b>hai</b> dấu gạch dưới trước startswith</i></small></p>
+        </td>
+      </tr>
+      <tr>
+        <td>Kết thúc bằng một chuỗi kí tự</td>
+        <td>
+          <code>
+            Product.objects.filter(name<b>__endswith</b>='ỊPhone')
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>Chứa một chuỗi kí tự</td>
+        <td>
+          <code>
+            Product.objects.filter(name<b>__contains</b>='ỊPhone')
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>Chứa một chuỗi kí tự, không phân biệt hoa/thường</td>
+        <td>
+          <code>
+            Product.objects.filter(name<b>__icontains</b>='ỊPhone')
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>Lớn hơn/lớn hơn hoặc bằng/nhỏ hơn/nhỏ hơn hoặc bằng</td>
+        <td>
+          <code>
+            <div class="my-2">Product.objects.filter(price<b>__gt</b>=10)   # greater than</div>
+            <div class="my-2">Product.objects.filter(price<b>__gte</b>=10)  # greater than or equal</div>
+            <div class="my-2">Product.objects.filter(price<b>__lt</b>=10)   # less than</div>
+            <div class="my-2">Product.objects.filter(price<b>__lte</b>=10)  # less than or equal</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>Kết hợp 2 điều kiện theo <b>AND</b></td>
+        <td>
+          <code>
+            Product.objects.filter(price__gt=10, price__lt=15)
+          </code>
+          <p class="pt-3">hoặc</p>
+          <code>
+            Product.objects.filter(price__gt=10).filter(price__lt=15)
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>Kết hợp 2 điều kiện theo <b>OR</b></td>
+        <td>
+          <code>
+            <div>from django.db.models import Q</div>
+            <div>&nbsp;</div>
+            <div>Product.objects.filter(Q(price__lt=10) | Q(price__gt=15))</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>Phủ định điều kiện</td>
+        <td>
+          <code>
+            <div>from django.db.models import Q</div>
+            <div>&nbsp;</div>
+            <div>Product.objects.filter(~Q(price=10))</div>
+          </code>
+        </td>
+      </tr>
+      <tr>
+        <td>Tìm kiếm theo trường ở bảng liên kết</td>
+        <td>
+          <code>
+            <div class="my-2">Product.objects.filter(category__code='IPHONE')</div>
+            <div class="my-2">Product.objects.filter(category__code__startswith='IP')</div>
+          </code>
+        </td>
+      </tr>
+      
+    </tbody>
+  </table>
+
+
+  <h2><u>Admin Panel của Django</u></h2>
+  <p class="pt-2">Admin Panel là công cụ có sẵn của Django để quản lý các đối tượng trong database.</p>
+  
+  <b><u>Tạo tài khoản admin</u></b>
+  <p class="pt-2">Mở cửa sổ command trong thư mục gốc của project và gõ lệnh:</p>
+  
+  <div class="offset-1 code">
+    python manage.py createsuperuser
+  </div>
+  <p class="pt-3">Django sẽ yêu cầu nhập username & password để tạo tài khoản admin.</p>
+
+  <b><u>Truy nhập Admin Panel</u></b>
+  <p class="pt-2">Trên trình duyệt, truy nhập Admin Panel tại địa chỉ: <span class="code">http://127.0.0.1:8000/admin</span></p>
+  <p>Đăng nhập username/password đã tạo ra ở bước phía trên.</p>
+  
+  <div class="text-center my-4">
+    <img src="images4/10.png" alt="">
+  </div>
+
+  <p>Giao diện Admin Panel sau khi đăng nhập:</p>
+  <div class="text-center my-4">
+    <img src="images4/11.png" alt="">
+  </div>
+
+  <b><u>Đăng ký quản lý đối tượng database vào Admin Panel</u></b>
+  <p class="pt-2">Admin Panel mặc định chỉ quản lý 2 đối tượng : User, Group. Để quản lý thêm các đối tượng riêng 
+    của ứng dụng, phải thực hiện đăng ký cho các đối tượng này.
+  </p>
+  <p>Việc đăng ký được thực hiện trong file <b>admin.py</b> của ứng dụng:</p>
+  <pre>
+    <code class="language-python">
+      #app/admin.py
+
+      from django.contrib import admin
+      from .models import *
+
+      # Register your models here.
+      admin.site.register(Category)
+      admin.site.register(Product)
+    </code>
+  </pre>
+
+  <p>Sau khi đăng ký đối tượng xong, reload lại Admin Panel, đối tượng sẽ xuất hiện trong danh sách quản lý:</p>
+  <div class="text-center my-4">
+    <img src="images4/12.png" alt="">
+  </div>
+
+  <p>Sử dụng Admin Panel để tạo mới/chỉnh sửa/xem thông tin/xoá các bản ghi của các đối tượng đã đăng ký:</p>
+  <div class="text-center my-4">
+    <img src="images4/13.png" alt="">
+  </div>
+  <p class="pt-2">
+    <i>Lưu ý:</i> Để các đối tượng hiện theo tên (thay cho tên class kèm id), cần khai báo phương thức 
+    <b>__str__</b> trong các ORM Class:
+  </p>
+  <pre>
+    <code class="language-python">
+      # app/models.py
+
+      from django.db import models
+
+      class Category(models.Model):
+          ...
+      
+          # Hàm hiển thị
+          def __str__(self):
+              return self.name
+
+      class Product(models.Model):
+              ...
+          
+          # Hàm hiển thị
+          def __str__(self):
+              return self.name
+    </code>
+  </pre>
+  
+  <br/>
+  <h1><u>II. DjangoRestFrameWork (DRF)</u></h1>
+  <h2><u>Cài đặt thư viện</u></h2>
+  <p>Để phát triển ứng dụng với DjangoRestFrameWork, cần cài đặt các thư viện sau:</p>
+  <div class="offset-1 code">
+    pip install django djangorestframework django-cors-headers
+  </div>
+  <br/>
+  <h2><u>Cấu hình Project</u></h2>
+  <p>Để sử dụng DRF trong Django project, cần thêm vào file settings.py dòng cấu hình sau:</p>
+  <div class="offset-1 code">
+    <div>INSTALLED_APPS = [</div>
+    <div>&nbsp;&nbsp;&nbsp;'rest_framework',   # new</div>
+    <div>&nbsp;&nbsp;&nbsp;...,  </div>
+    <div></div>
+  </div>
+  <br>
+  <h2><u>Dùng DRF để tạo web-service</u></h2>
+  <p>Tương tự với Django thông thường, để tạo ra web-service cần khai báo hàm xử lý request trong 
+    <b>views.py</b> và thực hiện mapping url truy nhập trong file <b>urls.py</b>
+  </p>
+  <p>Tuy nhiên DRF cung cấp sẵn một số tính năng giúp việc phát triển web-service dễ dàng hơn.</p>
+  <p>Ví dụ về một web-service đơn giản dùng DRF:</p>
+
+  <pre>
+    <code class="language-python">
+      # File: app/views.py
+      
+      from rest_framework.decorators import api_view
+      from rest_framework.response import Response
+
+      @api_view(['GET'])
+      def hello(request):    
+          return Response({"message" : "Hello world!"})
+    </code>
+    
+    <code class="language-python">
+      # File: &lt;project_name&gt;/urls.py
+
+      from django.contrib import admin
+      from django.urls import path
+      from django.urls import include           # new
+
+      urlpatterns = [
+          path('admin/', admin.site.urls),
+          path('api/', include('app.urls')),    # new
+      ]
+    </code>
+
+    <code class="language-python">
+      # File: app/urls.py
+
+      from django.urls import path
+      from .views import *
+
+      urlpatterns = [
+          path('hello', hello),
+      ]
+    </code>
+  </pre>
+  <p>Khởi động server và truy nhập web-service tại địa chỉ <span class="code">http://127.0.0.1:8000/api/hello</span></p>
+  <div class="text-center my-4">
+    <img src="images4/14.png" alt="">
+  </div>
+
+  <p>
+    Tương tự như với Django thông thường, hàm xử lý request trả về một đối tượng <b>Response</b> chứa dữ liệu
+    dạng JSON.
+  </p>
+  <div class="offset-1 mb-3">
+    <code class="language-python">
+      return Response({"message" : "Hello world!"})
+    </code>
+  </div>
+
+  <h2><u>Các phương thức của REST</u></h2>
+  <p>
+    REST (Representational state transfer) là chuẩn định nghĩa các phương thức trao đổi dữ liệu được dùng
+    phổ biến trong các hệ thống web-service. REST quy định các phương thức trao đổi (chính) sau:
+  </p>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Phương thức</th>
+        <th>Mục đích sử dụng</th>
+        <th>Ứng dụng trong truy xuất database (CRUD)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>GET</b></td>
+        <td>Lấy về dữ liệu</td>
+        <td>Lấy thông tin bản ghi, tìm kiếm bản ghi</td>
+      </tr>
+      <tr>
+        <td><b>POST</b></td>
+        <td>Đẩy dữ liệu lên</td>
+        <td>Tạo mới bản ghi</td>
+      </tr>
+      <tr>
+        <td><b>PUT</b></td>
+        <td>Đẩy dữ liệu lên để thay thế dữ liệu cũ (update)</td>
+        <td>Chỉnh sửa bản ghi</td>
+      </tr>
+      <tr>
+        <td><b>DELETE</b></td>
+        <td>Xoá dữ liệu</td>
+        <td>Xoá bản ghi</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p><b>DRF</b> (và các web-service framework) đều hỗ trợ các phương thức trên.</p>
+  <p>
+    Để chỉ định một hàm xử lý request hỗ trợ những phương thức nào , <b>DRF</b> sử dụng 
+    decorator <b>@api_view</b>:
+  </p>
+  <pre>
+    <code class="language-python">
+      # File: app/views.py
+      
+      from rest_framework.decorators import api_view
+      ...
+
+      @api_view(['GET', 'POST', 'PUT', ...])
+      def web_service(request):    
+          ...
+    </code>
+  </pre>
+  <p>
+    Các phương thức REST được hỗ trợ cần được đặt bên trong tham số của decorator <b>@api_view</b>.
+    Trường hợp client truy nhập theo vào service theo một phương thức không được hỗ trợ thì sẽ dẫn đến lỗi
+    405 (Method not allowed)
+  </p>
+  <p>Ví dụ: Sử dụng các phương thức REST để tạo các service CRUD (Create/Retrieve/Update/Delete) cho database:</p>
+
+  <pre>
+    <code class="language-python">
+      # File: app/models.py
+
+      from django.db import models
+
+      class Student(models.Model):
+          student_number = models.CharField(max_length=20, unique=True)
+          fullname = models.CharField(max_length=100)
+          birthdate = models.DateField()
+
+          def __str__(self):
+              return self.fullname
+
+      # TODO: Run db migration:
+      # python manage.py makemigrations
+      # python manage.py migrate
+    </code>
+    <p><i>Lưu ý:</i> Sau khi khai báo đối tượng trong <b>models.py</b> phải thực hiện các lệnh <b>makemigrations</b> và <b>migrate</b> (xem phần làm việc với database qua ORM)</p>
+    <code class="language-python">
+      # File: app/views.py
+      
+      from datetime import datetime
+      from django.db.models import Q
+      from .models import Student
+      from rest_framework.decorators import api_view
+      from rest_framework.response import Response
+
+      @api_view(['POST'])
+      def create_student(request):
+          try:
+              data = request.data
+              Student.objects.create(
+                  student_number = data['student_number'],
+                  fullname = data['fullname'],
+                  birthdate = datetime.strptime(data['birthdate'], '%Y-%m-%d')
+              )
+              return Response({'success': True})
+          except Exception as e:
+              return Response({'success': False, 'error': str(e)})
+
+      @api_view(['PUT'])
+      def update_student(request, pk):
+          try:
+              data = request.data
+              student = Student.objects.get(pk=pk)
+              student.student_number = data['student_number']
+              student.fullname = data['fullname']
+              student.birthdate = datetime.strptime(data['birthdate'], '%Y-%m-%d')
+              student.save()
+              
+              return Response({'success': True})
+          except Exception as e:
+              return Response({'success': False, 'error': str(e)})
+
+      @api_view(['DELETE'])
+      def delete_student(request, pk):
+          try:
+              student = Student.objects.get(pk=pk)
+              student.delete()
+              return Response({'success': True})
+          except Exception as e:
+              return Response({'success': False, 'error': str(e)})
+
+      def model_to_dict(student):
+          return {
+              'student_number': student.student_number,
+              'fullname': student.fullname,
+              'birthdate': student.birthdate.strftime('%Y-%m-%d')
+          }
+
+      @api_view(['GET'])
+      def get_student_by_id(request, pk):
+          try:
+              student = Student.objects.get(pk=pk)
+              return Response(model_to_dict(student))
+          except Exception as e:
+              return Response({'success': False, 'error': str(e)})
+
+      @api_view(['GET'])
+      def search_student(request):
+          keyword = request.GET.get('keyword', '')
+          student_list = Student.objects.filter(
+              Q(fullname__icontains=keyword) | 
+              Q(student_number__icontains=keyword)
+          )
+          result = [model_to_dict(student) for student in student_list]
+          return Response(result)
+    </code>
+    
+    <code class="language-python">
+      # File: &lt;project_name&gt;/urls.py
+
+      from django.contrib import admin
+      from django.urls import path
+      from django.urls import include           # new
+
+      urlpatterns = [
+          path('admin/', admin.site.urls),
+          path('api/', include('app.urls')),    # new
+      ]
+    </code>
+
+    <code class="language-python">
+      # File: app/urls.py
+
+      from django.urls import path
+      from .views import *
+
+      urlpatterns = [
+          path('create-student', create_student),
+          path('update-student/&lt;pk&gt;', update_student),
+          path('delete-student/&lt;pk&gt;', delete_student),
+          path('get-student-by-id/&lt;pk&gt;', get_student_by_id),
+          path('search-student', search_student),
+      ]
+    </code>
+  </pre>
+  <h3><u>Test các web-service:</u></h3>
+  <b><u>Tạo mới bản ghi:</u></b>
+  <p class="pt-2">
+    Để tạo mới bản ghi, sử dụng service tại địa chỉ <span class="code">http://127.0.0.1:8000/api/create-student</span>.
+  </p>
+  <p>
+    Trong phần content gửi lên server, nhập vào các trường dữ liệu của bản ghi dưới dạng JSON.
+  </p>
+  <div class="text-center my-4">
+    <img src="images4/15.png" alt="">
+  </div>
+  <p>
+    Ở phía server, dữ liệu gửi lên sẽ được chuyển vào biến <b>request.data</b> có dạng Dictionary (key-value):
+  </p>
+
+  <div class="offset-1 mb-3">
+    <code class="language-python">
+      data = request.data
+    </code>
+  </div>
+
+  <b><u>Lấy thông tin bản ghi theo id:</u></b>
+  <p class="pt-2">
+    Để lấy thông tin một bản ghi theo id, sử dụng service tại địa chỉ <span class="code">http://127.0.0.1:8000/api/get-student-by-id/&lt;id&gt;</span>.
+  </p>
+  <div class="text-center my-4">
+    <img src="images4/16.png" alt="">
+  </div>
+  
+  <b><u>Tìm kiếm bản ghi:</u></b>
+  <p class="pt-2">
+    Để tìm kiếm bản ghi (theo tên/mã), sử dụng service tại địa chỉ <span class="code">http://127.0.0.1:8000/api/search-student?keyword=&lt;keyword&gt;</span>.
+  </p>
+  <div class="text-center my-4">
+    <img src="images4/18.png" alt="">
+  </div>
+
+  <b><u>Cập nhật bản ghi:</u></b>
+  <p class="pt-2">
+    Để cập nhật thông tin bản ghi, sử dụng service tại địa chỉ <span class="code">http://127.0.0.1:8000/api/update-student/&lt;id&gt;</span>.
+  </p>
+  <p>
+    Tương tự như với tạo mới, nhập vào phần content các trường dữ liệu của bản ghi dưới dạng JSON.
+  </p>
+  <div class="text-center my-4">
+    <img src="images4/19.png" alt="">
+  </div>
+
+  <b><u>Xoá bản ghi:</u></b>
+  <p class="pt-2">
+    Để xoá bản ghi, sử dụng service tại địa chỉ <span class="code">http://127.0.0.1:8000/api/delete-student/&lt;id&gt;</span>.
+  </p>
+  <div class="text-center my-4">
+    <img src="images4/20.png" alt="">
+  </div>
+
+  <h2><u>Serializer</u></h2>
+  <p>Trong ví dụ về các web-service CRUD bên trên, ở các thao tác thêm mới, chỉnh sửa, khi server nhận 
+    dữ liệu do client gửi lên (<b>request.data</b> - dạng Dictionary/key-value), để lưu vào database,
+    hàm xử lý request phải tách ra từng trường dữ liệu một: 
+  </p>
+  <pre>
+    <code class="language-python">
+      def create_student(request):
+            data = request.data
+            Student.objects.create(
+                student_number = data['student_number'],                        # student_number
+                fullname = data['fullname'],                                    # fullname
+                birthdate = datetime.strptime(data['birthdate'], '%Y-%m-%d')    # birthdate
+            )
+            ...
+    </code>
+  </pre>
+  <p>Tương tự, khi tìm kiếm bản ghi, ở phía server dữ liệu được lấy từ database ra dưới dạng các bản ghi,
+    sau đó phải chuyển từng trường một sang dạng dictionary trước khi trả về cho Response:
+  </p>
+  <pre>
+    <code class="language-python">
+      def model_to_dict(student):
+          return {
+              'student_number': student.student_number,                         # student_number
+              'fullname': student.fullname,                                     # fullname
+              'birthdate': student.birthdate.strftime('%Y-%m-%d')               # birthdate
+          }
+    </code>
+  </pre>
+  <p>Nếu đối tượng có nhiều trường dữ liệu, việc viết chương trình như trên sẽ rất dài (liệt kê từng trường một)</p>
+  <p>
+    Ngoài ra, nếu người dùng nhập vào dữ liệu không hợp lệ (thiếu trường, trùng mã ,...) thì cách viết trên
+    không chỉ ra được lỗi xảy ra do đâu (không có validate dữ liệu đầu vào).
+  </p>
+  <p>Để giải quyết 2 vấn đề trên, DRF đưa ra class <b>Serializer</b> giúp:</p>
+  <ul>
+    <li>Chuyển đổi tự động dữ liệu giữa request/response và database model</li>
+    <li class="mt-2">Validate dữ liệu người dùng gửi lên để trả về các mã lỗi với thông báo cụ thể</li>
+  </ul>
+
+  <h3><u>Khai báo Serializer class</u></h3>
+  <p>
+    Mỗi class của Database (trong file <b>models.py</b>) cần có một class Serializer riêng. Các Serializer class
+    thường được đặt trong file <b>serializers.py</b> (file này không có từ đầu và cần tạo mới):
+  </p>
+  <pre>
+    <code class="language-python">
+      # File : app/serializers.py
+
+      from rest_framework.serializers import ModelSerializer
+      from .models import *
+
+      class StudentSerializer(ModelSerializer):
+          class Meta:
+              model = Student
+              fields = '__all__'   # ['student_number', 'fullname', 'birthdate']
+    </code>
+  </pre>
+  <p>Các Serializer class cần kế thừa class <b>ModelSerializer</b> của DRF</p>
+  <p>Bên trong mỗi Serializer class, cần khai báo phần Meta (cấu hình) với 2 thông tin:</p>
+  <ul>
+    <li><b>model</b>: class ORM mà Serializer sẽ thao tác lên</li>
+    <li class="mt-2"><b>fields</b>: Danh sách các trường của đối tượng ORM sẽ được chuyển đổi
+      sang/từ dạng Dictionary. Nếu chọn giá trị bằng <span class="code">'__all__'</span>,
+      toàn bộ các trường của đối tượng sẽ được chuyển đổi. Ngoài cách liệt kê các trường,
+      còn có thể dùng cách bỏ đi một số trường không dùng (nếu danh sách trường dài thì nên dùng cách này):
+      <pre>
+        <code class="language-python">
+          # File : app/serializers.py
+          ...
+
+          class StudentSerializer(ModelSerializer):
+              class Meta:
+                  model = Student
+                  exclude = ['birthdate']   # fields = ['student_number', 'fullname']
+        </code>
+      </pre>
+    </li>
+  </ul>
+
+  <h3><u>Sử dụng Serializer class</u></h3>
+  <b><u>Dùng Serializer Class để chuyển dữ liệu từ request vào database:</u></b>
+  <p class="pt-3">Trong các hàm thêm mới, chỉnh sửa đối tượng, dùng Serializer để validate
+    dữ liệu người dùng gửi lên (trong biến <b>request.data</b>). Nếu dữ liệu không hợp lệ
+    Serializer Class sẽ đưa ra thông báo lỗi cụ thể. Nếu hợp lệ, dữ liệu được lưu xuống database:
+  </p>
+  <pre>
+    <code class="language-python">
+      # File : app/views.py
+      ...
+      from .serializers import StudentSerializer
+
+      @api_view(['POST'])
+      def create_student(request):
+          serializer = StudentSerializer(data=request.data)
+          if serializer.is_valid():
+              serializer.save()
+              return Response(serializer.data)
+          else:
+              return Response(serializer.errors, status=400)
+
+      @api_view(['PUT'])
+      def update_student(request, pk):
+          student = Student.objects.get(pk=pk)
+          serializer = StudentSerializer(data=request.data, instance=student)
+          if serializer.is_valid():
+              serializer.save()
+              return Response(serializer.data)
+          else:
+              return Response(serializer.errors, status=400)
+    </code>
+  </pre>
+
+  <p>Việc validate dữ liệu được thực hiện qua phương thức <b>is_valid</b> của Serializer:</p>
+  <div class="offset-1">
+    <code>
+      <div>if serializer.is_valid():</div>
+      <div>&nbsp;&nbsp;&nbsp;...</div>
+    </code>
+  </div>
+  <p>Nếu dữ liệu không hợp lệ, thông báo lỗi được chứa trong trường <b>errors</b> của Serializer</p>
+  <div class="offset-1">
+    <code>
+      <div>if serializer.is_valid():</div>
+      <div class="mt-2">&nbsp;&nbsp;&nbsp;return Response(serializer.errors, status=400) # 400: Bad request</div>
+    </code>
+  </div>
+  <p class="pt-3">Nếu không có lỗi, dữ liệu được lưu xuống qua phương thức <b>save</b> của Serializer:</p>
+  <div class="offset-1">
+    <code>
+      serializer.save()
+    </code>
+  </div>
+
+  <br>
+  <b><u>Dùng Serializer Class để chuyển dữ liệu từ database xuống response:</u></b>
+  <p class="pt-2">Trong các hàm tìm kiếm, lấy dữ liệu bản ghi, Serializer được dùng để chuyển đối tượng ORM
+     sang dạng Dictionary để có thể trả về cho response:
+  </p>
+  <pre>
+    <code class="language-python">
+      @api_view(['GET'])
+      def get_student_by_id(request, pk):
+          student = Student.objects.get(pk=pk)
+          data = StudentSerializer(student).data
+          return Response(data)
+
+      @api_view(['GET'])
+      def search_student(request):
+          keyword = request.GET.get('keyword', '')
+          student_list = Student.objects.filter(
+              Q(fullname__icontains=keyword) | 
+              Q(student_number__icontains=keyword)
+          )
+          data = StudentSerializer(student_list, many=True).data
+          return Response(data)
+    </code>
+  </pre>
+  <p>Dữ liệu chuyển đổi được lấy ra từ trường <b>data</b> của Serializer:</p>
+  <div class="offset-1">
+    <code>
+      data = StudentSerializer(student).data
+    </code>
+  </div>
+  <p class="pt-3">Nếu cần chuyển đổi một danh sách nhiều bản ghi, cần thêm tham số <b>many=True</b> trong lệnh chuyển đổi:</p>
+  <div class="offset-1">
+    <code>
+      data = StudentSerializer(student_list, many=True).data
+    </code>
+  </div>
+  <p class="pt-3">Chương trình đầy đủ để tạo các web-service CRUD có sử dụng Serializer như sau:</p>
+  <pre>
+    <code class="language-python">
+      # File: app/models.py
+
+      from django.db import models
+
+      class Student(models.Model):
+          student_number = models.CharField(max_length=20, unique=True)
+          fullname = models.CharField(max_length=100)
+          birthdate = models.DateField()
+
+          def __str__(self):
+              return self.fullname
+
+      # TODO: Run db migration:
+      # python manage.py makemigrations
+      # python manage.py migrate
+    </code>
+    
+    <code class="language-python">
+      # File : app/serializers.py
+
+      from rest_framework.serializers import ModelSerializer
+      from .models import *
+
+      class StudentSerializer(ModelSerializer):
+          class Meta:
+              model = Student
+              fields = '__all__'   # ['student_number', 'fullname', 'birthdate']
+    </code>
+
+    <code class="language-python">
+      # File: app/views.py
+      
+      from datetime import datetime
+      from django.db.models import Q
+
+      from rest_framework.decorators import api_view
+      from rest_framework.response import Response
+      from .models import Student
+      from .serializers import StudentSerializer
+
+      @api_view(['POST'])
+      def create_student(request):
+          serializer = StudentSerializer(data=request.data)
+          if serializer.is_valid():
+              serializer.save()
+              return Response(serializer.data)
+          else:
+              return Response(serializer.errors, status=400)
+
+      @api_view(['PUT'])
+      def update_student(request, pk):
+          student = Student.objects.get(pk=pk)
+          serializer = StudentSerializer(data=request.data, instance=student)
+          if serializer.is_valid():
+              serializer.save()
+              return Response(serializer.data)
+          else:
+              return Response(serializer.errors, status=400)
+
+      @api_view(['GET'])
+      def get_student_by_id(request, pk):
+          student = Student.objects.get(pk=pk)
+          data = StudentSerializer(student).data
+          return Response(data)
+
+      @api_view(['GET'])
+      def search_student(request):
+          keyword = request.GET.get('keyword', '')
+          student_list = Student.objects.filter(
+              Q(fullname__icontains=keyword) | 
+              Q(student_number__icontains=keyword)
+          )
+          data = StudentSerializer(student_list, many=True).data
+          return Response(data)
+
+
+      @api_view(['DELETE'])
+      def delete_student(request, pk):
+          try:
+              student = Student.objects.get(pk=pk)
+              student.delete()
+              return Response({'success': True})
+          except Exception as e:
+              return Response({'success': False, 'error': str(e)})
+
+    </code>
+    
+    <code class="language-python">
+      # File: &lt;project_name&gt;/urls.py
+
+      from django.contrib import admin
+      from django.urls import path
+      from django.urls import include           # new
+
+      urlpatterns = [
+          path('admin/', admin.site.urls),
+          path('api/', include('app.urls')),    # new
+      ]
+    </code>
+
+    <code class="language-python">
+      # File: app/urls.py
+
+      from django.urls import path
+      from .views import *
+
+      urlpatterns = [
+          path('create-student', create_student),
+          path('update-student/&lt;pk&gt;', update_student),
+          path('delete-student/&lt;pk&gt;', delete_student),
+          path('get-student-by-id/&lt;pk&gt;', get_student_by_id),
+          path('search-student', search_student),
+      ]
+    </code>
+  </pre>
+  <h2><u>Tạo API với ViewClass</u></h2>
+  <p>
+    Ngoài cách tạo API thông qua hàm xử lý request (như các phần bên trên), DRF còn hỗ trợ việc tạo API sử dụng 
+    class (ViewClass). Mỗi ViewClass cần kế thừa class <b>APIView</b> của DRF. Bên trong mỗi ViewClass,
+    cần khai báo các hàm <b>get</b>, <b>post</b>, <b>put</b>, <b>delete</b>,... để xử lý tương ứng
+    cho các phương thức REST.
+  </p>
+  <p>Ví dụ:</p>
+  <pre>
+    <code class="language-python">
+      # File: app/views.py
+      
+      from rest_framework.views import APIView
+      from rest_framework.response import Response
+      from .models import Student
+      from .serializers import StudentSerializer
+
+      class StudentView(APIView):
+          def get(self, request):
+              student_list = Student.objects.all()
+              data = StudentSerializer(student_list, many=True).data
+              return Response(data)
+          
+          def post(self, request):
+              serializer = StudentSerializer(data=request.data)
+              if serializer.is_valid():
+                  serializer.save()
+                  return Response(serializer.data)
+              else:
+                  return Response(serializer.errors, status=400)
+    </code>
+    <code class="language-python">
+      # File: app/urls.py
+
+      from django.urls import path
+      from .views import *
+
+      urlpatterns = [
+          path('student', StudentView.as_view()),
+      ]
+    </code>
+    <code class="language-python">
+      # File: app/models.py
+
+      # ... Same as above
+    </code>
+    <code class="language-python">
+      # File: app/serializers.py
+
+      # ... Same as above
+    </code>
+
+    <code class="language-python">
+      # File: &lt;project_name&gt;/urls.py
+
+      # ... Same as above
+    </code>
+  </pre>
+
+  <p>
+    Việc đăng ký web-service với ViewClass trong file <b>urls.py</b> được thực hiện nhờ phương thức
+    <b>as_view</b> của ViewClass:
+  </p>
+  <div class="offset-1">
+    <code>
+      <div>urlpatterns = [</div>
+      <div>&nbsp;&nbsp;&nbsp;path('student', StudentView.as_view()),</div>
+      <div>]</div>
+    </code>
+  </div>
+  <p class="pt-3">
+    Với đăng ký này, web-service ở địa chỉ <span class="code">http://127.0.0.1:8000/api/student</span>
+    sẽ được xử lý bởi các phương thức bên trong class <b>StudentView</b>.
+  </p>
+  <p>
+    Do class <b>StudentView</b> hỗ trợ 2 phương thức <b>get</b> và <b>post</b>, có thể thực hiện
+    gọi service đến <span class="code">http://127.0.0.1:8000/api/student</span> thông qua cả 2 phương thức:
+  </p>
+  <ul>
+    <li>
+      <b>GET</b>: trả về danh sách các bản ghi
+      <div class="text-center my-4">
+        <img src="images4/21.png" alt="">
+      </div>
+    </li>
+    <li>
+      <b>POST</b>: tạo bản ghi mới
+      <div class="text-center my-4">
+        <img src="images4/22.png" alt="">
+      </div>
+    </li>
+  </ul>
+
+  <br>
+  <h2><u>Tạo CRUD API với ViewSet</u></h2>
+  <p>
+    Các API CRUD (thêm mới/lấy thông tin bản ghi/chỉnh sửa/xoá) thường giống nhau cho các đối tượng.
+    Để tránh phải viết lại các logic giống nhau này, DRF đưa ra ViewSet giúp tạo ra các CRUD API 
+    một cách tự động.
+  </p>
+  <h3><u>Khai báo Viewset</u></h3>
+  <p>Mỗi ViewSet cần kế thừa class <b>ModelViewSet</b> của DRF và cần khai báo 2 trường thông tin:</p>
+  <ul>
+    <li><b>serializer_class</b>: Serializer Class cho việc chuyển đổi dữ liệu</li>
+    <li class="mt-2"><b>queryset</b>: tập dữ liệu của ORM class, thường là toàn bộ các bản ghi trong database</li>
+  </ul>
+  <p>Ví dụ:</p>
+  <pre>
+    <code class="language-python">
+      // File: app/views.py
+
+      from rest_framework import viewsets
+      from .serializers import *
+      from .models import *
+
+      class StudentViewSet(viewsets.ModelViewSet):
+          serializer_class = StudentSerialzer
+          queryset = Student.objects.all()
+    </code>
+
+    <code class="language-python">
+      // File: app/urls.py
+
+      from rest_framework.routers import DefaultRouter
+      from .views import *
+
+      urlpatterns = [
+          #Declare normal routes
+      ]
+
+      #View set
+      router = DefaultRouter()
+      router.register('student', StudentViewSet)
+      urlpatterns += router.urls
+    </code>
+    <code class="language-python">
+      # File: app/models.py
+
+      # ... Same as above
+    </code>
+    <code class="language-python">
+      # File: app/serializers.py
+
+      # ... Same as above
+    </code>
+
+    <code class="language-python">
+      # File: &lt;project_name&gt;/urls.py
+
+      # ... Same as above
+    </code>
+  </pre>
+  <p>Việc đăng ký web-service với ViewSet được thực hiện trong file <b>urls.py</b>:</p>
+  <div class="offset-1">
+    <code>
+      <div class="mt-2">router = DefaultRouter()</div>
+      <div class="mt-2">router.register('student', StudentViewSet)</div>
+      <div class="mt-2">urlpatterns += router.urls</div>
+    </code>
+  </div>
+  <br>
+  <h3><u>Sử dụng Viewset</u></h3>
+  <p class="pt-3">Sau khi đăng ký Viewset, DRF tự động sinh ra các web-service sau:</p>
+  <ul>
+    <li class="mt-2"><span class="code">GET /api/student</span> : lấy danh sách bản ghi</li>
+    <li class="mt-2"><span class="code">GET /api/student/&lt;id&gt;</span> : lấy dữ liệu một bản ghi</li>
+    <li class="mt-2"><span class="code">POST /api/student/</span> : tạo mới 1 bản ghi (<b>lưu ý kí tự / ở cuối</b>)</li>
+    <li class="mt-2"><span class="code">PUT /api/student/&lt;id&gt;/</span> : cập nhật một bản ghi (<b>lưu ý kí tự / ở cuối</b>)</li>
+    <li class="mt-2"><span class="code">DELETE /api/student/&lt;id&gt;/</span> : xoá 1 bản ghi (<b>lưu ý kí tự / ở cuối</b>)</li>
+  </ul>
+  <br>
+  <h2><u>CORS</u></h2>
+  <p>Cross-Origin Resource Sharing (CORS) là việc cho phép gọi webservice (từ trình duyệt) giữa các website có 
+    domain khác nhau. Thông thường việc gọi webservice từ một địa chỉ (ví dụ <span class="code">http://www.site1</span>) 
+    sang một địa chỉ ở site khác (ví dụ <span class="code">http://www.site2</span>) sẽ bị chặn lại 
+    nếu site1 không được site2 cho phép.
+  </p>
+  <h3><u>Enable CORS trong DRF</u></h3>
+  <p>
+    Với web-server sử dụng DRF, để cấu hình CORS cho phép các site khác gọi service đến, cần thêm vào file
+    <b>settings.py</b> của project các đoạn cấu hình sau:
+  </p>
+  <ul>
+    <li>Phần <b>INSTALLED_APPS</b>: 
+      <div class="offset-1 mt-2">
+        <code>
+          <div>INSTALLED_APPS = [</div>
+          <div class="mt-1">&nbsp;&nbsp;&nbsp; 'corsheaders',</div>
+          <div class="mt-1">&nbsp;&nbsp;&nbsp;...</div>
+          <div class="mt-1">]</div>
+        </code>
+      </div>
+    </li>
+    <li class="mt-2">Phần <b>MIDDLEWARE_CLASSES</b>: 
+      <div class="offset-1 mt-2">
+        <code>
+          <div>MIDDLEWARE_CLASSES = [</div>
+          <div class="mt-1">&nbsp;&nbsp;&nbsp; 'corsheaders.middleware.CorsMiddleware',</div>
+          <div class="mt-1">&nbsp;&nbsp;&nbsp;...</div>
+          <div class="mt-1">]</div>
+        </code>
+      </div>
+    </li>
+    <li class="mt-2">Phần cuối của file <b>settings.py</b>:
+      <div class="offset-1 mt-2">
+        <code>
+          <div class="mt-1">CORS_ORIGIN_ALLOW_ALL = True</div>
+        </code>
+      </div>
+      hoặc
+      <div class="offset-1 mt-2">
+        <code>
+          <div class="mt-1">CORS_ORIGIN_WHITELIST = [...] # danh sách các website được gọi service, ví dụ http://127.0.0.1:3000</div>
+        </code>
+      </div>
+    </li>
+  </ul>
+  <h3><u>Kiểm tra CORS đã được bật</u></h3>
+  <p>Để kiểm tra CORS đã được bật, tạo mới một file html với nội dung như sau:</p>
+  <pre>
+    <code class="language-html">
+        &lt;script&gt;
+            fetch('http://127.0.0.1:8000/api/student')
+                .then(resp => resp.json())
+                .then(result => console.log(result));
+        &lt;/script&gt;
+    </code>
+  </pre>
+  <p>Click chuột file và chọn mở file với trình duyệt (Chrome/FireFox/Edge, ...)</p>
+  <p>
+    Khi trình duyệt đã mở, click chuột file vào màn hình trắng, chọn <b>Inspect</b>,
+    sau đó chọn tab <b>Console</b>
+  </p>
+  <p>
+    Nếu ở màn hình log của tab <b>Console</b> có hiện danh sách bản ghi do web-service trả về thì có nghĩa
+    CORS đã được bật thành công:
+  </p>
+  <div class="text-center my-4">
+    <img width="80%" src="images4/24.png" alt="">
+  </div>
+
+  <p>
+    Nếu có thông báo lỗi: <b>... blocked by CORS policy ...</b>, thì có nghĩa việc cấu hình CORS chưa đúng,
+    cần kiểm tra lại xem có thiếu/sai bước nào trong 3 bước cấu hình CORS ở phía trên.
+  </p>
+  <div class="text-center my-4">
+    <img width="80%" src="images4/23.png" alt="">
+  </div>
+
+  <h2><u>Bảo mật API với JWT</u></h2>
+  <p>JWT (Json Web Token) là cơ chế bảo mật để chỉ cho phép người dùng đã đăng nhập mới có khả năng truy nhập dịch vụ.</p>
+  <p>Cơ chế hoạt động của JWT:</p>
+  <ul>
+    <li>
+      Đăng nhập (lấy token): Client gửi username/password lên server, server kiểm tra nếu username/password thì trả về token.
+      Client giữ lại token để sử dụng cho các lần gọi dịch vụ về sau.
+    </li>
+    <li class="mt-2">
+      Gọi dịch vụ: Mỗi lần client gọi đến dịch vụ của server, phải gửi kèm token đã nhận được ở trên.
+    </li>
+    <li class="mt-2">
+      Refresh token: Sau một thời gian, nếu token hết hạn thì client phải lấy lại token mới.
+    </li>
+  </ul>
+  <b><u>Sử dụng JWT trong DRF</u></b>
+  <p>Có nhiều thư viện để sử dụng JWT với DRF, trong đó đơn giản nhất là <b>djangorestframework_simplejwt</b>:</p>
+  <div class="offset-1 code">
+      pip install djangorestframework_simplejwt
+  </div>
+  <p class="pt-3">Sau khi cài đặt thư viện, cần bổ sung thêm cấu hình JWT vào cuối file <b>settings.py</b>:</p>
+  <pre>
+    <code class="language-python">
+      # File: settings.py
+      ...
+      REST_FRAMEWORK = {
+        'DEFAULT_AUTHENTICATION_CLASSES': [       
+          'rest_framework_simplejwt.authentication.JWTAuthentication',
+        ],
+      }
+
+      from datetime import timedelta
+      SIMPLE_JWT = {
+        'ACCESS_TOKEN_LIFETIME': timedelta(days=1)      # đặt thời gian hết hạn token
+      }
+    </code>
+  </pre>
+  <p>Trong file <b>urls.py</b> của project bổ sung khai báo url cho API lấy token:</p>
+  <pre>
+    <code class="language-python">
+      # File: &lt;project_name&gt;/urls.py
+
+      from django.contrib import admin
+      from django.urls import path, include
+      from rest_framework_simplejwt import views as jwt_views              # new
+
+      urlpatterns = [
+          path('api/token', jwt_views.TokenObtainPairView.as_view()),      # new
+          path('api/', include('app.urls')),
+          path('admin/', admin.site.urls),
+      ]
+    </code>
+  </pre>
+  <p>Gắn chức năng bảo mật cho các web-service:</p>
+  <pre>
+    <code class="language-python">
+      # File: app/views.py
+
+      from rest_framework.response import Response
+      from rest_framework.decorators import api_view, permission_classes
+      from rest_framework.permissions import IsAuthenticated
+      from rest_framework.views import APIView
+
+      @api_view(['GET'])
+      @permission_classes([IsAuthenticated])
+      def hello_service(request, format=None):
+          return Response({"message" : "Hello"})
+
+      # ViewClass
+      class HelloView(APIView):
+          permission_classes = [IsAuthenticated]
+          
+          def get(request):        
+              return Response({"message" : "Hello"})
+    </code>
+
+    <code class="language-python">
+      # File: app/urls.py
+
+      from django.urls import path
+      from .views import *
+
+      urlpatterns = [
+          path('hello', hello_service),
+          path('hello2', HelloView.as_view()),
+      ]
+    </code>
+  </pre>
+
+  <b><u>Test API với Postman</u></b>
+  <p class="pt-2">
+    Sau khi đã gắn bảo mật cho các API (ở ví dụ trên là <span class="code">/api/hello</span> và <span class="code">/api/hello2</span>),
+    nếu truy nhập trực tiếp API từ trình duyệt sẽ gặp lỗi 403 Forbidden:
+  </p>
+  <div class="text-center my-4">
+    <img src="images4/25.png" alt="">
+  </div>
+  <p>Để gọi được API, phải lấy token và gửi kèm trong các lần gọi API.</p>
+  <i>Lấy token:</i>
+  <ul>
+    <li>
+      Tạo tài khoản: Sử dụng lệnh <span class="code">python manage.py createsuperuser</span> để tạo tài khoản
+      (xem phần Django Admin Panel)
+    </li>
+    <li>
+      Từ trình duyệt, truy nhập địa chỉ <span class="code">http://127.0.0.1:8000/api/token</span>,
+      dùng username/password đã tạo phía trên để lấy về token:
+      <div class="text-center my-4">
+        <img src="images4/26.png" alt="">
+      </div>
+      <div class="text-center my-4">
+        <img src="images4/27.png" alt="">
+      </div>
+    </li>
+  </ul>
+  <p>
+    <i>Sử dụng token để gọi API</i>: để gọi API, cần thêm token dưới dạng Bearer vào Header của request.
+  </p>
+  <p>
+    Sử dụng <a target="_blank" href='https://www.postman.com/downloads/'>Postman</a> để thực hiện gọi API có gắn token đi kèm.
+    Sau khi nhập địa chỉ API vào thanh địa chỉ của Postman, sang tab <b>Authorization</b>, 
+    chọn <b>Type</b> là <b>Bearer</b>, trong phần token, nhập vào giá trị của trường <b>access</b> trả về ở bước trên.
+  </p>
+  <p>Chọn <b>Send</b> để gọi API, kết quả sẽ trả về trong phần response bên dưới.</p>
+  
+  <div class="text-center my-4">
+    <img src="images4/28.png" alt="">
+  </div>
+</div>
