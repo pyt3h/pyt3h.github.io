@@ -39,14 +39,15 @@
 </style>
 <script>hljs.highlightAll();</script>
 <div class="container mt-3">
-  <h1><u>I. Cài đặt, tạo ứng dụng</u></h1>
-  <p>Để phát triển ứng dụng với Svelte cần cài đặt <a href='https://nodejs.org/en/download/'>Node.js</a></p>
+  <h1><u>I. Cài đặt môi trường phát triển</u></h1>
+  <b><u>Cài đặt công cụ phát triển</u></b>
+  <p class="pt-2">Để phát triển ứng dụng với Svelte cần cài đặt <a href='https://nodejs.org/en/download/'>Node.js</a></p>
   <p>Sau khi cài xong Node.js, cần cài thêm công cụ <b>degit</b>: từ cửa sổ command ,gõ lệnh:</p>
   <div class="my-3 code offset-1">
     npm install -g degit
   </div>
   <b><u>Tạo mới ứng dụng</u></b>
-  <p>Từ cửa sổ command gõ lệnh:</p>
+  <p class="pt-2">Từ cửa sổ command gõ lệnh:</p>
   <div class="my-3 code offset-1">
     <div>npx degit sveltejs/template my-app</div>
     <div>cd my-app</div>
@@ -54,8 +55,489 @@
   </div>
 
   <b><u>Chạy ứng dụng</u></b>
-  <p>Để chạy ứng dụng, mở cửa sổ command tại thư mục gốc của ứng dụng và chạy lệnh:</p>
+  <p class="pt-2">Để chạy ứng dụng, mở cửa sổ command tại thư mục gốc của ứng dụng và chạy lệnh:</p>
   <div class="my-3 code offset-1">
     npm run dev
+  </div>
+  <p>Truy nhập ứng dụng tại địa chỉ <span class="code">http://127.0.0.1:8080</span></p>
+  <div class="text-center my-4">
+    <img src="images4/1.png" alt="">
+  </div>
+  <b><u>Cài đặt IDE:</u></b>
+  <p class="pt-2">Nên sử dụng <a target="_blank" href="https://code.visualstudio.com/">Visual Studio Code</a> với Svelte Plugin:</p>
+  <div class="text-center my-4">
+    <img src="images4/2.png" alt="">
+  </div>
+  <br/>
+  <h1><u>II. Một số chức năng thông dụng trong svelte</u></h1>
+  <h2><u>Hiển thị dữ liệu từ javascript lên DOM</u></h2>
+  <p>
+    Các biến khai báo trong phần script của Svelte có thể được truy xuất trong phần HTML DOM.
+    Để phân biệt với các giá trị text thông thường của HTML, biến javascript được đặt trong cặp
+    dấu ngoặc nhọn.
+  </p>
+  <p>Ví dụ:</p>
+  <pre>
+    <code class="language-html">
+      &lt;script&gt;
+        let name = "Nguyen Van A";
+      &lt;/script&gt;
+      &lt;main&gt;
+        &lt;div&gt;Hello {name}&lt;/div&gt;
+      &lt;/main&gt;
+    </code>
+  </pre>
+  <div class="text-center my-4">
+    <img src="images4/3.png" alt="">
+  </div>
+
+  <p>Biến javascript cũng có thể dùng làm thuộc tính cho các thẻ HTML, ví dụ:</p>
+  <pre>
+    <code class="language-html">
+      &lt;!-- File: App.svelte--&gt;
+
+      &lt;script&gt;
+        let name = "Nguyen Van A";
+        let gender = "male";
+        let city = "HANOI";
+        let married = true;
+      &lt;/script&gt;
+
+      &lt;main&gt;
+        &lt;div&gt;Name: &lt;input value={name} />&lt;/div&gt;
+
+        &lt;div&gt;
+          Gender:
+          &lt;input type="radio" checked={gender == "male"} name="gender" /&gt; Male
+          &lt;input type="radio" checked={gender == "female"} name="gender" /&gt; Female
+        &lt;/div&gt;
+
+        &lt;div&gt;
+          Address:
+          &lt;select value={city}&gt;
+            &lt;option value="HANOI"&gt;Ha Noi&lt;/option&gt;
+            &lt;option value="HCMCity"&gt;HCM City&lt;/option&gt;
+          &lt;/select&gt;
+        &lt;/div&gt;
+        
+        &lt;div&gt;Married: &lt;input type="checkbox" checked={married} /&gt; &lt;/div&gt;
+
+      &lt;/main&gt;
+    </code>
+  </pre>
+  <div class="text-center my-4">
+    <img src="images4/4.png" alt="">
+  </div>
+
+  <h2><u>Component</u></h2>
+  <p>
+    Tương tự các frame Frontend khác, Svelte dùng Component để chia ứng dụng thành các phần nhỏ.
+    Trong Svelte, mỗi Component tương ứng với một file (.svelte).
+  </p>
+  <p>Ví dụ: Trong thư mục <b>src</b> của project tạo thư mục <b>components</b> và thêm mới các file như bên dưới:</p>
+  <div class="text-center my-4">
+    <img width="90%" src="images4/5.png" alt="">
+  </div>
+  <pre>
+    <code class="language-html">
+      &lt;!-- File: App.svelte--&gt;
+
+      &lt;script&gt;
+        import Footer from "./components/Footer.svelte";
+        import Header from "./components/Header.svelte";
+        import Main from "./components/Main.svelte";
+        let body = "Lorem ipsum dolor sit amet, ...";
+      &lt;/script&gt;
+
+      &lt;main&gt;
+        &lt;Header title="Demo App" /&gt;
+        &lt;Main body={body} /&gt;
+        &lt;Footer
+          privatePolicy="Private Policy"
+          termAndConditions="Term and Conditions"
+        /&gt;
+      &lt;/main&gt;
+    </code>
+    <code class="language-html">
+      &lt;!-- File: components/Header.svelte--&gt;
+
+      &lt;script&gt;
+        export let title;
+      &lt;/script&gt;
+      
+      &lt;h1&gt;{title}&lt;/h1&gt;
+    </code>
+
+    <code class="language-html">
+      &lt;!-- File: components/Main.svelte--&gt;
+
+      &lt;script&gt;
+        export let body;
+      &lt;/script&gt;
+      
+      &lt;p&gt;{body}&lt;/p&gt;
+    </code>
+
+    <code class="language-html">
+      &lt;!-- File: components/Footer.svelte--&gt;
+
+      &lt;script>
+        export let privatePolicy;
+        export let termAndConditions;
+        &lt;/script&gt;
+      
+      &lt;div style="display: flex;"&gt;
+        &lt;a href="#/"&gt;{privatePolicy}&lt;/a&gt;&amp;nbsp;|&amp;nbsp;
+        &lt;a href="#/"&gt;{termAndConditions}&lt;/a&gt;
+      &lt;/div>
+    </code>
+  </pre>
+  <p>
+    Mỗi component chứa một phần của ứng dụng: Header, Main, Footer, ..., file <b>Appp.svelte</b>
+    import các component và ghép lại thành ứng dụng đầy đủ:
+  </p>
+  <div class="offset-1">
+    <code>
+      <div>&lt;main&gt;</div>
+      <div>&nbsp;&nbsp;&lt;Header title="Demo App" /&gt;</div>
+      <div>&nbsp;&nbsp;&lt;Main body={body} /&gt;</div>
+      <div>&nbsp;&nbsp;&lt;Footer</div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;privatePolicy="Private Policy"</div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;termAndConditions="Term and Conditions"</div>
+      <div>&nbsp;&nbsp;/&gt;</div>
+      <div>&lt;/main&gt;</div>
+    </code>
+  </div>
+  <br/>
+  <b><u>Thuộc tính của Component:</u></b>
+  <p>
+    Thuộc tính dùng để truyền dữ liệu từ ứng dụng (hoăc Component lớn) sang các Component nhỏ hơn.
+    Thuộc tính của các Component được viết giống như cách viết thuộc tính của các thẻ HTML, nhưng
+    giá trị là một biểu thức javascript và được đặt trong cặp dấu ngoặc nhọn.
+  </p>
+  <p>Ví dụ, trong file <b>App.svelte</b>, dữ liệu được được truyền từ biến <b>body</b> 
+    sang cho Component <b>Main</b> theo cú pháp:</p>
+  <div class="offset-1">
+    <code>&lt;Main body={body} /&gt;</code>
+  </div>
+  <p class="pt-3">
+    Trong file <b>Main.svelte</b>, dữ liệu được lấy ra bằng cách thêm từ khoá <b>export</b>
+    trước khai báo của biến <b>body</b> trong phần script:
+  </p>
+  <div class="offset-1">
+    <code>
+      <div>&lt;script&gt;</div>
+      <div>&nbsp;&nbsp;<b>export</b> let body;</div>
+      <div>&lt;/script&gt;</div>
+    </code>
+  </div>
+  <p class="pt-3">Sau đó, trong phần html của <b>Main.svelte</b>, biến <b>body</b> này được dùng để hiển thị nội dung:</p>
+  <div class="offset-1">
+    <code>
+      &lt;p&gt;{body}&lt;/p&gt;
+    </code>
+  </div>
+  <br/>
+  <h2><u>Xử lý sự kiện</u></h2>
+  <p>Tương tự như javascript thông thường, có thể gắn các hàm xử lý sự kiện cho các thẻ html.</p>
+  <p>
+    Hàm xử lý sự kiện của Svelte được bắt đầu với ký hiện <b>on:</b> (on:change, on:click) để
+    phân biệt với các hàm xử lý sự kiện của javascript.
+  </p>
+  <p>Ví dụ:</p>
+  <pre>
+    <code class="language-html">
+      &lt;!-- File: App.svelte--&gt;
+      &lt;script&gt;
+        let name = "Nguyen Van A";
+        let gender = "male";
+
+        function handleNameChange(e) {
+          name = e.target.value;
+        }
+      &lt;/script&gt;
+      
+      &lt;main&gt;
+        &lt;div&gt;Name: &lt;input value={name} on:change={handleNameChange}/&gt; &lt;/div&gt;
+        
+        &lt;div&gt;
+          Gender:
+          &lt;input name="gender" type="radio" checked={gender == "male"} 
+            on:click={() => (gender = "male")}/&gt; Male
+          
+          &lt;input name="gender" type="radio" checked={gender == "female"} 
+            on:click={() => (gender = "female")}/&gt; Female
+        &lt;/div&gt; 
+        
+        &lt;br/&gt; 
+        &lt;div&gt; Your name: {name}&lt;/div&gt; 
+        &lt;div&gt; Your gender: {gender}&lt;/div&gt; 
+      &lt;/main&gt;
+    </code>
+  </pre>
+
+  <h2><u>Hiện thị theo điều kiện (if-else)</u></h2>
+  <p>Cú pháp <b>if</b> được dùng để hiện/ẩn một block theo một điều kiện logic:</p>
+  <div class="offset-1">
+    <code>
+      <div>{#if &lt;dieu_kien_logic&gt;}</div>
+      <div>&nbsp;&nbsp;&lt;block1&gt;</div>
+      <div>{:else}</div>
+      <div>&nbsp;&nbsp;&lt;block2&gt;</div>
+      <div>{/if}</div>
+    </code>
+  </div>
+  <p class="pt-3">Ví dụ:</p>
+  <pre>
+    <code class="language-html">
+      &lt;!-- File: App.svelte--&gt;
+      &lt;script&gt;
+        let loggedIn = false;
+      &lt;/script&gt;
+      
+      &lt;main&gt;
+        {#if !loggedIn}
+          &lt;button on:click={() =>; (loggedIn = true)}&gt;Log in&lt;/button&gt;
+        {:else}
+          &lt;button on:click={() =>; (loggedIn = false)}&gt;Log out&lt;/button&gt;
+        {/if}
+      &lt;/main&gt;
+      
+    </code>
+  </pre>
+  <h2><u>Hiện thị danh sách (vòng lặp for)</u></h2>
+  <p>Vòng lặp for được dùng để hiển thị dữ liệu ra các danh sách/bảng dữ liệu:</p>
+  <div class="offset-1">
+    <code>
+      <div>{#each item_list as item, index}</div>
+      <div>&nbsp;&nbsp;&lt;!-- render item --&gt;</div>
+      <div>{/each}</div>
+    </code>
+  </div>
+  <p>Ví dụ:</p>
+  <pre>
+    <code class="language-html">
+      &lt;!-- File: App.svelte--&gt;
+
+      &lt;script&gt;
+        let productList = [
+          {name: "IPhone X", price: 10500000},
+          {name: "IPhone 11", price: 11500000},
+          {name: "IPhone 12", price: 12500000},
+          {name: "IPhone 13", price: 13500000},
+        ]
+      &lt;/script&gt;
+      
+      &lt;main&gt;
+        &lt;table border="1" style="width: 40%;"&gt;
+          &lt;thead&gt;
+            &lt;tr&gt;
+              &lt;th&gt;#&lt;/th&gt;
+              &lt;th&gt;Sản phẩm&lt;/th&gt;
+              &lt;th&gt;Giá&lt;/th&gt;
+            &lt;/tr&gt;
+          &lt;/thead&gt;
+          &lt;tbody&gt;
+            {#each productList as product, index}
+              &lt;tr&gt;
+                &lt;td&gt;{index+1}&lt;/td&gt;
+                &lt;td&gt;{product.name}&lt;/td&gt;
+                &lt;td&gt;{product.price} đ&lt;/td&gt;
+              &lt;/tr&gt;
+            {/each}
+          &lt;/tbody&gt;
+        &lt;/table&gt;
+      &lt;/main&gt;
+    </code>
+  </pre>
+  <h2><u>Router</u></h2>
+  <p>Một ứng dụng thực tế thường có nhiều trang thành phần (tương tự như các file trong một thư mục)</p>
+  <p>Router được sử dụng để điều hướng truy nhập các trang của ứng dụng theo địa chỉ link (URL).</p>
+  <p>Để sử dụng router với Svelte, cần cài đặt thêm thư viện <b>svelte-navigator</b>: mở cửa sổ command
+    trong thư mục gốc của project và gõ lệnh:</p>
+  <div class="offset-1 code">
+    npm install svelte-navigator
+  </div>
+  <p class="pt-3">
+    Sau khi cài đặt xong, mở file <b>package.json</b> trong thư mục gốc của project và kiểm tra để đảm bảo
+    thư viện đã có trong danh sách <b>dependencies</b> của project:
+  </p>
+  <div class="text-center my-4">
+    <img src="images4/6.png" alt="">
+  </div>
+  <b><u>Cấu hình router:</u></b>
+  <p class="pt-2">Tạo thư mục <b>pages</b> trong thư mục gốc ứng dụng, sau đó tạo 2 file <b>Page1.svelte</b> và <b>Page2.svelte</b> trong thư mục này</p>
+  <p>Nhập nội dung các file như dưới đây:</p>
+  <div class="text-center my-4">
+    <img width="90%" src="images4/7.png" alt="">
+  </div>
+  <pre>
+    <code class="language-html">
+      &lt;!-- File: App.svelte--&gt;
+      &lt;script&gt;
+        import { Router, Route, Link } from "svelte-navigator";
+        import Page1 from "./pages/Page1.svelte";
+        import Page2 from "./pages/Page2.svelte";
+      &lt;/script&gt;
+      
+      &lt;Router&gt;
+        &lt;header&gt;
+          &lt;nav&gt;
+            &lt;Link to="/"&gt;Page 1&lt;/Link&gt;
+            &lt;Link to="/page-2"&gt;Page 2&lt;/Link&gt;
+          &lt;/nav&gt;
+        &lt;/header&gt;
+        &lt;main&gt;
+          &lt;Route path="/"&gt;
+            &lt;Page1/&gt;
+          &lt;/Route&gt;
+          &lt;Route path="/page-2"&gt;
+            &lt;Page2/&gt;
+          &lt;/Route&gt;
+        &lt;/main&gt;
+      &lt;/Router&gt;
+    </code>
+    <code class="language-html">
+      &lt;!-- File: pages/Page1.svelte--&gt;
+      &lt;main&gt;
+        &lt;h1&gt;Page 1&lt;/h1&gt;
+        Page 1 Content
+      &lt;/main&gt;
+    </code>
+    <code class="language-html">
+      &lt;!-- File: pages/Page2.svelte--&gt;
+      &lt;main&gt;
+        &lt;h1&gt;Page 2&lt;/h1&gt;
+        Page 2 Content
+      &lt;/main&gt;
+    </code>
+  </pre>
+  <p>Khi chạy ứng dụng, giao diện sẽ có dạng như hình bên dưới:</p>
+  <div class="row my-4">
+    <div class="col-6">
+      <img width="95%" src="images4/8.png" alt="">
+    </div>
+    <div class="col-6">
+      <img width="95%" src="images4/9.png" alt="">
+    </div>
+  </div>
+  <p>Phía trên cùng của ứng dụng là navigator với các link để chuyển trang, phía dưới là nội dung trang được chọn.</p>
+  <p>Khi click vào các link trên navigator thì trang tương ứng sẽ được hiển thị. Ngoài ra, trên thanh địa chỉ trình duyệt, địa chỉ trang cũng thay đổi theo.</p>
+
+  <h2><u>Store</u></h2>
+  <p>Store được dùng để trao đổi dữ liệu giữa các component</p>
+  <p>Quá trình trao đổi dữ liệu giữa Component cha và Component con được thực hiện qua thuộc tính (
+    xem phần Component.). Việc trao đổi giữa liệu giữa các Component ở các cấp khác nhau không thể thực hiện theo cách này.
+  </p>
+
+  <p>Để khắc phục vấn đề này, store giúp trao đổi dữ liệu giữa 2 component bất kỳ theo mô hình sau:</p>
+  <div class="text-center my-4">
+    <img width="80%" height="400" src="images4/10.svg" alt="">
+  </div>
+  <p>Khi có sự kiện ở Component 1, action được thực hiện (commit) để làm thay đổi trạng thái của store.
+     Component 2 đăng ký theo dõi sự thay đổi này (subscribe) và cập nhật lại hiển thị khi trạng thái thay đổi.
+  </p>
+  <h3><u>Cấu hình store:</u></h3>
+  <p class="pt-2">Tạo mới file <b>store.js</b> trong thư mục <b>src</b> của project với nội dung như sau:</p>
+  <pre>
+    <code class="language-javascript">
+      // store.js
+
+      import { writable } from "svelte/store";
+
+      export const state1 = writable("initialState1");
+      export const state2 = writable("initialState2");
+      //...
+    </code>
+  </pre>
+  <p>
+    Các biến <b>state1</b>, <b>state2</b>, ... là các biến trạng thái chia sẻ chung cho tất cả các Component, còn
+    <b>initialState1</b>, <b>initialState2</b>, ... là các giá trị khởi tạo cho các biến này.
+  </p>
+  <h3><u>Sử dụng Store:</u></h3>
+  <p>Việc sử dụng Store gồm 2 phần: Thay đổi giá trị biến trạng thái của store (commit action) và đăng ký theo dõi
+    sự thay đổi của các biến trạng thái.
+  </p>
+  <b><u>Thay đổi biến trạng thái của Store:</u></b>
+  <p class="pt-2">Để thay đổi trạng thái của store, sử dụng theo cách sau:</p>
+  <pre>
+    <code class="language-javascript">
+      import { state1 } from "./stores";
+      function commitAction() {
+        state1.update(val => new_val);
+      }
+    </code>
+  </pre>
+  <p>
+    Sử dụng hàm <b>update</b> của biến trạng thái để làm thay đổi giá trị biến đó. Hàm <b>update</b> có tham số
+    là một hàm với đầu vào là giá trị hiện tại của biến trạng thái và kết quả trả về là giá trị mới của biến trạng thái.
+  </p>
+  <div class="offset-1">
+    <code>state1.update(val => new_val);</code>
+  </div>
+  <br/>
+  <b><u>Đăng ký theo dõi thay đổi của các biến trạng thái</u></b>
+  <p class="pt-2">
+    Khi một biến trạng thái thay đổi giá trị, một số Component cần phải hiển thị lại (re-render).
+    Để thực hiện việc này, Component cần đăng ký theo dõi sự thay đổi giá trị của biến trạng thái đó.
+    Cách thực hiện như sau:
+  </p>
+  <pre>
+    <code class="language-javascript">
+      import { state1 } from "./stores";
+      let localState1;
+      state1.subscribe(val => localState1 = val);
+    </code>
+  </pre>
+  <p>
+    Component cần khai báo một biến để chứa trạng thái tạm thời (local state), sau đó dùng hàm <b>subscribe</b>
+    của biến trạng thái của store để update trạng thái local khi có sự thay đổi.
+  </p>
+  <p>Biến trạng thái local sau đó được dùng để hiển thị trong phần HTML của component</p>
+  <pre>
+    <code class="language-html">
+      &lt;main&gt;
+        ...
+        &lt;div&gt;{localState1}&lt;/div&gt;
+        ...
+      &lt;/main&gt;
+    </code>
+  </pre>
+  <b><u>Ví dụ: Counter app</u></b>
+  <p class="pt-2">Ứng dụng counter có một biến trạng thái (ban đầu bằng 0), 
+    khi người dùng click vào button tăng thì counter tăng thêm 1,
+    khi người dùng click vào button giảm thì counter giảm đi 1.
+  </p>
+  <pre>
+    <code class="language-javascript">
+      import { writable } from "svelte/store";
+      export const counter = writable(0);
+    </code>
+    <code class="language-html">
+      &lt;script&gt;
+        import { counter } from "./store";
+        
+        function increase() {
+          counter.update(val => val+1);
+        }
+      
+        function decrease() {
+          counter.update(val => val-1);
+        }
+        let counterValue;
+      
+        counter.subscribe(val => counterValue = val);
+      &lt;/script&gt;
+      
+      &lt;main&gt;
+        Counter: {counterValue} 
+        &lt;button on:click={increase}&gt;+&lt;/button&gt;
+        &lt;button on:click={decrease}&gt;-&lt;/button&gt;
+      &lt;/main&gt;
+    </code>
+  </pre>
+  <p>Khi chạy ứng dụng, kết quả sẽ như sau:</p>
+  <div class="text-center my-4">
+    <img width="60%" src="images4/11.png" alt="">
   </div>
 </div>

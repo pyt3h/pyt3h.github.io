@@ -604,12 +604,85 @@
     <img width="80%" src="images3/7.png" alt="">
   </div>
 
+  <pre>
+    <code class="language-javascript">
+      import React from 'react';
+      import ReactDOM from 'react-dom';
+      import './index.css';
+      import App from './App';
+      import reportWebVitals from './reportWebVitals';
+      import { BrowserRouter } from "react-router-dom";
+
+      ReactDOM.render(
+        &lt;React.StrictMode&gt;
+          &lt;BrowserRouter&gt;
+            &lt;App /&gt;
+          &lt;/BrowserRouter&gt;
+        &lt;/React.StrictMode&gt;,
+        document.getElementById('root')
+      );
+
+      // ...
+      reportWebVitals();
+    </code>
+  </pre>
   <p>Tạo thư mục <b>pages</b> trong thư mục gốc ứng dụng, sau đó tạo 2 file <b>Page1.js</b> và <b>Page2.js</b> trong thư mục <b>Page</b></p>
   <p>Nhập nội dung cho các file <b>App.js</b>, <b>Page1.js</b>, <b>Page2.js</b> như hình dưới đây:</p>
   
   <div class="text-center my-4">
     <img width="95%" src="images3/8.png" alt="">
   </div>
+
+  <pre>
+    <code class="language-javascript">
+      // File: App.js
+
+      import Page1 from "./pages/Page1";
+      import Page2 from "./pages/Page2";
+      import { Link, Routes, Route } from "react-router-dom";
+      
+      export default function App() {
+        return(
+          &lt;&gt;
+            &lt;nav&gt;
+              &lt;Link to="/"&gt;Page 1&lt;/Link&gt; {" "}
+              &lt;Link to="/page-2"&gt;Page 2&lt;/Link&gt;
+            &lt;/nav&gt;
+            
+            &lt;Routes&gt;
+              &lt;Route path="/" element={&lt;Page1 /&gt;}/&gt;
+              &lt;Route path="/page-2" element={&lt;Page2 /&gt;}/&gt;
+            &lt;/Routes&gt;
+          &lt;/&gt;
+        )
+      }
+    </code>
+    <code class="language-javascript">
+      // File: pages/Page1.js
+
+      export default function Page1() {
+        return (
+          &lt;div&gt;
+            &lt;h1&gt;Page 1&lt;/h1&gt;
+            Page 1 Content
+          &lt;/div&gt;
+        )
+      }
+    </code>
+
+    <code class="language-javascript">
+      // File: pages/Page2.js
+
+      export default function Page2() {
+        return (
+          &lt;div&gt;
+            &lt;h1&gt;Page 2&lt;/h1&gt;
+            Page 2 Content
+          &lt;/div&gt;
+        )
+      }
+    </code>
+  </pre>
 
   <p>Khởi động ứng dụng (<b>npm start</b>), giao diện ứng dụng trên trình duyệt sẽ như sau:</p>
   <div class="row my-4">
@@ -637,8 +710,10 @@
 
   <p>Đây là thư viện giúp cho việc chia sẻ các biến trạng thái giữa các Component với nhau.</p>
   <p>Quá trình trao đổi dữ liệu (biến trạng thái) giữa Component cha và Component con được thực hiện qua thuộc tính (
-    xem phần Component.) Để trao đổi dữ liệu giữa Component thuộc các cấp khác nhau, cần sử dụng một kho dữ liệu 
-    chung (store) theo mô hình như sau:
+    xem phần Component.). Việc trao đổi giữa liệu giữa các Component ở các cấp khác nhau không thể thực hiện theo cách này.
+  </p>
+
+  <p>Để khắc phục vấn đề này, store giúp trao đổi dữ liệu giữa 2 component bất kỳ theo mô hình sau:
   </p>
   
   <div class="text-center my-4">

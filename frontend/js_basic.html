@@ -963,4 +963,188 @@
     </tbody>
   </table>
 
+  <h1><u>II. Sử dụng javascript để điều khiển DOM</u></h1>
+  <h2><u>Debug javascript trên trình duyệt</u></h2>
+  <p>
+    Để Debug Javascript trên trình duyệt có thể sử dụng hàm <b>alert</b> để đưa ra thông báo (nên hạn chế dùng)
+    hoặc dùng hàm <b>console.log</b> (in ra tab console của trình duyệt). 
+  </p>
+  <p>Ví dụ:</p>
+  <pre>
+    <code class="language-html">
+      &lt;script&gt;
+        console.log('Xin chào !!!!');        
+        alert('Xin chào');                
+      &lt;/script&gt;
+    </code>
+  </pre>
+  <p>
+    Để xem log trên trình duyệt, click chuột phải vào màn hình trang web, chọn inspect, menu phát triển sẽ mở ra.
+    Chuyển sang tab <b>console</b> để xem nội dung log do javascript in ra:
+  </p>
+  <div class="text-center my-4">
+    <img src="images2/3.png" alt="">
+  </div>
+
+  <br/>
+  <h2><u>1. Truy xuất các phần tử HTML qua id</u></h2>
+  <p>Trong HTML, mỗi phần tử được định danh duy nhất qua id:</p>
+  <div class="offset-1">
+    <code>
+      &lt;div <b>id="div1"</b>&gt;&lt;/div&gt;
+    </code>
+  </div>
+  <p class="pt-3">Để truy xuất đến một phần tử HTML, javascript sử dụng hàm <b>document.getElementById</b>:</p>
+  <div class="offset-1">
+    <code>
+      <div>&lt;script&gt;</div>
+      <div>&nbsp;&nbsp;let el1 = <b>document.getElementById</b>('div1');</div>
+      <div>&lt;/script&gt;</div>
+    </code>
+  </div>
+  <p class="pt-3">
+    Hàm <b>document.getElementById</b> trả về một thẻ (handle) dùng để điều khiển phần tử HTML.
+    Một số thao tác có thể thực hiện thông qua thẻ điều khiển này:
+  </p>
+  <ul>
+    <li>Đọc/ghi nội dung của phần tử</li>
+    <li class="mt-2">Đọc/ghi thuộc tính của phần tử</li>
+    <li class="mt-2">Hiện/ẩn/xoá phần tử</li>
+  </ul>
+
+  <h2><u>2. Đọc/ghi nội dung các phần tử HTML</u></h2>
+  <p>
+    Việc đọc/ghi nội dung các phần tử HTML được thực hiện thông qua thuộc tính <b>innerHTML</b>
+    của thẻ điều khiển trả về từ hàm <b>document.getElementById</b> trong phần trên.
+  </p>
+  <p>Ví dụ:</p>
+  <pre>
+    <code class="language-html">
+      &lt;body&gt;
+        &lt;div id='div1'&gt;Thẻ 1&lt;/div&gt;
+        &lt;div id='div2'&gt;&lt;/div&gt;
+      &lt;/body&gt;
+      &lt;script&gt;
+        let div1 = document.getElementById('div1');
+        alert('Nội dung thẻ 1:' + div1.innerHTML);
+        let div2 = document.getElementById('div2');
+        div2.innerHTML = 'Thẻ 2';
+      &lt;/script&gt;
+    </code>
+  </pre>
+  <p>Việc đọc nội dung thẻ được thực hiện qua việc đọc thuộc tính <b>innerHTML</b>:</p>
+  <div class="offset-1">
+    <code>
+      <div>let div1 = document.getElementById('div1');</div>
+      <div class="mt-2">alert('Nội dung thẻ 1:' + div1.<b>innerHTML</b>);</div>
+    </code>
+  </div>
+  <p class="pt-3">Việc ghi nội dung vào thẻ được thực hiện thông qua việc đặt gía trị cho thuộc tính <b>innerHTML</b>:</p>
+  <div class="offset-1">
+    <code>
+      <div>let div2 = document.getElementById('div2');</div>
+      <div class="mt-2">div2.<b>innerHTML</b> = 'Thẻ 2';</div>
+    </code>
+  </div>
+  <br/>
+  <h2><u>3. Đọc/ghi giá trị các phần tử nhập dữ liệu</u></h2>
+  <p>
+    Các phần tử nhập dữ liệu (input, textarea, select), chứa giá trị do người dùng nhập vào.
+    Để đọc/ghi các giá trị này, sử dụng thuộc tính <b>value</b> của thẻ điều khiển trả về từ hàm <b>document.getElementById</b>.
+  </p>
+  <p>Ví dụ:</p>
+  <pre>
+    <code class="language-html">
+      &lt;body&gt;
+        &lt;p&gt;Họ tên: &lt;input id="name"/&gt;&lt;/p&gt;
+        &lt;p&gt;Giới tính:
+          &lt;select id="gender"&gt;
+            &lt;option value=""&gt;----&lt;/option&gt;
+            &lt;option value="male"&gt;Nam&lt;/option&gt;
+            &lt;option value="female"&gt;Nữ&lt;/option&gt;
+          &lt;/select&gt;
+        &lt;/p&gt;
+        &lt;button onclick='readData()'&gt;OK&lt;/button&gt;
+      &lt;/body&gt;
+
+      &lt;script&gt;
+        function readData() {
+          let nameElem = document.getElementById('name');
+          let name = nameElem.value;
+      
+          let genderElem = document.getElementById('gender');
+          let gender = genderElem.value;
+          
+          alert(`Họ tên: ${name}, giới tính: ${gender}`);
+      
+          //clear data
+          nameElem.value = '';
+          genderElem.value = '';
+        }
+      &lt;/script&gt;
+    </code>
+  </pre>
+  <p>
+    Riêng với các thẻ input thuộc loại <b>checkbox</b> thì sử dụng thuộc tính <b>checked</b> của thẻ điều khiển để
+    đọc/ghi giá trị:
+  </p>
+  <pre>
+    <code class="language-html">
+      &lt;body&gt;
+        &lt;p&gt;Đồng ý với điều khoản sử dụng: &lt;input type="checkbox" id="agree"/&gt;&lt;/p&gt;
+        &lt;button onclick='readData()'&gt;OK&lt;/button&gt;
+      &lt;/body&gt;
+
+      &lt;script&gt;
+        function readData() {
+          let agreeElem = document.getElementById('agree');
+          let agree = agreeElem.checked;
+          alert(agree?'Đã đồng ý': 'Chưa đồng ý');
+        }
+      &lt;/script&gt;
+    </code>
+  </pre>
+  <h2><u>4. Xử lý sự kiện</u></h2>
+  <p>Các sự kiện sẽ phat sinh khi người dùng thao tác với các phần tử HTML.</p>
+  <p>
+    Mỗi sự kiện được xử lý bởi một hàm tương ứng của phần tử HTML. Hàm xử lý sự kiện có tên được bắt đầu
+    với ký hiệu <b>on</b> kèm theo tên sự kiện phía sau.
+  </p>
+  <p>
+    Hai sự kiện thường sử dụng nhất là <b>onclick</b> (khi người dùng click chuột vào phần tử HTML)
+    và <b>onchange</b> (khi người dùng thay đổi giá trị của các trường nhập liệu).
+  </p>
+  <p>Ví dụ xử lý sự kiện <b>onclick</b>:</p>
+  <pre>
+    <code class="language-html">
+      &lt;body&gt;
+        &lt;button onclick="btnClk()"&gt;OK&lt;/button&gt;
+      &lt;/body&gt;
+      &lt;script&gt;
+        function btnClk() {
+          alert("OK");
+        }
+      &lt;/script&gt;
+    </code>
+  </pre>
+
+  <p>Ví dụ xử lý sự kiện <b>onchange</b>:</p>
+  <pre>
+    <code class="language-html">
+      &lt;body&gt;
+        &lt;select onchange="selChange(this)"&gt;
+          &lt;option value="1"&gt;Option 1&lt;/option&gt;
+          &lt;option value="2"&gt;Option 2&lt;/option&gt;
+        &lt;/select&gt;
+      &lt;/body&gt;
+      
+      &lt;script&gt;
+        function selChange(el) {
+          var options = el.options;
+          var index = el.selectedIndex;
+          alert(options[index].value);
+        }
+      &lt;/script&gt;
+    </code>
+  </pre>
 </div>
