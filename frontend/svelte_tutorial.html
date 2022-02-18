@@ -37,7 +37,18 @@
     font-weight: 700;
   }
 </style>
-<script>hljs.highlightAll();</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+  $(document).ready(function(){
+    $("pre code").each(function(){
+        var html = $(this).html();
+        var pattern = html.match(/\s*\n[\t\s]*/);
+        $(this).html(html.replace(new RegExp(pattern, "g"),'\n'));
+    });
+    hljs.highlightAll();
+  })
+</script>
+
 <div class="container mt-3">
   <h1><u>I. Cài đặt môi trường phát triển</u></h1>
   <b><u>Cài đặt công cụ phát triển</u></b>
@@ -77,54 +88,60 @@
     dấu ngoặc nhọn.
   </p>
   <p>Ví dụ:</p>
-  <pre>
-    <code class="language-html">
-      &lt;script&gt;
-        let name = "Nguyen Van A";
-      &lt;/script&gt;
-      &lt;main&gt;
-        &lt;div&gt;Hello {name}&lt;/div&gt;
-      &lt;/main&gt;
-    </code>
-  </pre>
+  <div class="offset-1">
+    <pre>
+      <code class="language-html">
+        &lt;script&gt;
+          let name = "Nguyen Van A";
+        &lt;/script&gt;
+        &lt;main&gt;
+          &lt;div&gt;Hello {name}&lt;/div&gt;
+        &lt;/main&gt;
+      </code>
+    </pre>
+  </div>
+
   <div class="text-center my-4">
     <img src="images4/3.png" alt="">
   </div>
 
   <p>Biến javascript cũng có thể dùng làm thuộc tính cho các thẻ HTML, ví dụ:</p>
-  <pre>
-    <code class="language-html">
-      &lt;!-- File: App.svelte--&gt;
+  <div class="offset-1">
+    <pre>
+      <code class="language-html">
+        &lt;!-- File: App.svelte--&gt;
 
-      &lt;script&gt;
-        let name = "Nguyen Van A";
-        let gender = "male";
-        let city = "HANOI";
-        let married = true;
-      &lt;/script&gt;
+        &lt;script&gt;
+          let name = "Nguyen Van A";
+          let gender = "male";
+          let city = "HANOI";
+          let married = true;
+        &lt;/script&gt;
 
-      &lt;main&gt;
-        &lt;div&gt;Name: &lt;input value={name} />&lt;/div&gt;
+        &lt;main&gt;
+          &lt;div&gt;Name: &lt;input value={name} />&lt;/div&gt;
 
-        &lt;div&gt;
-          Gender:
-          &lt;input type="radio" checked={gender == "male"} name="gender" /&gt; Male
-          &lt;input type="radio" checked={gender == "female"} name="gender" /&gt; Female
-        &lt;/div&gt;
+          &lt;div&gt;
+            Gender:
+            &lt;input type="radio" checked={gender == "male"} name="gender" /&gt; Male
+            &lt;input type="radio" checked={gender == "female"} name="gender" /&gt; Female
+          &lt;/div&gt;
 
-        &lt;div&gt;
-          Address:
-          &lt;select value={city}&gt;
-            &lt;option value="HANOI"&gt;Ha Noi&lt;/option&gt;
-            &lt;option value="HCMCity"&gt;HCM City&lt;/option&gt;
-          &lt;/select&gt;
-        &lt;/div&gt;
-        
-        &lt;div&gt;Married: &lt;input type="checkbox" checked={married} /&gt; &lt;/div&gt;
+          &lt;div&gt;
+            Address:
+            &lt;select value={city}&gt;
+              &lt;option value="HANOI"&gt;Ha Noi&lt;/option&gt;
+              &lt;option value="HCMCity"&gt;HCM City&lt;/option&gt;
+            &lt;/select&gt;
+          &lt;/div&gt;
+          
+          &lt;div&gt;Married: &lt;input type="checkbox" checked={married} /&gt; &lt;/div&gt;
 
-      &lt;/main&gt;
-    </code>
-  </pre>
+        &lt;/main&gt;
+      </code>
+    </pre>
+  </div>
+
   <div class="text-center my-4">
     <img src="images4/4.png" alt="">
   </div>
@@ -138,60 +155,64 @@
   <div class="text-center my-4">
     <img width="90%" src="images4/5.png" alt="">
   </div>
-  <pre>
-    <code class="language-html">
-      &lt;!-- File: App.svelte--&gt;
 
-      &lt;script&gt;
-        import Footer from "./components/Footer.svelte";
-        import Header from "./components/Header.svelte";
-        import Main from "./components/Main.svelte";
-        let body = "Lorem ipsum dolor sit amet, ...";
-      &lt;/script&gt;
+  <div class="offset-1">
+    <pre>
+      <code class="language-html">
+        &lt;!-- File: App.svelte--&gt;
 
-      &lt;main&gt;
-        &lt;Header title="Demo App" /&gt;
-        &lt;Main body={body} /&gt;
-        &lt;Footer
-          privatePolicy="Private Policy"
-          termAndConditions="Term and Conditions"
-        /&gt;
-      &lt;/main&gt;
-    </code>
-    <code class="language-html">
-      &lt;!-- File: components/Header.svelte--&gt;
-
-      &lt;script&gt;
-        export let title;
-      &lt;/script&gt;
-      
-      &lt;h1&gt;{title}&lt;/h1&gt;
-    </code>
-
-    <code class="language-html">
-      &lt;!-- File: components/Main.svelte--&gt;
-
-      &lt;script&gt;
-        export let body;
-      &lt;/script&gt;
-      
-      &lt;p&gt;{body}&lt;/p&gt;
-    </code>
-
-    <code class="language-html">
-      &lt;!-- File: components/Footer.svelte--&gt;
-
-      &lt;script>
-        export let privatePolicy;
-        export let termAndConditions;
+        &lt;script&gt;
+          import Footer from "./components/Footer.svelte";
+          import Header from "./components/Header.svelte";
+          import Main from "./components/Main.svelte";
+          let body = "Lorem ipsum dolor sit amet, ...";
         &lt;/script&gt;
-      
-      &lt;div style="display: flex;"&gt;
-        &lt;a href="#/"&gt;{privatePolicy}&lt;/a&gt;&amp;nbsp;|&amp;nbsp;
-        &lt;a href="#/"&gt;{termAndConditions}&lt;/a&gt;
-      &lt;/div>
-    </code>
-  </pre>
+
+        &lt;main&gt;
+          &lt;Header title="Demo App" /&gt;
+          &lt;Main body={body} /&gt;
+          &lt;Footer
+            privatePolicy="Private Policy"
+            termAndConditions="Term and Conditions"
+          /&gt;
+        &lt;/main&gt;
+      </code>
+      <code class="language-html">
+        &lt;!-- File: components/Header.svelte--&gt;
+
+        &lt;script&gt;
+          export let title;
+        &lt;/script&gt;
+        
+        &lt;h1&gt;{title}&lt;/h1&gt;
+      </code>
+
+      <code class="language-html">
+        &lt;!-- File: components/Main.svelte--&gt;
+
+        &lt;script&gt;
+          export let body;
+        &lt;/script&gt;
+        
+        &lt;p&gt;{body}&lt;/p&gt;
+      </code>
+
+      <code class="language-html">
+        &lt;!-- File: components/Footer.svelte--&gt;
+
+        &lt;script>
+          export let privatePolicy;
+          export let termAndConditions;
+          &lt;/script&gt;
+        
+        &lt;div style="display: flex;"&gt;
+          &lt;a href="#/"&gt;{privatePolicy}&lt;/a&gt;&amp;nbsp;|&amp;nbsp;
+          &lt;a href="#/"&gt;{termAndConditions}&lt;/a&gt;
+        &lt;/div>
+      </code>
+    </pre>
+  </div>
+
   <p>
     Mỗi component chứa một phần của ứng dụng: Header, Main, Footer, ..., file <b>Appp.svelte</b>
     import các component và ghép lại thành ứng dụng đầy đủ:
@@ -245,36 +266,39 @@
     phân biệt với các hàm xử lý sự kiện của javascript.
   </p>
   <p>Ví dụ:</p>
-  <pre>
-    <code class="language-html">
-      &lt;!-- File: App.svelte--&gt;
-      &lt;script&gt;
-        let name = "Nguyen Van A";
-        let gender = "male";
 
-        function handleNameChange(e) {
-          name = e.target.value;
-        }
-      &lt;/script&gt;
-      
-      &lt;main&gt;
-        &lt;div&gt;Name: &lt;input value={name} on:change={handleNameChange}/&gt; &lt;/div&gt;
+  <div class="offset-1">
+    <pre>
+      <code class="language-html">
+        &lt;!-- File: App.svelte--&gt;
+        &lt;script&gt;
+          let name = "Nguyen Van A";
+          let gender = "male";
+
+          function handleNameChange(e) {
+            name = e.target.value;
+          }
+        &lt;/script&gt;
         
-        &lt;div&gt;
-          Gender:
-          &lt;input name="gender" type="radio" checked={gender == "male"} 
-            on:click={() => (gender = "male")}/&gt; Male
+        &lt;main&gt;
+          &lt;div&gt;Name: &lt;input value={name} on:change={handleNameChange}/&gt; &lt;/div&gt;
           
-          &lt;input name="gender" type="radio" checked={gender == "female"} 
-            on:click={() => (gender = "female")}/&gt; Female
-        &lt;/div&gt; 
-        
-        &lt;br/&gt; 
-        &lt;div&gt; Your name: {name}&lt;/div&gt; 
-        &lt;div&gt; Your gender: {gender}&lt;/div&gt; 
-      &lt;/main&gt;
-    </code>
-  </pre>
+          &lt;div&gt;
+            Gender:
+            &lt;input name="gender" type="radio" checked={gender == "male"} 
+              on:click={() => (gender = "male")}/&gt; Male
+            
+            &lt;input name="gender" type="radio" checked={gender == "female"} 
+              on:click={() => (gender = "female")}/&gt; Female
+          &lt;/div&gt; 
+          
+          &lt;br/&gt; 
+          &lt;div&gt; Your name: {name}&lt;/div&gt; 
+          &lt;div&gt; Your gender: {gender}&lt;/div&gt; 
+        &lt;/main&gt;
+      </code>
+    </pre>
+  </div>
 
   <h2><u>Hiện thị theo điều kiện (if-else)</u></h2>
   <p>Cú pháp <b>if</b> được dùng để hiện/ẩn một block theo một điều kiện logic:</p>
@@ -288,23 +312,27 @@
     </code>
   </div>
   <p class="pt-3">Ví dụ:</p>
-  <pre>
-    <code class="language-html">
-      &lt;!-- File: App.svelte--&gt;
-      &lt;script&gt;
-        let loggedIn = false;
-      &lt;/script&gt;
-      
-      &lt;main&gt;
-        {#if !loggedIn}
-          &lt;button on:click={() =>; (loggedIn = true)}&gt;Log in&lt;/button&gt;
-        {:else}
-          &lt;button on:click={() =>; (loggedIn = false)}&gt;Log out&lt;/button&gt;
-        {/if}
-      &lt;/main&gt;
-      
-    </code>
-  </pre>
+
+  <div class="offset-1">
+    <pre>
+      <code class="language-html">
+        &lt;!-- File: App.svelte--&gt;
+        &lt;script&gt;
+          let loggedIn = false;
+        &lt;/script&gt;
+        
+        &lt;main&gt;
+          {#if !loggedIn}
+            &lt;button on:click={() =>; (loggedIn = true)}&gt;Log in&lt;/button&gt;
+          {:else}
+            &lt;button on:click={() =>; (loggedIn = false)}&gt;Log out&lt;/button&gt;
+          {/if}
+        &lt;/main&gt;
+        
+      </code>
+    </pre>
+  </div>
+
   <h2><u>Hiện thị danh sách (vòng lặp for)</u></h2>
   <p>Vòng lặp for được dùng để hiển thị dữ liệu ra các danh sách/bảng dữ liệu:</p>
   <div class="offset-1">
@@ -315,41 +343,45 @@
     </code>
   </div>
   <p>Ví dụ:</p>
-  <pre>
-    <code class="language-html">
-      &lt;!-- File: App.svelte--&gt;
 
-      &lt;script&gt;
-        let productList = [
-          {name: "IPhone X", price: 10500000},
-          {name: "IPhone 11", price: 11500000},
-          {name: "IPhone 12", price: 12500000},
-          {name: "IPhone 13", price: 13500000},
-        ]
-      &lt;/script&gt;
-      
-      &lt;main&gt;
-        &lt;table border="1" style="width: 40%;"&gt;
-          &lt;thead&gt;
-            &lt;tr&gt;
-              &lt;th&gt;#&lt;/th&gt;
-              &lt;th&gt;Sản phẩm&lt;/th&gt;
-              &lt;th&gt;Giá&lt;/th&gt;
-            &lt;/tr&gt;
-          &lt;/thead&gt;
-          &lt;tbody&gt;
-            {#each productList as product, index}
+  <div class="offset-1">
+    <pre>
+      <code class="language-html">
+        &lt;!-- File: App.svelte--&gt;
+
+        &lt;script&gt;
+          let productList = [
+            {name: "IPhone X", price: 10500000},
+            {name: "IPhone 11", price: 11500000},
+            {name: "IPhone 12", price: 12500000},
+            {name: "IPhone 13", price: 13500000},
+          ]
+        &lt;/script&gt;
+        
+        &lt;main&gt;
+          &lt;table border="1" style="width: 40%;"&gt;
+            &lt;thead&gt;
               &lt;tr&gt;
-                &lt;td&gt;{index+1}&lt;/td&gt;
-                &lt;td&gt;{product.name}&lt;/td&gt;
-                &lt;td&gt;{product.price} đ&lt;/td&gt;
+                &lt;th&gt;#&lt;/th&gt;
+                &lt;th&gt;Sản phẩm&lt;/th&gt;
+                &lt;th&gt;Giá&lt;/th&gt;
               &lt;/tr&gt;
-            {/each}
-          &lt;/tbody&gt;
-        &lt;/table&gt;
-      &lt;/main&gt;
-    </code>
-  </pre>
+            &lt;/thead&gt;
+            &lt;tbody&gt;
+              {#each productList as product, index}
+                &lt;tr&gt;
+                  &lt;td&gt;{index+1}&lt;/td&gt;
+                  &lt;td&gt;{product.name}&lt;/td&gt;
+                  &lt;td&gt;{product.price} đ&lt;/td&gt;
+                &lt;/tr&gt;
+              {/each}
+            &lt;/tbody&gt;
+          &lt;/table&gt;
+        &lt;/main&gt;
+      </code>
+    </pre>
+  </div>
+
   <h2><u>Router</u></h2>
   <p>Một ứng dụng thực tế thường có nhiều trang thành phần (tương tự như các file trong một thư mục)</p>
   <p>Router được sử dụng để điều hướng truy nhập các trang của ứng dụng theo địa chỉ link (URL).</p>
@@ -371,47 +403,51 @@
   <div class="text-center my-4">
     <img width="90%" src="images4/7.png" alt="">
   </div>
-  <pre>
-    <code class="language-html">
-      &lt;!-- File: App.svelte--&gt;
-      &lt;script&gt;
-        import { Router, Route, Link } from "svelte-navigator";
-        import Page1 from "./pages/Page1.svelte";
-        import Page2 from "./pages/Page2.svelte";
-      &lt;/script&gt;
-      
-      &lt;Router&gt;
-        &lt;header&gt;
-          &lt;nav&gt;
-            &lt;Link to="/"&gt;Page 1&lt;/Link&gt;
-            &lt;Link to="/page-2"&gt;Page 2&lt;/Link&gt;
-          &lt;/nav&gt;
-        &lt;/header&gt;
+
+  <div class="offset-1">
+    <pre>
+      <code class="language-html">
+        &lt;!-- File: App.svelte--&gt;
+        &lt;script&gt;
+          import { Router, Route, Link } from "svelte-navigator";
+          import Page1 from "./pages/Page1.svelte";
+          import Page2 from "./pages/Page2.svelte";
+        &lt;/script&gt;
+        
+        &lt;Router&gt;
+          &lt;header&gt;
+            &lt;nav&gt;
+              &lt;Link to="/"&gt;Page 1&lt;/Link&gt;
+              &lt;Link to="/page-2"&gt;Page 2&lt;/Link&gt;
+            &lt;/nav&gt;
+          &lt;/header&gt;
+          &lt;main&gt;
+            &lt;Route path="/"&gt;
+              &lt;Page1/&gt;
+            &lt;/Route&gt;
+            &lt;Route path="/page-2"&gt;
+              &lt;Page2/&gt;
+            &lt;/Route&gt;
+          &lt;/main&gt;
+        &lt;/Router&gt;
+      </code>
+      <code class="language-html">
+        &lt;!-- File: pages/Page1.svelte--&gt;
         &lt;main&gt;
-          &lt;Route path="/"&gt;
-            &lt;Page1/&gt;
-          &lt;/Route&gt;
-          &lt;Route path="/page-2"&gt;
-            &lt;Page2/&gt;
-          &lt;/Route&gt;
+          &lt;h1&gt;Page 1&lt;/h1&gt;
+          Page 1 Content
         &lt;/main&gt;
-      &lt;/Router&gt;
-    </code>
-    <code class="language-html">
-      &lt;!-- File: pages/Page1.svelte--&gt;
-      &lt;main&gt;
-        &lt;h1&gt;Page 1&lt;/h1&gt;
-        Page 1 Content
-      &lt;/main&gt;
-    </code>
-    <code class="language-html">
-      &lt;!-- File: pages/Page2.svelte--&gt;
-      &lt;main&gt;
-        &lt;h1&gt;Page 2&lt;/h1&gt;
-        Page 2 Content
-      &lt;/main&gt;
-    </code>
-  </pre>
+      </code>
+      <code class="language-html">
+        &lt;!-- File: pages/Page2.svelte--&gt;
+        &lt;main&gt;
+          &lt;h1&gt;Page 2&lt;/h1&gt;
+          Page 2 Content
+        &lt;/main&gt;
+      </code>
+    </pre>
+  </div>
+
   <p>Khi chạy ứng dụng, giao diện sẽ có dạng như hình bên dưới:</p>
   <div class="row my-4">
     <div class="col-6">
@@ -439,17 +475,21 @@
   </p>
   <h3><u>Cấu hình store:</u></h3>
   <p class="pt-2">Tạo mới file <b>store.js</b> trong thư mục <b>src</b> của project với nội dung như sau:</p>
-  <pre>
-    <code class="language-javascript">
-      // store.js
 
-      import { writable } from "svelte/store";
+  <div class="offset-1">
+    <pre>
+      <code class="language-javascript">
+        // store.js
 
-      export const state1 = writable("initialState1");
-      export const state2 = writable("initialState2");
-      //...
-    </code>
-  </pre>
+        import { writable } from "svelte/store";
+
+        export const state1 = writable("initialState1");
+        export const state2 = writable("initialState2");
+        //...
+      </code>
+    </pre>
+  </div>
+
   <p>
     Các biến <b>state1</b>, <b>state2</b>, ... là các biến trạng thái chia sẻ chung cho tất cả các Component, còn
     <b>initialState1</b>, <b>initialState2</b>, ... là các giá trị khởi tạo cho các biến này.
@@ -460,14 +500,18 @@
   </p>
   <b><u>Thay đổi biến trạng thái của Store:</u></b>
   <p class="pt-2">Để thay đổi trạng thái của store, sử dụng theo cách sau:</p>
-  <pre>
-    <code class="language-javascript">
-      import { state1 } from "./stores";
-      function commitAction() {
-        state1.update(val => new_val);
-      }
-    </code>
-  </pre>
+
+  <div class="offset-1">
+    <pre>
+      <code class="language-javascript">
+        import { state1 } from "./stores";
+        function commitAction() {
+          state1.update(val => new_val);
+        }
+      </code>
+    </pre>
+  </div>
+
   <p>
     Sử dụng hàm <b>update</b> của biến trạng thái để làm thay đổi giá trị biến đó. Hàm <b>update</b> có tham số
     là một hàm với đầu vào là giá trị hiện tại của biến trạng thái và kết quả trả về là giá trị mới của biến trạng thái.
@@ -482,60 +526,72 @@
     Để thực hiện việc này, Component cần đăng ký theo dõi sự thay đổi giá trị của biến trạng thái đó.
     Cách thực hiện như sau:
   </p>
-  <pre>
-    <code class="language-javascript">
-      import { state1 } from "./stores";
-      let localState1;
-      state1.subscribe(val => localState1 = val);
-    </code>
-  </pre>
+
+  <div class="offset-1">
+    <pre>
+      <code class="language-javascript">
+        import { state1 } from "./stores";
+        let localState1;
+        state1.subscribe(val => localState1 = val);
+      </code>
+    </pre>
+  </div>
+
   <p>
     Component cần khai báo một biến để chứa trạng thái tạm thời (local state), sau đó dùng hàm <b>subscribe</b>
     của biến trạng thái của store để update trạng thái local khi có sự thay đổi.
   </p>
   <p>Biến trạng thái local sau đó được dùng để hiển thị trong phần HTML của component</p>
-  <pre>
-    <code class="language-html">
-      &lt;main&gt;
-        ...
-        &lt;div&gt;{localState1}&lt;/div&gt;
-        ...
-      &lt;/main&gt;
-    </code>
-  </pre>
+
+  <div class="offset-1">
+    <pre>
+      <code class="language-html">
+        &lt;main&gt;
+          ...
+          &lt;div&gt;{localState1}&lt;/div&gt;
+          ...
+        &lt;/main&gt;
+      </code>
+    </pre>
+  </div>
+
   <b><u>Ví dụ: Counter app</u></b>
   <p class="pt-2">Ứng dụng counter có một biến trạng thái (ban đầu bằng 0), 
     khi người dùng click vào button tăng thì counter tăng thêm 1,
     khi người dùng click vào button giảm thì counter giảm đi 1.
   </p>
-  <pre>
-    <code class="language-javascript">
-      import { writable } from "svelte/store";
-      export const counter = writable(0);
-    </code>
-    <code class="language-html">
-      &lt;script&gt;
-        import { counter } from "./store";
+
+  <div class="offset-1">
+    <pre>
+      <code class="language-javascript">
+        import { writable } from "svelte/store";
+        export const counter = writable(0);
+      </code>
+      <code class="language-html">
+        &lt;script&gt;
+          import { counter } from "./store";
+          
+          function increase() {
+            counter.update(val => val+1);
+          }
         
-        function increase() {
-          counter.update(val => val+1);
-        }
-      
-        function decrease() {
-          counter.update(val => val-1);
-        }
-        let counterValue;
-      
-        counter.subscribe(val => counterValue = val);
-      &lt;/script&gt;
-      
-      &lt;main&gt;
-        Counter: {counterValue} 
-        &lt;button on:click={increase}&gt;+&lt;/button&gt;
-        &lt;button on:click={decrease}&gt;-&lt;/button&gt;
-      &lt;/main&gt;
-    </code>
-  </pre>
+          function decrease() {
+            counter.update(val => val-1);
+          }
+          let counterValue;
+        
+          counter.subscribe(val => counterValue = val);
+        &lt;/script&gt;
+        
+        &lt;main&gt;
+          Counter: {counterValue} 
+          &lt;button on:click={increase}&gt;+&lt;/button&gt;
+          &lt;button on:click={decrease}&gt;-&lt;/button&gt;
+        &lt;/main&gt;
+      </code>
+    </pre>
+  </div>
+
   <p>Khi chạy ứng dụng, kết quả sẽ như sau:</p>
   <div class="text-center my-4">
     <img width="60%" src="images4/11.png" alt="">

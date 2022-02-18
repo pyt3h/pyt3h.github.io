@@ -37,28 +37,42 @@
     font-weight: 700;
   }
 </style>
-<script>hljs.highlightAll();</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+  $(document).ready(function(){
+    $("pre code").each(function(){
+        var html = $(this).html();
+        var pattern = html.match(/\s*\n[\t\s]*/);
+        $(this).html(html.replace(new RegExp(pattern, "g"),'\n'));
+    });
+    hljs.highlightAll();
+  })
+</script>
 
 <div class="container mt-3">
   <h2><u>1. Lập trình hướng đối tượng</u></h2>
   <b><u>Khai báo class trong Python</u></b>
-  <pre>
-    <code class="language-python">
-      class &lt;ClassName&gt;:
-          # Hàm khởi tạo đối tượng
-          def __init__(self, &lt;var1&gt;, &lt;var2&gt;, ...):
-              self.&lt;var1&gt; = &lt;var1&gt;
-              self.&lt;var2&gt; = &lt;var2&gt;
 
-          # Các phương thức của class
-          def &lt;method1&gt;(self, ...):
-              # Nội dung hàm
+  <div class="offset-1">
+    <pre>
+      <code class="language-python">
+        class &lt;ClassName&gt;:
+            # Hàm khởi tạo đối tượng
+            def __init__(self, &lt;var1&gt;, &lt;var2&gt;, ...):
+                self.&lt;var1&gt; = &lt;var1&gt;
+                self.&lt;var2&gt; = &lt;var2&gt;
 
-          # Các phương thức của class
-          def &lt;method2&gt;(self, ...):
-              # Nội dung hàm
-    </code>
-  </pre>
+            # Các phương thức của class
+            def &lt;method1&gt;(self, ...):
+                # Nội dung hàm
+
+            # Các phương thức của class
+            def &lt;method2&gt;(self, ...):
+                # Nội dung hàm
+      </code>
+    </pre>
+  </div>
+
   <ul>
     <li>
       Phương thức khởi tạo đối tượng có tên <b>__init__</b> cố định, phương thức này được dùng để tạo ra
@@ -90,25 +104,27 @@
   <p class="pt-2">Đối tượng &lt;obj&gt; sẽ được chuyển thành tham số <b>self</b> trong phần xử lý của phương thức.</p>
 
   <p>Ví dụ:</p>
-  <pre>
-    <code class="language-python">
-      class Person:
-          def __init__(self, name, address):
-              self.name = name
-              self.address = address
-              
-          def say_hello(self):
-              print(f'Xin chào, tên tôi là {self.name}')
-              
-          def update_address(self, new_address):
-              self.address = new_address
+  <div class="offset-1">
+    <pre>
+      <code class="language-python">
+        class Person:
+            def __init__(self, name, address):
+                self.name = name
+                self.address = address
+                
+            def say_hello(self):
+                print(f'Xin chào, tên tôi là {self.name}')
+                
+            def update_address(self, new_address):
+                self.address = new_address
 
-      person = Person('Nguyễn Văn An', 'Hà Nội')
-      person.say_hello()
-      person.update_address('TP. HCM')
-      print(f'{person.name} sống tại {person.address}')
-    </code>
-  </pre>
+        person = Person('Nguyễn Văn An', 'Hà Nội')
+        person.say_hello()
+        person.update_address('TP. HCM')
+        print(f'{person.name} sống tại {person.address}')
+      </code>
+    </pre>
+  </div>
 
   <b><u>Thừa kế</u></b>
   <p>Thừa kế là việc tạo ra một class mới (class con) dựa trên một class đã có (class cha).
@@ -116,62 +132,68 @@
     thể định nghĩa thêm các trường dữ liệu và phương thức riêng của mình.
   </p>
   <p>Ví dụ:</p>
-  <pre>
-    <code class="language-python">
-      class Person:
-          def __init__(self, name, address):
-              self.name = name
-              self.address = address
-              
-          def say_hello(self):
-              print(f'Xin chào, tên tôi là {self.name}')
-              
-          def update_address(self, new_address):
-              self.address = new_address
 
-      class Student(Person):
-          def __init__(self, name, address, course):
-              super().__init__(name, address)
-              self.course = course
+  <div class="offset-1">
+    <pre>
+      <code class="language-python">
+        class Person:
+            def __init__(self, name, address):
+                self.name = name
+                self.address = address
+                
+            def say_hello(self):
+                print(f'Xin chào, tên tôi là {self.name}')
+                
+            def update_address(self, new_address):
+                self.address = new_address
 
-      student = Student('Nguyễn Văn An', 'Hà Nội', 'Py2203')
-      student.say_hello()
-      student.update_address('TP. HCM')
-      
-    </code>
-  </pre>
+        class Student(Person):
+            def __init__(self, name, address, course):
+                super().__init__(name, address)
+                self.course = course
+
+        student = Student('Nguyễn Văn An', 'Hà Nội', 'Py2203')
+        student.say_hello()
+        student.update_address('TP. HCM')
+        
+      </code>
+    </pre>
+  </div>
+
   <p><i>Lưu ý:</i> Ở phương thức của class con, muốn gọi đến phương thức cùng tên ở class cha thì sử dụng từ khoá <b>super</b></p>
 
   <p>Ngoài việc kế thừa các phương thức đã có ở class cha, class con còn có thể sửa lại logic của một phương thức đã có.
     Việc này gọi là <i>ghi đè</i> (overwrite). Ví dụ:
   </p>
 
-  <pre>
-    <code class="language-python">
-      class Person:
-          def __init__(self, name, address):
-              self.name = name
-              self.address = address
-              
-          def say_hello(self):
-              print(f'Xin chào, tên tôi là {self.name}')
-              
-          def update_address(self, new_address):
-              self.address = new_address
+  <div class="offset-1">
+    <pre>
+      <code class="language-python">
+        class Person:
+            def __init__(self, name, address):
+                self.name = name
+                self.address = address
+                
+            def say_hello(self):
+                print(f'Xin chào, tên tôi là {self.name}')
+                
+            def update_address(self, new_address):
+                self.address = new_address
 
-      class Student(Person):
-          def __init__(self, name, address, course):
-              super().__init__(name, address)
-              self.course = course
-          
-          def say_hello(self):
-              print(f'Xin chào, tên tôi là {self.name}, học lớp {self.course}')
+        class Student(Person):
+            def __init__(self, name, address, course):
+                super().__init__(name, address)
+                self.course = course
+            
+            def say_hello(self):
+                print(f'Xin chào, tên tôi là {self.name}, học lớp {self.course}')
 
-      student = Student('Nguyễn Văn An', 'Hà Nội', 'Py2203')
-      student.say_hello()  # gọi phương thức của class Student
-      
-    </code>
-  </pre>
+        student = Student('Nguyễn Văn An', 'Hà Nội', 'Py2203')
+        student.say_hello()  # gọi phương thức của class Student
+        
+      </code>
+    </pre>
+  </div>
 
   <h2><u>2. Làm việc với JSON</u></h2>
   <p>JSON (Javascript Object Encoding) là một chuẩn mã hoá đối tượng thành dữ liệu dạng text 
@@ -190,46 +212,53 @@
     <li class="mt-1">Giá trị <b>null</b>: Tương đương với <b>None</b> của Python</li>
   </ul>
   <p>Ví dụ: Để gửi đi một danh sách học sinh của một lớp học, dữ liệu được chuyển thành dạng JSON như sau:</p>
-  <pre>
-    <code class="language-json">
-      [
-        {
-          "name": "Nguyễn Văn A",
-          "date-of-birth": "01/01/2000",
-          "address": "Hà Nội"
-        },
-        {
-          "name": "Nguyễn Văn B",
-          "date-of-birth": "02/02/2000",
-          "address": "TP.HCM"
-        }
-      ]
-    </code>
-  </pre>
+
+  <div class="offset-1">
+    <pre>
+      <code class="language-json">
+        [
+          {
+            "name": "Nguyễn Văn A",
+            "date-of-birth": "01/01/2000",
+            "address": "Hà Nội"
+          },
+          {
+            "name": "Nguyễn Văn B",
+            "date-of-birth": "02/02/2000",
+            "address": "TP.HCM"
+          }
+        ]
+      </code>
+    </pre>
+  </div>
+
   <p>Trong Python, thư viện <b>json</b> được dùng để chuyển dữ liệu của Python sang dạng JSON và ngược lại.</p>
   <ul>
     <li>Chuyển từ dữ liệu của Python sang JSON: dùng hàm <b>json.dumps</b></li>
     <li class="mt-2">Chuyển từ dữ liệu JSON sang Python: dùng hàm <b>json.loads</b></li>
   </ul>
   <p>Ví dụ:</p>
-  <pre>
-    <code class="language-python">
-      import json
 
-      student_list = [
-        {'name': 'Nguyễn Văn A', 'date-of-birth': '01/01/2000', 'address': 'Hà Nội'},
-        {'name': 'Nguyễn Văn B', 'date-of-birth': '02/02/2000', 'address': 'TP.HCM'},
-      ]
+  <div class="offset-1">
+    <pre>
+      <code class="language-python">
+        import json
 
-      student_list_json = json.dumps(student_list) # Chuyển từ Python ➝ JSON
-      print(student_list_json)
+        student_list = [
+          {'name': 'Nguyễn Văn A', 'date-of-birth': '01/01/2000', 'address': 'Hà Nội'},
+          {'name': 'Nguyễn Văn B', 'date-of-birth': '02/02/2000', 'address': 'TP.HCM'},
+        ]
 
-      student_list2 = json.loads(student_list_json) # Chuyển từ JSON ➝ Python
+        student_list_json = json.dumps(student_list) # Chuyển từ Python ➝ JSON
+        print(student_list_json)
 
-      for st in student_list2:
-        print(st['name'], st['date-of-birth'], st['address'])
-    </code>
-  </pre>
+        student_list2 = json.loads(student_list_json) # Chuyển từ JSON ➝ Python
+
+        for st in student_list2:
+          print(st['name'], st['date-of-birth'], st['address'])
+      </code>
+    </pre>
+  </div>
 
   <h2><u>3. Làm việc với Base64</u></h2>
   <p>Base64 là cách mã hoá dữ liệu nhị phân thành text để có thể truyền đi được trong các bản tin chỉ dạng text.</p>
@@ -242,21 +271,25 @@
   </ul>
 
   <p>Ví dụ:</p>
-  <pre>
-    <code class="language-python">
-      import base64
 
-      # Mã hoá chuỗi byte thành base64
-      data = bytes([0, 1, 2, 3, 4])
-      encoded_data = base64.b64encode(data)
-      print(encoded_data)    #  b'AAECAwQ='
+  <div class="offset-1">
+    <pre>
+      <code class="language-python">
+        import base64
 
-      # Giải mã base64 thành chuỗi byte
-      b64_data = b'AAECAwQ='
-      decoded_data = base64.b64decode(b64_data)
-      print(list(decoded_data))
-    </code>
-  </pre>
+        # Mã hoá chuỗi byte thành base64
+        data = bytes([0, 1, 2, 3, 4])
+        encoded_data = base64.b64encode(data)
+        print(encoded_data)    #  b'AAECAwQ='
+
+        # Giải mã base64 thành chuỗi byte
+        b64_data = b'AAECAwQ='
+        decoded_data = base64.b64decode(b64_data)
+        print(list(decoded_data))
+      </code>
+    </pre>
+  </div>
+
   <p>Một trong những ứng dụng của <b>base64</b> là để truyền dữ liệu ảnh (dạng nhị phân) trong web-service.</p>
 
   <h2><u>4. Làm việc với CSV</u></h2>
@@ -265,37 +298,43 @@
     các trường dữ liệu ngăn cách nhau bởi kí tự phân chia (thường là dấu phảy).
   </p>
   <p>Ví dụ, bảng điểm của một lớp học lưu dưới dạng CSV có dạng như sau:</p>
-  <pre>
-    <code class="language-csv">
-      Họ tên,Điểm hệ số 1,Điểm hệ số 2, Điểm hệ số 3
-      Nguyễn Văn A,7,8,7
-      Nguyễn Thị B,8,8,9
-      Nguyễn Thị C,8,8,7
-      Nguyễn Văn X,5,6,7
-    </code>
-  </pre>
+
+  <div class="offset-1">
+    <pre>
+      <code class="language-csv">
+        Họ tên,Điểm hệ số 1,Điểm hệ số 2, Điểm hệ số 3
+        Nguyễn Văn A,7,8,7
+        Nguyễn Thị B,8,8,9
+        Nguyễn Thị C,8,8,7
+        Nguyễn Văn X,5,6,7
+      </code>
+    </pre>
+  </div>
 
   <p>Các file CSV có tên mở rộng là <b>'.csv'</b> và có thể mở với các chương trình nhe Excel, Open Office,... để xem bảng dữ liệu trong đó.</p>
   <p>Trong Python, việc đọc và ghi dữ liệu từ file CSV được thực hiện nhờ thư viện csv.</p>
   <p>Ví dụ:</p>
-  <pre>
-    <code class="language-python">
-      import csv
 
-      # Đọc dữ liệu từ file csv
-      with open('student_marks.csv', encoding='utf-8') as fi:
-          reader = csv.reader(fi,delimiter=',')
-          header_row = next(reader)   # Dòng tiêu đề 
-          data_rows = list(reader)    # Các dòng dữ liệu
+  <div class="offset-1">
+    <pre>
+      <code class="language-python">
+        import csv
 
-      # Ghi dữ liệu vào file csv
-      with open('output.csv', 'w', newline='',  encoding='utf-8') as fo:
-          writer = csv.writer(fo, delimiter=',')
-          writer.writerow(header_row)     # Ghi dòng tiêu đề
-          writer.writerows(data_rows)     # Ghi các dòng dữ liệu
+        # Đọc dữ liệu từ file csv
+        with open('student_marks.csv', encoding='utf-8') as fi:
+            reader = csv.reader(fi,delimiter=',')
+            header_row = next(reader)   # Dòng tiêu đề 
+            data_rows = list(reader)    # Các dòng dữ liệu
 
-    </code>
-  </pre>
+        # Ghi dữ liệu vào file csv
+        with open('output.csv', 'w', newline='',  encoding='utf-8') as fo:
+            writer = csv.writer(fo, delimiter=',')
+            writer.writerow(header_row)     # Ghi dòng tiêu đề
+            writer.writerows(data_rows)     # Ghi các dòng dữ liệu
+
+      </code>
+    </pre>
+  </div>
 
   <h2><u>5. Gọi web-service với thư viện requests</u></h2>
   <p>Web-service là cách trao đổi dữ liệu qua giao thức http. Trong web-service, phía cung cấp dữ liệu
@@ -349,19 +388,24 @@
   </p>
 
   <p>Chương trình sử dụng thư viện request để lấy dữ liệu thời tiết từ web-service:</p>
-  <pre>
-    <code class="language-python">
-      import requests
-      appid = 'd6477696b63c2e661af64eead58c11d9'
-      location_id = '1581129'
-      url = f"http://api.openweathermap.org/data/2.5/weather?id={location_id}&units=metric&appid={appid}"
-      result = requests.get(url).json()
 
-      print('Nhiệt độ: ', result['main']['temp'], 'độ C')
-      print('Độ ẩm: ', result['main']['humidity'], '%')
-    
-    </code>
-  </pre>
+  <div class="offset-1">
+    <pre>
+      <code class="language-python">
+        import requests
+        appid = 'd6477696b63c2e661af64eead58c11d9'
+        location_id = '1581129'
+        url = f"http://api.openweathermap.org/data/2.5/weather?id={location_id}&units=metric&appid={appid}"
+        result = requests.get(url).json()
+
+        print('Nhiệt độ: ', result['main']['temp'], 'độ C')
+        print('Độ ẩm: ', result['main']['humidity'], '%')
+      
+      </code>
+    </pre>
+  </div>
+
+
   <p>Dòng lệnh lấy dữ liệu từ server về:</p>
   <div class="offset-1">
     <code class="language-python">
@@ -397,35 +441,40 @@
   <p>Một đoạn chương trình có thể có nhiều loại ngoại lệ phát sinh, để xử lý riêng cho từng loại ngoại lệ,
     có thể chỉ định loại ngoại lệ trong dòng <b>except</b>:
   </p>
-  <pre><code class="language-python">
-    try:
-        # do something
 
-    except ErrorType1:
-        print("Error type 1")
+  <div class="offset-1">
+    <pre><code class="language-python">
+      try:
+          # do something
 
-     except ErrorType2:
-        print("Error type 2")
+      except ErrorType1:
+          print("Error type 1")
 
-     except:
-        print("Other exception")
-  </code></pre>
+      except ErrorType2:
+          print("Error type 2")
+
+      except:
+          print("Other exception")
+    </code></pre>
+  </div>
 
   <p class="pt-3">Ví dụ:</p>
-  <pre>
-    <code class="language-python">
-      try:
-          x = float(input('x: '))
-          y = float(input('y: '))
-          z = x/y
+  <div class="offset-1">
+    <pre>
+      <code class="language-python">
+        try:
+            x = float(input('x: '))
+            y = float(input('y: '))
+            z = x/y
 
-      except ValueError:
-          print("Invalid input number")
+        except ValueError:
+            print("Invalid input number")
 
-      except ZeroDivisionError:
-          print("Cannot divide by 0")
-    </code>
-  </pre>
+        except ZeroDivisionError:
+            print("Cannot divide by 0")
+      </code>
+    </pre>
+  </div>
 
   <h2><u>7. Unittest</u></h2>
   <p>Việc viết Unit Test là tương đối quan trọng vì đảm bảo các chức năng cơ bản thực hiện theo đúng logic đã được thiết kế,
@@ -436,26 +485,29 @@
   </p>
 
   <p>Ví dụ:</p>
-  <pre>
-    <code class="language-python">
-      import unittest
+  <div class="offset-1">
+    <pre>
+      <code class="language-python">
+        import unittest
 
-      def add(a, b):
-          return a + b
+        def add(a, b):
+            return a + b
 
-      class TestCase1(unittest.TestCase):
+        class TestCase1(unittest.TestCase):
 
-          def test1(self):
-              self.assertEqual(add(1, 2), 3)
+            def test1(self):
+                self.assertEqual(add(1, 2), 3)
 
-          def test2(self):
-              self.assertTrue(add(1, 2) == 3)
-              self.assertFalse(add(1, 2) > 3)
+            def test2(self):
+                self.assertTrue(add(1, 2) == 3)
+                self.assertFalse(add(1, 2) > 3)
 
-      if __name__ == '__main__':
-          unittest.main()
-    </code>
-  </pre>
+        if __name__ == '__main__':
+            unittest.main()
+      </code>
+    </pre>
+  </div>
+
   <p>
     Khi chương trình unittest được chạy (unittest.main()), tất cả các phương thức trong các class kế thừa class 
     <b>unittest.TestCase</b> sẽ được kiểm tra. Nếu ngoại lệ xảy ra ở bất kì phương thức nào,
@@ -464,20 +516,64 @@
   <p>Trong các phương thức unittest, thường sử dụng các lệnh assert để đảm bảo kết quả chạy đúng, một số lệnh 
     assert thường dùng:
   </p>
-  <ul>
-    <li><b>assertEqual</b>: kiểm tra 2 biểu thức bằng nhau</li>
-    <li class="mt-2"><b>assertNotEqual</b>: kiểm tra 2 biểu thức khác nhau</li>
-    <li class="mt-2"><b>assertGreater</b>: kiểm tra biểu thức 1 lớn hơn biểu thức 2</li>
-    <li class="mt-2"><b>assertGreaterEqual</b>: kiểm tra biểu thức 1 lớn hơn hoặc bằng biểu thức 2</li>
-    <li class="mt-2"><b>assertLess</b>: kiểm tra biểu thức 1 nhỏ hơn biểu thức 2</li>
-    <li class="mt-2"><b>assertLessEqual</b>: kiểm tra biểu thức 1 nhỏ hơn hoặc bằng biểu thức 2</li>
-    <li class="mt-2"><b>assertTrue</b>: kiểm tra biểu thức có giá trị bằng True</li>
-    <li class="mt-2"><b>assertFalse</b>: kiểm tra biểu thức có giá trị bằng False</li>
-    <li class="mt-2"><b>assertIsNone</b>: kiểm tra biểu thức có giá trị bằng None</li>
-    <li class="mt-2"><b>assertIsNotNone</b>: kiểm tra biểu thức có giá trị khác None</li>
-    <li class="mt-2"><b>assertIsIn</b>: kiểm tra phần tử nằm trong tập giá trị</li>
-    <li class="mt-2"><b>assertIsNotIn</b>: kiểm tra phần tử không nằm trong tập giá trị</li>
-  </ul>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Lệnh kiểm tra</th>
+        <th>Ý nghĩa</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="code">assertEqual</td>
+        <td>kiểm tra 2 biểu thức bằng nhau</td>
+      </tr>
+      <tr>
+        <td class="code">assertNotEqual</td>
+        <td>kiểm tra 2 biểu thức khác nhau</td>
+      </tr>
+      <tr>
+        <td class="code">assertGreater</td>
+        <td>kiểm tra biểu thức 1 lớn hơn biểu thức 2</td>
+      </tr>
+      <tr>
+        <td class="code">assertGreaterEqual</td>
+        <td>kiểm tra biểu thức 1 lớn hơn hoặc bằng biểu thức 2</td>
+      </tr>
+      <tr>
+        <td class="code">assertLess</td>
+        <td>kiểm tra biểu thức 1 nhỏ hơn biểu thức 2</td>
+      </tr>
+      <tr>
+        <td class="code">assertLessEqual</td>
+        <td>kiểm tra biểu thức 1 nhỏ hơn hoặc bằng biểu thức 2</td>
+      </tr>
+      <tr>
+        <td class="code">assertTrue</td>
+        <td>kiểm tra biểu thức có giá trị bằng True</td>
+      </tr>
+      <tr>
+        <td class="code">assertFalse</td>
+        <td>kiểm tra biểu thức có giá trị bằng False</td>
+      </tr>
+      <tr>
+        <td class="code">assertIsNone</td>
+        <td>kiểm tra biểu thức có giá trị bằng None</td>
+      </tr>
+      <tr>
+        <td class="code">assertIsNotNone</td>
+        <td>kiểm tra biểu thức có giá trị khác None</td>
+      </tr>
+      <tr>
+        <td class="code">assertIsIn</td>
+        <td>kiểm tra phần tử nằm trong tập giá trị</td>
+      </tr>
+      <tr>
+        <td class="code">assertIsNotIn</td>
+        <td>kiểm tra phần tử không nằm trong tập giá trị</td>
+      </tr>
+    </tbody>
+  </table>
 
   <h2><u>8. Virtual Environment</u></h2>
   <p>Trong Python có 2 loại thư viện:</p>

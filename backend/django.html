@@ -37,7 +37,19 @@
     font-weight: 700;
   }
 </style>
-<script>hljs.highlightAll();</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+  $(document).ready(function(){
+    $("pre code").each(function(){
+        let html = $(this).html();
+       
+        var pattern = html.match(/\s*\n[\t\s]*/);
+        $(this).html(html.replace(new RegExp(pattern, "g"),'\n'));
+    });
+    hljs.highlightAll();
+  })
+</script>
+
 <div class="container mt-3">
   <h1><u>I. Django cơ bản</u></h1>
   <h2><u>Cài đặt thư viện</u></h2>
@@ -147,44 +159,47 @@
     hoặc trả về nội dung dưới dạng dữ liệu json/xml/... (web-service).
   </p>
   <p>Ví dụ:</p>
-  <pre>
-    <code class="language-python">
-      # File: app/views.py
+  <div class="offset-1">
+    <pre>
+      <code class="language-python">
+        # File: app/views.py
+        
+        import json
+        from django.shortcuts import HttpResponse
+        
+        # Create your views here.
+
+        def index(request):
+            return HttpResponse(
+                '''
+                    &lt;h1&gt;Django App&lt;/h1&gt;
+                    &lt;p&gt;Hello from Django.&lt;/p&gt;
+                '''
+            )
+
+        def hello_service(request):
+            return HttpResponse(
+                json.dumps({'message': 'Hello'}),
+                content_type='application/json'
+            )
+      </code>
       
-      import json
-      from django.shortcuts import HttpResponse
-      
-      # Create your views here.
+      <code class="language-python">
+        # File: &lt;project_name&gt;/urls.py
 
-      def index(request):
-          return HttpResponse(
-              '''
-                  &lt;h1&gt;Django App&lt;/h1&gt;
-                  &lt;p&gt;Hello from Django.&lt;/p&gt;
-              '''
-          )
+        from django.contrib import admin
+        from django.urls import path
+        from app.views import *                 # new
 
-      def hello_service(request):
-          return HttpResponse(
-              json.dumps({'message': 'Hello'}),
-              content_type='application/json'
-          )
-    </code>
-    
-    <code class="language-python">
-      # File: &lt;project_name&gt;/urls.py
+        urlpatterns = [
+            path('', index),                    # new
+            path('api/hello', hello_service),   # new
+            path('admin/', admin.site.urls),
+        ]
+      </code>
+    </pre>
+  </div>
 
-      from django.contrib import admin
-      from django.urls import path
-      from app.views import *                 # new
-
-      urlpatterns = [
-          path('', index),                    # new
-          path('api/hello', hello_service),   # new
-          path('admin/', admin.site.urls),
-      ]
-    </code>
-  </pre>
   <p>Ví dụ trên khai báo 2 hàm xử lý request:</p>
   <ul>
     <li>Hàm <b>index</b>: trả về nội dung dạng html, được map vào địa chỉ '' (trang chủ) trong <b>urlpatterns</b> </li>
@@ -250,55 +265,58 @@
     Nếu project chỉ có một app như trong các ví dụ trước thì việc chia mapping như sau: tạo file <b>app/urls.py</b>,
     sau đó điền nội dung các file như sau:
   </p>
-  <pre>
-    <code class="language-python">
-      # File: app/views.py
+
+  <div class="offset-1">
+    <pre>
+      <code class="language-python">
+        # File: app/views.py
+        
+        import json
+        from django.shortcuts import HttpResponse
+        
+        # Create your views here.
+
+        def index(request):
+            return HttpResponse(
+                '''
+                    &lt;h1&gt;Django App&lt;/h1&gt;
+                    &lt;p&gt;Hello from Django.&lt;/p&gt;
+                '''
+            )
+
+        def hello_service(request):
+            return HttpResponse(
+                json.dumps({'message': 'Hello'}),
+                content_type='application/json'
+            )
+      </code>
       
-      import json
-      from django.shortcuts import HttpResponse
-      
-      # Create your views here.
+      <code class="language-python">
+        # File: &lt;project_name&gt;/urls.py
 
-      def index(request):
-          return HttpResponse(
-              '''
-                  &lt;h1&gt;Django App&lt;/h1&gt;
-                  &lt;p&gt;Hello from Django.&lt;/p&gt;
-              '''
-          )
+        from django.contrib import admin
+        from django.urls import path
+        from django.urls import include           # new
 
-      def hello_service(request):
-          return HttpResponse(
-              json.dumps({'message': 'Hello'}),
-              content_type='application/json'
-          )
-    </code>
-    
-    <code class="language-python">
-      # File: &lt;project_name&gt;/urls.py
+        urlpatterns = [
+            path('admin/', admin.site.urls),
+            path('app/', include('app.urls')),    # new
+        ]
+      </code>
 
-      from django.contrib import admin
-      from django.urls import path
-      from django.urls import include           # new
+      <code class="language-python">
+        # File: app/urls.py
 
-      urlpatterns = [
-          path('admin/', admin.site.urls),
-          path('app/', include('app.urls')),    # new
-      ]
-    </code>
+        from django.urls import path
+        from .views import *
 
-    <code class="language-python">
-      # File: app/urls.py
-
-      from django.urls import path
-      from .views import *
-
-      urlpatterns = [
-          path('', index),
-          path('api/hello', hello_service),
-      ]
-    </code>
-  </pre>
+        urlpatterns = [
+            path('', index),
+            path('api/hello', hello_service),
+        ]
+      </code>
+    </pre>
+  </div>
 
   <p>
     Để truy nhập trang web do hàm <b>index</b> trả về, dùng địa chỉ: <span class="code">http://127.0.0.1:8000<b>/app</b></span>,
@@ -374,16 +392,19 @@
       </tr>
     </tbody>
   </table>
-  <pre>
-    <code class="language-python">
-      def get_weather_data(request):
-          location = request.GET.get("location")
-          unit = request.GET.get("unit")
-          print("location=", location, ", unit=", unit)
 
-          ...
-    </code>
-  </pre>
+  <div class="offset-1">
+    <pre>
+      <code class="language-python">
+        def get_weather_data(request):
+            location = request.GET.get("location")
+            unit = request.GET.get("unit")
+            print("location=", location, ", unit=", unit)
+
+            ...
+      </code>
+    </pre>
+  </div>
 
   <b><u>Tham số dạng biến đường dẫn</u></b>
   <p class="pt-2">Ngoài cách truyền tham số qua query string như bên trên, còn có thể sử dụng tham số dưới dạng biến 
@@ -396,28 +417,32 @@
     </code>
   </div>
   <p class="pt-3">Trong Django, để lấy giá trị biến đường dẫn, cần khai báo trong cả <b>urlpatterns</b> và hàm xử lý request:</p>
-  <pre>
-    <code class="language-python">
-      # File: app/views.py
+
+  <div class="offset-1">
+    <pre>
+      <code class="language-python">
+        # File: app/views.py
+        
+        ...
+        def get_weather_data(request, location):
+            print('location=', location)
+            ...
+
+      </code>
       
-      ...
-      def get_weather_data(request, location):
-          print('location=', location)
-          ...
+      <code class="language-python">
+        # File: app/urls.py
 
-    </code>
-    
-    <code class="language-python">
-      # File: app/urls.py
+        ...
 
-      ...
+        urlpatterns = [
+            path('api/get-weather-data/&lt;location&gt;', get_weather_data),
+            ...
+        ]
+      </code>
+    </pre>
+  </div>
 
-      urlpatterns = [
-          path('api/get-weather-data/&lt;location&gt;', get_weather_data),
-          ...
-      ]
-    </code>
-  </pre>
   <p>Trong <b>urlpatterns</b>, biến đường dẫn được đặt trong cặp ngoặc nhọn:</p>
   <div class="offset-1">
     <code>
@@ -432,57 +457,61 @@
     </code>
   </div>
   <p>Ví dụ:</p>
-  <pre>
-    <code class="language-python">
-      # File: app/views.py
+
+  <div class="offset-1">
+    <pre>
+      <code class="language-python">
+        # File: app/views.py
+        
+        import json
+        from django.shortcuts import HttpResponse
+
+        data = {
+          'Hanoi': {'temp': 19, 'humidity': 90},
+          'HCMCity': {'temp': 32, 'humidity': 80},
+        }
+        
+        def get_weather_data(request):
+            location = request.GET.get('location')
+            result = data.get(location, {'error': 'Unknown location'})
+            
+            return HttpResponse(json.dumps(result), 
+                    content_type='application/json')
+
+        def get_weather_data2(request, location):
+            result = data.get(location, {'error': 'Unknown location'})
+            
+            return HttpResponse(json.dumps(result), 
+                    content_type='application/json')
+      </code>
       
-      import json
-      from django.shortcuts import HttpResponse
+      <code class="language-python">
+        # File: &lt;project_name&gt;/urls.py
 
-      data = {
-        'Hanoi': {'temp': 19, 'humidity': 90},
-        'HCMCity': {'temp': 32, 'humidity': 80},
-      }
-      
-      def get_weather_data(request):
-          location = request.GET.get('location')
-          result = data.get(location, {'error': 'Unknown location'})
-          
-          return HttpResponse(json.dumps(result), 
-                  content_type='application/json')
+        from django.contrib import admin
+        from django.urls import path
+        from django.urls import include           # new
 
-      def get_weather_data2(request, location):
-          result = data.get(location, {'error': 'Unknown location'})
-          
-          return HttpResponse(json.dumps(result), 
-                  content_type='application/json')
-    </code>
-    
-    <code class="language-python">
-      # File: &lt;project_name&gt;/urls.py
+        urlpatterns = [
+            path('admin/', admin.site.urls),
+            path('api/', include('app.urls')),    # new
+        ]
+      </code>
 
-      from django.contrib import admin
-      from django.urls import path
-      from django.urls import include           # new
+      <code class="language-python">
+        # File: app/urls.py
 
-      urlpatterns = [
-          path('admin/', admin.site.urls),
-          path('api/', include('app.urls')),    # new
-      ]
-    </code>
+        from django.urls import path
+        from .views import *
 
-    <code class="language-python">
-      # File: app/urls.py
+        urlpatterns = [
+            path('get-weather-data', get_weather_data),
+            path('get-weather-data2/&lt;location&gt;', get_weather_data2),
+        ]
+      </code>
+    </pre>
+  </div>
 
-      from django.urls import path
-      from .views import *
-
-      urlpatterns = [
-          path('get-weather-data', get_weather_data),
-          path('get-weather-data2/&lt;location&gt;', get_weather_data2),
-      ]
-    </code>
-  </pre>
   <p>Ứng dụng trên cung cấp 2 API để lấy thông tin thời tiết:</p>
   <p>Theo tham số từ query string: <span class="code">/api/get_weather_data?location=&lt;location&gt;</span></p>
   <div class="text-center my-4">
@@ -506,22 +535,25 @@
   <p>Trong Django, việc khai báo các đối tượng mapping với các bảng của database được thực hiện trong file 
     <b>models.py</b> của ứng dụng.
   </p>
-  <pre>
-    <code class="language-python">
-      # app/models.py
 
-      from django.db import models
+  <div class="offset-1">
+    <pre>
+      <code class="language-python">
+        # app/models.py
 
-      class Product(models.Model):
-          code = models.CharField(max_length=30, unique=True) 
-          name = models.CharField(max_length=200)
-          price = models.FloatField()
-      
-          # Hàm hiển thị
-          def __str__(self):
-              return self.name
-    </code>
-  </pre>
+        from django.db import models
+
+        class Product(models.Model):
+            code = models.CharField(max_length=30, unique=True) 
+            name = models.CharField(max_length=200)
+            price = models.FloatField()
+        
+            # Hàm hiển thị
+            def __str__(self):
+                return self.name
+      </code>
+    </pre>
+  </div>
 
   <p>Các đối tượng mapping cần kế thừa class <b>django.db.models.Model</b>, trong mỗi đối tượng, thực hiện
     khai báo các trường dữ liệu tương ứng với các cột của bảng trong database. Một số loại trường dữ liệu thông dụng:
@@ -610,28 +642,31 @@
     Các quan hệ trong SQL (OneToMany, ManyToOne, ManyToMany) cũng được thể hiện bằng các trường liên
     kết trong class của model. Ví dụ:
   </p>
-  <pre>
-    <code class="language-python">
-      from django.db import models
 
-      # Create your models here.
-      class Category(models.Model):
-          code = models.CharField(max_length=20, unique=True)
-          name = models.CharField(max_length=100)
+  <div class="offset-1">
+    <pre>
+      <code class="language-python">
+        from django.db import models
 
-      class Attribute(models.Model):
-          name = models.CharField(max_length=100)
-          value = models.CharField(max_length=200)
+        # Create your models here.
+        class Category(models.Model):
+            code = models.CharField(max_length=20, unique=True)
+            name = models.CharField(max_length=100)
 
-      class Product(models.Model):
-          category = models.ForeignKey(Category, on_delete=models.PROTECT)
-          attributes = models.ManyToManyField(Attribute)
-          code = models.CharField(max_length=20, unique=True)
-          name = models.CharField(max_length=100)
-          price = models.FloatField()
+        class Attribute(models.Model):
+            name = models.CharField(max_length=100)
+            value = models.CharField(max_length=200)
 
-    </code>
-  </pre>
+        class Product(models.Model):
+            category = models.ForeignKey(Category, on_delete=models.PROTECT)
+            attributes = models.ManyToManyField(Attribute)
+            code = models.CharField(max_length=20, unique=True)
+            name = models.CharField(max_length=100)
+            price = models.FloatField()
+
+      </code>
+    </pre>
+  </div>
 
   <p>
     Ở ví dụ trên, trong bảng <b>Product</b>, trường <b>category</b> là foreign key liên kết đến bảng
@@ -695,34 +730,40 @@
 
   <h3><u>Truy xuất Database qua ORM</u></h3>
   <h4><u>Thêm mới bản ghi:</u></h4>
-  <pre>
-    <code class="language-python">
-      category = Category.objects.create(code='IPHONE', name='IPhone')
 
-      product = Product.objects.create(
-        category=category,
-        code='IPX',
-        name='IPhone X',
-        price=10500000
-      )
-    </code>
-  </pre>
+  <div class="offset-1">
+    <pre>
+      <code class="language-python">
+        category = Category.objects.create(code='IPHONE', name='IPhone')
+
+        product = Product.objects.create(
+          category=category,
+          code='IPX',
+          name='IPhone X',
+          price=10500000
+        )
+      </code>
+    </pre>
+  </div>
 
   <p>hoặc</p>
-  <pre>
-    <code class="language-python">
-      category = Category(code='IPhone', name='IPhone')
-      category.save()
 
-      product = Product(
-        category=category,
-        code='IPX',
-        name='IPhone X',
-        price=10500000
-      )
-      product.save()
-    </code>
-  </pre>
+  <div class="offset-1">
+    <pre>
+      <code class="language-python">
+        category = Category(code='IPhone', name='IPhone')
+        category.save()
+
+        product = Product(
+          category=category,
+          code='IPX',
+          name='IPhone X',
+          price=10500000
+        )
+        product.save()
+      </code>
+    </pre>
+  </div>
 
   <p>Ở cách 1, bản ghi trong database được tạo ra ngay sau lệnh <b>create</b>. 
     <i>Lưu ý:</i> phải dùng thuộc tính trung gian <b>.objects</b> phía sau các class ORM
@@ -743,47 +784,59 @@
     chỉnh sửa các thuộc tính trong bộ nhớ, sau đó lưu thay đổi xuống database (<b>save</b>)
   </p>
 
-  <pre>
-    <code class="language-python">
-      product = Product.objects.get(code='IPX')
-      product.price = 9500000
-      product.save()
-    </code>
-  </pre>
+  <div class="offset-1">
+    <pre>
+      <code class="language-python">
+        product = Product.objects.get(code='IPX')
+        product.price = 9500000
+        product.save()
+      </code>
+    </pre>
+  </div>
   
+  <br>
   <h4><u>Xoá bản ghi:</u></h4>
-  <p>Để xoá bản ghi, gọi phương thức <b>delete</b> của ORM class</p>
-  <pre>
-    <code class="language-python">
-      product = Product.objects.get(code='IPX')
-      product.delete()
-    </code>
-  </pre>
+  <p class="pt-2">Để xoá bản ghi, gọi phương thức <b>delete</b> của ORM class</p>
+
+  <div class="offset-1">
+    <pre>
+      <code class="language-python">
+        product = Product.objects.get(code='IPX')
+        product.delete()
+      </code>
+    </pre>
+  </div>
 
   <h4><u>Lấy về một bản ghi</u></h4>
-  <p>Để lấy về một bản ghi, sử dụng phương thức <b>.objects.get</b> của ORM class:</p>
-  <pre>
-    <code class="language-python">
-      product1 = Product.objects.get(id=1)
-      product2 = Product.objects.get(code='IPX')
-    </code>
-  </pre>
+  <p class="pt-2">Để lấy về một bản ghi, sử dụng phương thức <b>.objects.get</b> của ORM class:</p>
+  <div class="offset-1">
+    <pre>
+      <code class="language-python">
+        product1 = Product.objects.get(id=1)
+        product2 = Product.objects.get(code='IPX')
+      </code>
+    </pre>
+  </div>
+
   <p>
     Bên trong phương thức <b>.objects.get</b> cần chỉ định một điều kiện tìm kiếm (thường theo id hoặc mã định danh),
     nếu điều kiện tìm kiếm không trả về kết quả nào hoặc trả về nhiều hơn 1 kết quả, lệnh này sẽ báo lỗi.
   </p>
 
   <h4><u>Tìm kiếm bản ghi</u></h4>
-  <p>
+  <p class="pt-2">
     Để tìm kiếm bản ghi, sử dụng phương thức <b>.objects.filter</b> của ORM class và truyền vào danh sách
     các điều kiện tìm kiếm. Ví dụ:
   </p>
-  <pre>
-    <code class="language-python">
-      product_list = Product.objects.filter(price=10)                 # các sản phẩm có giá 10 triệu
-      product_list_2 = Product.objects.filter(code__startswith='IP')  # các sản phẩm có mã bắt đầu bằng IP
-    </code>
-  </pre>
+
+  <div class="offset-1">
+    <pre>
+      <code class="language-python">
+        product_list = Product.objects.filter(price=10)                 # các sản phẩm có giá 10 triệu
+        product_list_2 = Product.objects.filter(code__startswith='IP')  # các sản phẩm có mã bắt đầu bằng IP
+      </code>
+    </pre>
+  </div>
 
   <p>Một số điều kiện filter thường sử dụng:</p>
   <table class="table">
@@ -921,18 +974,21 @@
     của ứng dụng, phải thực hiện đăng ký cho các đối tượng này.
   </p>
   <p>Việc đăng ký được thực hiện trong file <b>admin.py</b> của ứng dụng:</p>
-  <pre>
-    <code class="language-python">
-      #app/admin.py
 
-      from django.contrib import admin
-      from .models import *
+  <div class="offset-1">
+    <pre>
+      <code class="language-python">
+        #app/admin.py
 
-      # Register your models here.
-      admin.site.register(Category)
-      admin.site.register(Product)
-    </code>
-  </pre>
+        from django.contrib import admin
+        from .models import *
+
+        # Register your models here.
+        admin.site.register(Category)
+        admin.site.register(Product)
+      </code>
+    </pre>
+  </div>
 
   <p>Sau khi đăng ký đối tượng xong, reload lại Admin Panel, đối tượng sẽ xuất hiện trong danh sách quản lý:</p>
   <div class="text-center my-4">
@@ -947,27 +1003,30 @@
     <i>Lưu ý:</i> Để các đối tượng hiện theo tên (thay cho tên class kèm id), cần khai báo phương thức 
     <b>__str__</b> trong các ORM Class:
   </p>
-  <pre>
-    <code class="language-python">
-      # app/models.py
 
-      from django.db import models
+  <div class="offset-1">
+    <pre>
+      <code class="language-python">
+        # app/models.py
 
-      class Category(models.Model):
-          ...
-      
-          # Hàm hiển thị
-          def __str__(self):
-              return self.name
+        from django.db import models
 
-      class Product(models.Model):
-              ...
-          
-          # Hàm hiển thị
-          def __str__(self):
-              return self.name
-    </code>
-  </pre>
+        class Category(models.Model):
+            ...
+        
+            # Hàm hiển thị
+            def __str__(self):
+                return self.name
+
+        class Product(models.Model):
+                ...
+            
+            # Hàm hiển thị
+            def __str__(self):
+                return self.name
+      </code>
+    </pre>
+  </div>
   
   <br/>
   <h1><u>II. DjangoRestFrameWork (DRF)</u></h1>
@@ -993,42 +1052,46 @@
   <p>Tuy nhiên DRF cung cấp sẵn một số tính năng giúp việc phát triển web-service dễ dàng hơn.</p>
   <p>Ví dụ về một web-service đơn giản dùng DRF:</p>
 
-  <pre>
-    <code class="language-python">
-      # File: app/views.py
+  <div class="offset-1">
+    <pre>
+      <code class="language-python">
+        # File: app/views.py
+        
+        from rest_framework.decorators import api_view
+        from rest_framework.response import Response
+
+        @api_view(['GET'])
+        def hello(request):    
+            return Response({"message" : "Hello world!"})
+      </code>
       
-      from rest_framework.decorators import api_view
-      from rest_framework.response import Response
+      <code class="language-python">
+        # File: &lt;project_name&gt;/urls.py
 
-      @api_view(['GET'])
-      def hello(request):    
-          return Response({"message" : "Hello world!"})
-    </code>
-    
-    <code class="language-python">
-      # File: &lt;project_name&gt;/urls.py
+        from django.contrib import admin
+        from django.urls import path
+        from django.urls import include           # new
 
-      from django.contrib import admin
-      from django.urls import path
-      from django.urls import include           # new
+        urlpatterns = [
+            path('admin/', admin.site.urls),
+            path('api/', include('app.urls')),    # new
+        ]
+      </code>
 
-      urlpatterns = [
-          path('admin/', admin.site.urls),
-          path('api/', include('app.urls')),    # new
-      ]
-    </code>
+      <code class="language-python">
+        # File: app/urls.py
 
-    <code class="language-python">
-      # File: app/urls.py
+        from django.urls import path
+        from .views import *
 
-      from django.urls import path
-      from .views import *
+        urlpatterns = [
+            path('hello', hello),
+        ]
+      </code>
+    </pre>
+  </div>
 
-      urlpatterns = [
-          path('hello', hello),
-      ]
-    </code>
-  </pre>
+
   <p>Khởi động server và truy nhập web-service tại địa chỉ <span class="code">http://127.0.0.1:8000/api/hello</span></p>
   <div class="text-center my-4">
     <img src="images4/14.png" alt="">
@@ -1086,18 +1149,22 @@
     Để chỉ định một hàm xử lý request hỗ trợ những phương thức nào , <b>DRF</b> sử dụng 
     decorator <b>@api_view</b>:
   </p>
-  <pre>
-    <code class="language-python">
-      # File: app/views.py
-      
-      from rest_framework.decorators import api_view
-      ...
 
-      @api_view(['GET', 'POST', 'PUT', ...])
-      def web_service(request):    
-          ...
-    </code>
-  </pre>
+  <div class="offset-1">
+    <pre>
+      <code class="language-python">
+        # File: app/views.py
+        
+        from rest_framework.decorators import api_view
+        ...
+
+        @api_view(['GET', 'POST', 'PUT', ...])
+        def web_service(request):    
+            ...
+      </code>
+    </pre>
+  </div>
+
   <p>
     Các phương thức REST được hỗ trợ cần được đặt bên trong tham số của decorator <b>@api_view</b>.
     Trường hợp client truy nhập theo vào service theo một phương thức không được hỗ trợ thì sẽ dẫn đến lỗi
@@ -1105,124 +1172,129 @@
   </p>
   <p>Ví dụ: Sử dụng các phương thức REST để tạo các service CRUD (Create/Retrieve/Update/Delete) cho database:</p>
 
-  <pre>
-    <code class="language-python">
-      # File: app/models.py
+  <div class="offset-1">
+    <pre>
+      <code class="language-python">
+        # File: app/models.py
 
-      from django.db import models
+        from django.db import models
 
-      class Student(models.Model):
-          student_number = models.CharField(max_length=20, unique=True)
-          fullname = models.CharField(max_length=100)
-          birthdate = models.DateField()
+        class Student(models.Model):
+            student_number = models.CharField(max_length=20, unique=True)
+            fullname = models.CharField(max_length=100)
+            birthdate = models.DateField()
 
-          def __str__(self):
-              return self.fullname
+            def __str__(self):
+                return self.fullname
 
-      # TODO: Run db migration:
-      # python manage.py makemigrations
-      # python manage.py migrate
-    </code>
-    <p><i>Lưu ý:</i> Sau khi khai báo đối tượng trong <b>models.py</b> phải thực hiện các lệnh <b>makemigrations</b> và <b>migrate</b> (xem phần làm việc với database qua ORM)</p>
-    <code class="language-python">
-      # File: app/views.py
+        # TODO: Run db migration:
+        # python manage.py makemigrations
+        # python manage.py migrate
+      </code>
+
+      <p><i>Lưu ý:</i> Sau khi khai báo đối tượng trong <b>models.py</b> phải thực hiện các lệnh <b>makemigrations</b> và <b>migrate</b> (xem phần làm việc với database qua ORM)</p>
+
+      <code class="language-python">
+        # File: app/views.py
+        
+        from datetime import datetime
+        from django.db.models import Q
+        from .models import Student
+        from rest_framework.decorators import api_view
+        from rest_framework.response import Response
+
+        @api_view(['POST'])
+        def create_student(request):
+            try:
+                data = request.data
+                Student.objects.create(
+                    student_number = data['student_number'],
+                    fullname = data['fullname'],
+                    birthdate = datetime.strptime(data['birthdate'], '%Y-%m-%d')
+                )
+                return Response({'success': True})
+            except Exception as e:
+                return Response({'success': False, 'error': str(e)})
+
+        @api_view(['PUT'])
+        def update_student(request, pk):
+            try:
+                data = request.data
+                student = Student.objects.get(pk=pk)
+                student.student_number = data['student_number']
+                student.fullname = data['fullname']
+                student.birthdate = datetime.strptime(data['birthdate'], '%Y-%m-%d')
+                student.save()
+                
+                return Response({'success': True})
+            except Exception as e:
+                return Response({'success': False, 'error': str(e)})
+
+        @api_view(['DELETE'])
+        def delete_student(request, pk):
+            try:
+                student = Student.objects.get(pk=pk)
+                student.delete()
+                return Response({'success': True})
+            except Exception as e:
+                return Response({'success': False, 'error': str(e)})
+
+        def model_to_dict(student):
+            return {
+                'student_number': student.student_number,
+                'fullname': student.fullname,
+                'birthdate': student.birthdate.strftime('%Y-%m-%d')
+            }
+
+        @api_view(['GET'])
+        def get_student_by_id(request, pk):
+            try:
+                student = Student.objects.get(pk=pk)
+                return Response(model_to_dict(student))
+            except Exception as e:
+                return Response({'success': False, 'error': str(e)})
+
+        @api_view(['GET'])
+        def search_student(request):
+            keyword = request.GET.get('keyword', '')
+            student_list = Student.objects.filter(
+                Q(fullname__icontains=keyword) | 
+                Q(student_number__icontains=keyword)
+            )
+            result = [model_to_dict(student) for student in student_list]
+            return Response(result)
+      </code>
       
-      from datetime import datetime
-      from django.db.models import Q
-      from .models import Student
-      from rest_framework.decorators import api_view
-      from rest_framework.response import Response
+      <code class="language-python">
+        # File: &lt;project_name&gt;/urls.py
 
-      @api_view(['POST'])
-      def create_student(request):
-          try:
-              data = request.data
-              Student.objects.create(
-                  student_number = data['student_number'],
-                  fullname = data['fullname'],
-                  birthdate = datetime.strptime(data['birthdate'], '%Y-%m-%d')
-              )
-              return Response({'success': True})
-          except Exception as e:
-              return Response({'success': False, 'error': str(e)})
+        from django.contrib import admin
+        from django.urls import path
+        from django.urls import include           # new
 
-      @api_view(['PUT'])
-      def update_student(request, pk):
-          try:
-              data = request.data
-              student = Student.objects.get(pk=pk)
-              student.student_number = data['student_number']
-              student.fullname = data['fullname']
-              student.birthdate = datetime.strptime(data['birthdate'], '%Y-%m-%d')
-              student.save()
-              
-              return Response({'success': True})
-          except Exception as e:
-              return Response({'success': False, 'error': str(e)})
+        urlpatterns = [
+            path('admin/', admin.site.urls),
+            path('api/', include('app.urls')),    # new
+        ]
+      </code>
 
-      @api_view(['DELETE'])
-      def delete_student(request, pk):
-          try:
-              student = Student.objects.get(pk=pk)
-              student.delete()
-              return Response({'success': True})
-          except Exception as e:
-              return Response({'success': False, 'error': str(e)})
+      <code class="language-python">
+        # File: app/urls.py
 
-      def model_to_dict(student):
-          return {
-              'student_number': student.student_number,
-              'fullname': student.fullname,
-              'birthdate': student.birthdate.strftime('%Y-%m-%d')
-          }
+        from django.urls import path
+        from .views import *
 
-      @api_view(['GET'])
-      def get_student_by_id(request, pk):
-          try:
-              student = Student.objects.get(pk=pk)
-              return Response(model_to_dict(student))
-          except Exception as e:
-              return Response({'success': False, 'error': str(e)})
+        urlpatterns = [
+            path('create-student', create_student),
+            path('update-student/&lt;pk&gt;', update_student),
+            path('delete-student/&lt;pk&gt;', delete_student),
+            path('get-student-by-id/&lt;pk&gt;', get_student_by_id),
+            path('search-student', search_student),
+        ]
+      </code>
+    </pre>
+  </div>
 
-      @api_view(['GET'])
-      def search_student(request):
-          keyword = request.GET.get('keyword', '')
-          student_list = Student.objects.filter(
-              Q(fullname__icontains=keyword) | 
-              Q(student_number__icontains=keyword)
-          )
-          result = [model_to_dict(student) for student in student_list]
-          return Response(result)
-    </code>
-    
-    <code class="language-python">
-      # File: &lt;project_name&gt;/urls.py
-
-      from django.contrib import admin
-      from django.urls import path
-      from django.urls import include           # new
-
-      urlpatterns = [
-          path('admin/', admin.site.urls),
-          path('api/', include('app.urls')),    # new
-      ]
-    </code>
-
-    <code class="language-python">
-      # File: app/urls.py
-
-      from django.urls import path
-      from .views import *
-
-      urlpatterns = [
-          path('create-student', create_student),
-          path('update-student/&lt;pk&gt;', update_student),
-          path('delete-student/&lt;pk&gt;', delete_student),
-          path('get-student-by-id/&lt;pk&gt;', get_student_by_id),
-          path('search-student', search_student),
-      ]
-    </code>
-  </pre>
   <h3><u>Test các web-service:</u></h3>
   <b><u>Tạo mới bản ghi:</u></b>
   <p class="pt-2">
@@ -1284,31 +1356,39 @@
     dữ liệu do client gửi lên (<b>request.data</b> - dạng Dictionary/key-value), để lưu vào database,
     hàm xử lý request phải tách ra từng trường dữ liệu một: 
   </p>
-  <pre>
-    <code class="language-python">
-      def create_student(request):
-            data = request.data
-            Student.objects.create(
-                student_number = data['student_number'],                        # student_number
-                fullname = data['fullname'],                                    # fullname
-                birthdate = datetime.strptime(data['birthdate'], '%Y-%m-%d')    # birthdate
-            )
-            ...
-    </code>
-  </pre>
+
+  <div class="offset-1">
+    <pre>
+      <code class="language-python">
+        def create_student(request):
+              data = request.data
+              Student.objects.create(
+                  student_number = data['student_number'],                        # student_number
+                  fullname = data['fullname'],                                    # fullname
+                  birthdate = datetime.strptime(data['birthdate'], '%Y-%m-%d')    # birthdate
+              )
+              ...
+      </code>
+    </pre>
+  </div>
+
   <p>Tương tự, khi tìm kiếm bản ghi, ở phía server dữ liệu được lấy từ database ra dưới dạng các bản ghi,
     sau đó phải chuyển từng trường một sang dạng dictionary trước khi trả về cho Response:
   </p>
-  <pre>
-    <code class="language-python">
-      def model_to_dict(student):
-          return {
-              'student_number': student.student_number,                         # student_number
-              'fullname': student.fullname,                                     # fullname
-              'birthdate': student.birthdate.strftime('%Y-%m-%d')               # birthdate
-          }
-    </code>
-  </pre>
+
+  <div class="offset-1">
+    <pre>
+      <code class="language-python">
+        def model_to_dict(student):
+            return {
+                'student_number': student.student_number,                         # student_number
+                'fullname': student.fullname,                                     # fullname
+                'birthdate': student.birthdate.strftime('%Y-%m-%d')               # birthdate
+            }
+      </code>
+    </pre>
+  </div>
+
   <p>Nếu đối tượng có nhiều trường dữ liệu, việc viết chương trình như trên sẽ rất dài (liệt kê từng trường một)</p>
   <p>
     Ngoài ra, nếu người dùng nhập vào dữ liệu không hợp lệ (thiếu trường, trùng mã ,...) thì cách viết trên
@@ -1325,19 +1405,23 @@
     Mỗi class của Database (trong file <b>models.py</b>) cần có một class Serializer riêng. Các Serializer class
     thường được đặt trong file <b>serializers.py</b> (file này không có từ đầu và cần tạo mới):
   </p>
-  <pre>
-    <code class="language-python">
-      # File : app/serializers.py
 
-      from rest_framework.serializers import ModelSerializer
-      from .models import *
+  <div class="offset-1">
+    <pre>
+      <code class="language-python">
+        # File : app/serializers.py
 
-      class StudentSerializer(ModelSerializer):
-          class Meta:
-              model = Student
-              fields = '__all__'   # ['student_number', 'fullname', 'birthdate']
-    </code>
-  </pre>
+        from rest_framework.serializers import ModelSerializer
+        from .models import *
+
+        class StudentSerializer(ModelSerializer):
+            class Meta:
+                model = Student
+                fields = '__all__'   # ['student_number', 'fullname', 'birthdate']
+      </code>
+    </pre>
+  </div>
+
   <p>Các Serializer class cần kế thừa class <b>ModelSerializer</b> của DRF</p>
   <p>Bên trong mỗi Serializer class, cần khai báo phần Meta (cấu hình) với 2 thông tin:</p>
   <ul>
@@ -1346,17 +1430,19 @@
       sang/từ dạng Dictionary. Nếu chọn giá trị bằng <span class="code">'__all__'</span>,
       toàn bộ các trường của đối tượng sẽ được chuyển đổi. Ngoài cách liệt kê các trường,
       còn có thể dùng cách bỏ đi một số trường không dùng (nếu danh sách trường dài thì nên dùng cách này):
-      <pre>
-        <code class="language-python">
-          # File : app/serializers.py
-          ...
+      <div class="offset-1">
+        <pre>
+          <code class="language-python">
+            # File : app/serializers.py
+            ...
 
-          class StudentSerializer(ModelSerializer):
-              class Meta:
-                  model = Student
-                  exclude = ['birthdate']   # fields = ['student_number', 'fullname']
-        </code>
-      </pre>
+            class StudentSerializer(ModelSerializer):
+                class Meta:
+                    model = Student
+                    exclude = ['birthdate']   # fields = ['student_number', 'fullname']
+          </code>
+        </pre>
+      </div>
     </li>
   </ul>
 
@@ -1366,32 +1452,35 @@
     dữ liệu người dùng gửi lên (trong biến <b>request.data</b>). Nếu dữ liệu không hợp lệ
     Serializer Class sẽ đưa ra thông báo lỗi cụ thể. Nếu hợp lệ, dữ liệu được lưu xuống database:
   </p>
-  <pre>
-    <code class="language-python">
-      # File : app/views.py
-      ...
-      from .serializers import StudentSerializer
 
-      @api_view(['POST'])
-      def create_student(request):
-          serializer = StudentSerializer(data=request.data)
-          if serializer.is_valid():
-              serializer.save()
-              return Response(serializer.data)
-          else:
-              return Response(serializer.errors, status=400)
+  <div class="offset-1">
+    <pre>
+      <code class="language-python">
+        # File : app/views.py
+        ...
+        from .serializers import StudentSerializer
 
-      @api_view(['PUT'])
-      def update_student(request, pk):
-          student = Student.objects.get(pk=pk)
-          serializer = StudentSerializer(data=request.data, instance=student)
-          if serializer.is_valid():
-              serializer.save()
-              return Response(serializer.data)
-          else:
-              return Response(serializer.errors, status=400)
-    </code>
-  </pre>
+        @api_view(['POST'])
+        def create_student(request):
+            serializer = StudentSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+            else:
+                return Response(serializer.errors, status=400)
+
+        @api_view(['PUT'])
+        def update_student(request, pk):
+            student = Student.objects.get(pk=pk)
+            serializer = StudentSerializer(data=request.data, instance=student)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+            else:
+                return Response(serializer.errors, status=400)
+      </code>
+    </pre>
+  </div>
 
   <p>Việc validate dữ liệu được thực hiện qua phương thức <b>is_valid</b> của Serializer:</p>
   <div class="offset-1">
@@ -1419,25 +1508,30 @@
   <p class="pt-2">Trong các hàm tìm kiếm, lấy dữ liệu bản ghi, Serializer được dùng để chuyển đối tượng ORM
      sang dạng Dictionary để có thể trả về cho response:
   </p>
-  <pre>
-    <code class="language-python">
-      @api_view(['GET'])
-      def get_student_by_id(request, pk):
-          student = Student.objects.get(pk=pk)
-          data = StudentSerializer(student).data
-          return Response(data)
 
-      @api_view(['GET'])
-      def search_student(request):
-          keyword = request.GET.get('keyword', '')
-          student_list = Student.objects.filter(
-              Q(fullname__icontains=keyword) | 
-              Q(student_number__icontains=keyword)
-          )
-          data = StudentSerializer(student_list, many=True).data
-          return Response(data)
-    </code>
-  </pre>
+  <div class="offset-1">
+    <pre>
+      <code class="language-python">
+        @api_view(['GET'])
+        def get_student_by_id(request, pk):
+            student = Student.objects.get(pk=pk)
+            data = StudentSerializer(student).data
+            return Response(data)
+
+        @api_view(['GET'])
+        def search_student(request):
+            keyword = request.GET.get('keyword', '')
+            student_list = Student.objects.filter(
+                Q(fullname__icontains=keyword) | 
+                Q(student_number__icontains=keyword)
+            )
+            data = StudentSerializer(student_list, many=True).data
+            return Response(data)
+      </code>
+    </pre>
+  </div>
+
+
   <p>Dữ liệu chuyển đổi được lấy ra từ trường <b>data</b> của Serializer:</p>
   <div class="offset-1">
     <code>
@@ -1451,123 +1545,127 @@
     </code>
   </div>
   <p class="pt-3">Chương trình đầy đủ để tạo các web-service CRUD có sử dụng Serializer như sau:</p>
-  <pre>
-    <code class="language-python">
-      # File: app/models.py
 
-      from django.db import models
+  <div class="offset-1">
+    <pre>
+      <code class="language-python">
+        # File: app/models.py
 
-      class Student(models.Model):
-          student_number = models.CharField(max_length=20, unique=True)
-          fullname = models.CharField(max_length=100)
-          birthdate = models.DateField()
+        from django.db import models
 
-          def __str__(self):
-              return self.fullname
+        class Student(models.Model):
+            student_number = models.CharField(max_length=20, unique=True)
+            fullname = models.CharField(max_length=100)
+            birthdate = models.DateField()
 
-      # TODO: Run db migration:
-      # python manage.py makemigrations
-      # python manage.py migrate
-    </code>
-    
-    <code class="language-python">
-      # File : app/serializers.py
+            def __str__(self):
+                return self.fullname
 
-      from rest_framework.serializers import ModelSerializer
-      from .models import *
-
-      class StudentSerializer(ModelSerializer):
-          class Meta:
-              model = Student
-              fields = '__all__'   # ['student_number', 'fullname', 'birthdate']
-    </code>
-
-    <code class="language-python">
-      # File: app/views.py
+        # TODO: Run db migration:
+        # python manage.py makemigrations
+        # python manage.py migrate
+      </code>
       
-      from datetime import datetime
-      from django.db.models import Q
+      <code class="language-python">
+        # File : app/serializers.py
 
-      from rest_framework.decorators import api_view
-      from rest_framework.response import Response
-      from .models import Student
-      from .serializers import StudentSerializer
+        from rest_framework.serializers import ModelSerializer
+        from .models import *
 
-      @api_view(['POST'])
-      def create_student(request):
-          serializer = StudentSerializer(data=request.data)
-          if serializer.is_valid():
-              serializer.save()
-              return Response(serializer.data)
-          else:
-              return Response(serializer.errors, status=400)
+        class StudentSerializer(ModelSerializer):
+            class Meta:
+                model = Student
+                fields = '__all__'   # ['student_number', 'fullname', 'birthdate']
+      </code>
 
-      @api_view(['PUT'])
-      def update_student(request, pk):
-          student = Student.objects.get(pk=pk)
-          serializer = StudentSerializer(data=request.data, instance=student)
-          if serializer.is_valid():
-              serializer.save()
-              return Response(serializer.data)
-          else:
-              return Response(serializer.errors, status=400)
+      <code class="language-python">
+        # File: app/views.py
+        
+        from datetime import datetime
+        from django.db.models import Q
 
-      @api_view(['GET'])
-      def get_student_by_id(request, pk):
-          student = Student.objects.get(pk=pk)
-          data = StudentSerializer(student).data
-          return Response(data)
+        from rest_framework.decorators import api_view
+        from rest_framework.response import Response
+        from .models import Student
+        from .serializers import StudentSerializer
 
-      @api_view(['GET'])
-      def search_student(request):
-          keyword = request.GET.get('keyword', '')
-          student_list = Student.objects.filter(
-              Q(fullname__icontains=keyword) | 
-              Q(student_number__icontains=keyword)
-          )
-          data = StudentSerializer(student_list, many=True).data
-          return Response(data)
+        @api_view(['POST'])
+        def create_student(request):
+            serializer = StudentSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+            else:
+                return Response(serializer.errors, status=400)
+
+        @api_view(['PUT'])
+        def update_student(request, pk):
+            student = Student.objects.get(pk=pk)
+            serializer = StudentSerializer(data=request.data, instance=student)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+            else:
+                return Response(serializer.errors, status=400)
+
+        @api_view(['GET'])
+        def get_student_by_id(request, pk):
+            student = Student.objects.get(pk=pk)
+            data = StudentSerializer(student).data
+            return Response(data)
+
+        @api_view(['GET'])
+        def search_student(request):
+            keyword = request.GET.get('keyword', '')
+            student_list = Student.objects.filter(
+                Q(fullname__icontains=keyword) | 
+                Q(student_number__icontains=keyword)
+            )
+            data = StudentSerializer(student_list, many=True).data
+            return Response(data)
 
 
-      @api_view(['DELETE'])
-      def delete_student(request, pk):
-          try:
-              student = Student.objects.get(pk=pk)
-              student.delete()
-              return Response({'success': True})
-          except Exception as e:
-              return Response({'success': False, 'error': str(e)})
+        @api_view(['DELETE'])
+        def delete_student(request, pk):
+            try:
+                student = Student.objects.get(pk=pk)
+                student.delete()
+                return Response({'success': True})
+            except Exception as e:
+                return Response({'success': False, 'error': str(e)})
 
-    </code>
-    
-    <code class="language-python">
-      # File: &lt;project_name&gt;/urls.py
+      </code>
+      
+      <code class="language-python">
+        # File: &lt;project_name&gt;/urls.py
 
-      from django.contrib import admin
-      from django.urls import path
-      from django.urls import include           # new
+        from django.contrib import admin
+        from django.urls import path
+        from django.urls import include           # new
 
-      urlpatterns = [
-          path('admin/', admin.site.urls),
-          path('api/', include('app.urls')),    # new
-      ]
-    </code>
+        urlpatterns = [
+            path('admin/', admin.site.urls),
+            path('api/', include('app.urls')),    # new
+        ]
+      </code>
 
-    <code class="language-python">
-      # File: app/urls.py
+      <code class="language-python">
+        # File: app/urls.py
 
-      from django.urls import path
-      from .views import *
+        from django.urls import path
+        from .views import *
 
-      urlpatterns = [
-          path('create-student', create_student),
-          path('update-student/&lt;pk&gt;', update_student),
-          path('delete-student/&lt;pk&gt;', delete_student),
-          path('get-student-by-id/&lt;pk&gt;', get_student_by_id),
-          path('search-student', search_student),
-      ]
-    </code>
-  </pre>
+        urlpatterns = [
+            path('create-student', create_student),
+            path('update-student/&lt;pk&gt;', update_student),
+            path('delete-student/&lt;pk&gt;', delete_student),
+            path('get-student-by-id/&lt;pk&gt;', get_student_by_id),
+            path('search-student', search_student),
+        ]
+      </code>
+    </pre>
+  </div>
+
   <h2><u>Tạo API với ViewClass</u></h2>
   <p>
     Ngoài cách tạo API thông qua hàm xử lý request (như các phần bên trên), DRF còn hỗ trợ việc tạo API sử dụng 
@@ -1576,56 +1674,59 @@
     cho các phương thức REST.
   </p>
   <p>Ví dụ:</p>
-  <pre>
-    <code class="language-python">
-      # File: app/views.py
-      
-      from rest_framework.views import APIView
-      from rest_framework.response import Response
-      from .models import Student
-      from .serializers import StudentSerializer
 
-      class StudentView(APIView):
-          def get(self, request):
-              student_list = Student.objects.all()
-              data = StudentSerializer(student_list, many=True).data
-              return Response(data)
-          
-          def post(self, request):
-              serializer = StudentSerializer(data=request.data)
-              if serializer.is_valid():
-                  serializer.save()
-                  return Response(serializer.data)
-              else:
-                  return Response(serializer.errors, status=400)
-    </code>
-    <code class="language-python">
-      # File: app/urls.py
+  <div class="offset-1">
+    <pre>
+      <code class="language-python">
+        # File: app/views.py
+        
+        from rest_framework.views import APIView
+        from rest_framework.response import Response
+        from .models import Student
+        from .serializers import StudentSerializer
 
-      from django.urls import path
-      from .views import *
+        class StudentView(APIView):
+            def get(self, request):
+                student_list = Student.objects.all()
+                data = StudentSerializer(student_list, many=True).data
+                return Response(data)
+            
+            def post(self, request):
+                serializer = StudentSerializer(data=request.data)
+                if serializer.is_valid():
+                    serializer.save()
+                    return Response(serializer.data)
+                else:
+                    return Response(serializer.errors, status=400)
+      </code>
+      <code class="language-python">
+        # File: app/urls.py
 
-      urlpatterns = [
-          path('student', StudentView.as_view()),
-      ]
-    </code>
-    <code class="language-python">
-      # File: app/models.py
+        from django.urls import path
+        from .views import *
 
-      # ... Same as above
-    </code>
-    <code class="language-python">
-      # File: app/serializers.py
+        urlpatterns = [
+            path('student', StudentView.as_view()),
+        ]
+      </code>
+      <code class="language-python">
+        # File: app/models.py
 
-      # ... Same as above
-    </code>
+        # ... Same as above
+      </code>
+      <code class="language-python">
+        # File: app/serializers.py
 
-    <code class="language-python">
-      # File: &lt;project_name&gt;/urls.py
+        # ... Same as above
+      </code>
 
-      # ... Same as above
-    </code>
-  </pre>
+      <code class="language-python">
+        # File: &lt;project_name&gt;/urls.py
+
+        # ... Same as above
+      </code>
+    </pre>
+  </div>
 
   <p>
     Việc đăng ký web-service với ViewClass trong file <b>urls.py</b> được thực hiện nhờ phương thức
@@ -1675,51 +1776,55 @@
     <li class="mt-2"><b>queryset</b>: tập dữ liệu của ORM class, thường là toàn bộ các bản ghi trong database</li>
   </ul>
   <p>Ví dụ:</p>
-  <pre>
-    <code class="language-python">
-      // File: app/views.py
 
-      from rest_framework import viewsets
-      from .serializers import *
-      from .models import *
+  <div class="offset-1">
+    <pre>
+      <code class="language-python">
+        // File: app/views.py
 
-      class StudentViewSet(viewsets.ModelViewSet):
-          serializer_class = StudentSerialzer
-          queryset = Student.objects.all()
-    </code>
+        from rest_framework import viewsets
+        from .serializers import *
+        from .models import *
 
-    <code class="language-python">
-      // File: app/urls.py
+        class StudentViewSet(viewsets.ModelViewSet):
+            serializer_class = StudentSerialzer
+            queryset = Student.objects.all()
+      </code>
 
-      from rest_framework.routers import DefaultRouter
-      from .views import *
+      <code class="language-python">
+        // File: app/urls.py
 
-      urlpatterns = [
-          #Declare normal routes
-      ]
+        from rest_framework.routers import DefaultRouter
+        from .views import *
 
-      #View set
-      router = DefaultRouter()
-      router.register('student', StudentViewSet)
-      urlpatterns += router.urls
-    </code>
-    <code class="language-python">
-      # File: app/models.py
+        urlpatterns = [
+            #Declare normal routes
+        ]
 
-      # ... Same as above
-    </code>
-    <code class="language-python">
-      # File: app/serializers.py
+        #View set
+        router = DefaultRouter()
+        router.register('student', StudentViewSet)
+        urlpatterns += router.urls
+      </code>
+      <code class="language-python">
+        # File: app/models.py
 
-      # ... Same as above
-    </code>
+        # ... Same as above
+      </code>
+      <code class="language-python">
+        # File: app/serializers.py
 
-    <code class="language-python">
-      # File: &lt;project_name&gt;/urls.py
+        # ... Same as above
+      </code>
 
-      # ... Same as above
-    </code>
-  </pre>
+      <code class="language-python">
+        # File: &lt;project_name&gt;/urls.py
+
+        # ... Same as above
+      </code>
+    </pre>
+  </div>
+
   <p>Việc đăng ký web-service với ViewSet được thực hiện trong file <b>urls.py</b>:</p>
   <div class="offset-1">
     <code>
@@ -1787,15 +1892,19 @@
   </ul>
   <h3><u>Kiểm tra CORS đã được bật</u></h3>
   <p>Để kiểm tra CORS đã được bật, tạo mới một file html với nội dung như sau:</p>
-  <pre>
-    <code class="language-html">
-        &lt;script&gt;
-            fetch('http://127.0.0.1:8000/api/student')
-                .then(resp => resp.json())
-                .then(result => console.log(result));
-        &lt;/script&gt;
-    </code>
-  </pre>
+
+  <div class="offset-1">
+    <pre>
+      <code class="language-html">
+          &lt;script&gt;
+              fetch('http://127.0.0.1:8000/api/student')
+                  .then(resp => resp.json())
+                  .then(result => console.log(result));
+          &lt;/script&gt;
+      </code>
+    </pre>
+  </div>
+
   <p>Click chuột file và chọn mở file với trình duyệt (Chrome/FireFox/Edge, ...)</p>
   <p>
     Khi trình duyệt đã mở, click chuột file vào màn hình trắng, chọn <b>Inspect</b>,
@@ -1838,73 +1947,84 @@
       pip install djangorestframework_simplejwt
   </div>
   <p class="pt-3">Sau khi cài đặt thư viện, cần bổ sung thêm cấu hình JWT vào cuối file <b>settings.py</b>:</p>
-  <pre>
-    <code class="language-python">
-      # File: settings.py
-      ...
-      REST_FRAMEWORK = {
-        'DEFAULT_AUTHENTICATION_CLASSES': [       
-          'rest_framework_simplejwt.authentication.JWTAuthentication',
-        ],
-      }
 
-      from datetime import timedelta
-      SIMPLE_JWT = {
-        'ACCESS_TOKEN_LIFETIME': timedelta(days=1)      # đặt thời gian hết hạn token
-      }
-    </code>
-  </pre>
+  <div class="offset-1">
+    <pre>
+      <code class="language-python">
+        # File: settings.py
+        ...
+        REST_FRAMEWORK = {
+          'DEFAULT_AUTHENTICATION_CLASSES': [       
+            'rest_framework_simplejwt.authentication.JWTAuthentication',
+          ],
+        }
+
+        from datetime import timedelta
+        SIMPLE_JWT = {
+          'ACCESS_TOKEN_LIFETIME': timedelta(days=1)      # đặt thời gian hết hạn token
+        }
+      </code>
+    </pre>
+  </div>
+
   <p>Trong file <b>urls.py</b> của project bổ sung khai báo url cho API lấy token:</p>
-  <pre>
-    <code class="language-python">
-      # File: &lt;project_name&gt;/urls.py
 
-      from django.contrib import admin
-      from django.urls import path, include
-      from rest_framework_simplejwt import views as jwt_views              # new
+  <div class="offset-1">
+    <pre>
+      <code class="language-python">
+        # File: &lt;project_name&gt;/urls.py
 
-      urlpatterns = [
-          path('api/token', jwt_views.TokenObtainPairView.as_view()),      # new
-          path('api/', include('app.urls')),
-          path('admin/', admin.site.urls),
-      ]
-    </code>
-  </pre>
+        from django.contrib import admin
+        from django.urls import path, include
+        from rest_framework_simplejwt import views as jwt_views              # new
+
+        urlpatterns = [
+            path('api/token', jwt_views.TokenObtainPairView.as_view()),      # new
+            path('api/', include('app.urls')),
+            path('admin/', admin.site.urls),
+        ]
+      </code>
+    </pre>
+  </div>
+
   <p>Gắn chức năng bảo mật cho các web-service:</p>
-  <pre>
-    <code class="language-python">
-      # File: app/views.py
 
-      from rest_framework.response import Response
-      from rest_framework.decorators import api_view, permission_classes
-      from rest_framework.permissions import IsAuthenticated
-      from rest_framework.views import APIView
+  <div class="offset-1">
+    <pre>
+      <code class="language-python">
+        # File: app/views.py
 
-      @api_view(['GET'])
-      @permission_classes([IsAuthenticated])
-      def hello_service(request, format=None):
-          return Response({"message" : "Hello"})
+        from rest_framework.response import Response
+        from rest_framework.decorators import api_view, permission_classes
+        from rest_framework.permissions import IsAuthenticated
+        from rest_framework.views import APIView
 
-      # ViewClass
-      class HelloView(APIView):
-          permission_classes = [IsAuthenticated]
-          
-          def get(request):        
-              return Response({"message" : "Hello"})
-    </code>
+        @api_view(['GET'])
+        @permission_classes([IsAuthenticated])
+        def hello_service(request, format=None):
+            return Response({"message" : "Hello"})
 
-    <code class="language-python">
-      # File: app/urls.py
+        # ViewClass
+        class HelloView(APIView):
+            permission_classes = [IsAuthenticated]
+            
+            def get(request):        
+                return Response({"message" : "Hello"})
+      </code>
 
-      from django.urls import path
-      from .views import *
+      <code class="language-python">
+        # File: app/urls.py
 
-      urlpatterns = [
-          path('hello', hello_service),
-          path('hello2', HelloView.as_view()),
-      ]
-    </code>
-  </pre>
+        from django.urls import path
+        from .views import *
+
+        urlpatterns = [
+            path('hello', hello_service),
+            path('hello2', HelloView.as_view()),
+        ]
+      </code>
+    </pre>
+  </div>
 
   <b><u>Test API với Postman</u></b>
   <p class="pt-2">
