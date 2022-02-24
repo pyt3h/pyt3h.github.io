@@ -564,11 +564,15 @@
   <div class="offset-1">
     <pre>
       <code class="language-javascript">
+        // File: store.js
+
         import { writable } from "svelte/store";
         export const counter = writable(0);
       </code>
       <code class="language-html">
         &lt;script&gt;
+          &lt!-- File: App.svelete --&gt
+
           import { counter } from "./store";
           
           function increase() {
