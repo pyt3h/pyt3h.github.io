@@ -103,8 +103,8 @@
   </div>
   <p>Ví dụ:</p>
   <div class="offset-1">
-    <div><span class="code me-5" style="padding-right: 120px;">python manage.py runserver 8080</span> # chạy ứng dụng tại cổng 8080</div>
-    <div><span class="code me-5">python manage.py runserver 0.0.0.0:8080:8080</span> # chạy ứng dụng ở cổng 8080, tất cả IP của máy</div>
+    <div><span class="code me-5" style="padding-right: 72px;">python manage.py runserver 8080</span> # chạy ứng dụng tại cổng 8080</div>
+    <div><span class="code me-5">python manage.py runserver 0.0.0.0:8080</span> # chạy ứng dụng ở cổng 8080, tất cả IP của máy</div>
   </div>
   <br/>
   <h2><u>Tạo mới ứng dụng</u></h2>
@@ -1489,17 +1489,16 @@
       <div>&nbsp;&nbsp;&nbsp;...</div>
     </code>
   </div>
-  <p>Nếu dữ liệu không hợp lệ, thông báo lỗi được chứa trong trường <b>errors</b> của Serializer</p>
-  <div class="offset-1">
-    <code>
-      <div>if serializer.is_valid():</div>
-      <div class="mt-2">&nbsp;&nbsp;&nbsp;return Response(serializer.errors, status=400) # 400: Bad request</div>
-    </code>
-  </div>
-  <p class="pt-3">Nếu không có lỗi, dữ liệu được lưu xuống qua phương thức <b>save</b> của Serializer:</p>
+  <p>Dữ liệu hợp lệ sẽ được lưu vào database nhờ phương thức <b>save</b> của Serializer:</p>
   <div class="offset-1">
     <code>
       serializer.save()
+    </code>
+  </div>
+  <p class="pt-3">Nếu dữ liệu không hợp lệ, nội dung lỗi được trả về trong trường <b>errors</b> của Serializer:</p>
+  <div class="offset-1">
+    <code>
+      return Response(serializer.errors, status=400) # 400: Bad request
     </code>
   </div>
 
