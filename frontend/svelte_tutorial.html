@@ -504,7 +504,7 @@
   <div class="offset-1">
     <pre>
       <code class="language-javascript">
-        import { state1 } from "./stores";
+        import { state1 } from "./store";
         function commitAction() {
           state1.update(val => new_val);
         }
@@ -530,7 +530,7 @@
   <div class="offset-1">
     <pre>
       <code class="language-javascript">
-        import { state1 } from "./stores";
+        import { state1 } from "./store";
         let localState1;
         state1.subscribe(val => localState1 = val);
       </code>
