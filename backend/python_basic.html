@@ -1061,7 +1061,7 @@
       <div class="mt-1">new_lst = []</div>
       <div class="mt-1"><b>for</b> var <b>in</b> lst:</div>
       <div class="mt-1">&nbsp;&nbsp;&nbsp;<b>if</b> condition(var):</div>
-      <div class="mt-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new_lst.<b>append</b>(var)</div>
+      <div class="mt-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new_lst.<b>append</b>(transform(var))</div>
     </code>
   </div>
   
@@ -1289,39 +1289,32 @@
           print(word , ' : ', words_count[word])
       </code>
       <code class="language-python">
-        # Chuyển phát âm tiếng Việt của một số trong phạm vi 1-99 thành giá trị số. Ví dụ: tám mươi lăm → 85
-        bang_so1 = {'một': 1, 'hai': 2, 'ba': 3, 'bốn': 4, 'năm': 5, 'sáu': 6, 'bảy': 7, 'tám': 8, 'chín': 9, 'mười': 10}
+        # Cho một bảng dữ liệu nhiệt độ từ 0-23h tại một địa điểm, in ra thời gian nhiệt độ cao nhất trong ngày
 
-        bang_so2 = {'một': 1, 'hai': 2, 'ba': 3, 'bốn': 4, 'lăm': 5, 'sáu': 6, 'bảy': 7, 'tám': 8, 'chín': 9}
+        temp_table = [
+          {'hour': 0, 'temp': 20},
+          {'hour': 2, 'temp': 20},
+          {'hour': 4, 'temp': 19},
+          {'hour': 6, 'temp': 20},
+          {'hour': 8, 'temp': 21},
+          {'hour': 10, 'temp': 23},
+          {'hour': 12, 'temp': 24},
+          {'hour': 14, 'temp': 25},
+          {'hour': 16, 'temp': 24},
+          {'hour': 18, 'temp': 22},
+          {'hour': 20, 'temp': 21},
+          {'hour': 22, 'temp': 19},
+        ]
+        
+        temp_max = temp_table[0]['temp']
+        hour_max = 0
 
-        bang_so3 = {'mươi': 0, 'mốt': 1, 'hai': 2, 'ba': 3, 'bốn': 4, 'tư': 4, 'lăm': 5, 'sáu': 6, 'bảy': 7, 'tám': 8, 'chín': 9}
+        for record in temp_table:
+            if record['temp'] > temp_max:
+                temp_max = record['temp']
+                hour_max = record['hour']
 
-        text = input('text=')
-        words = text.lower().split()
-        N = len(words)
-
-        if N == 1:
-          if words[0] in bang_so1:
-              print(bang_so1[words[0]])        
-          else:
-              print('Không tồn tại số')
-              
-          exit()
-
-        chuc, donvi = -1, -1
-
-        if (N == 3 and words[1] == 'mươi') or N == 2:
-            chuc = bang_so1.get(words[0], -1)
-            donvi = bang_so3.get(words[-1], -1)
-
-        if N == 2 and words[0] == 'mười':
-            chuc = 1
-            donvi = bang_so2.get(words[1], -1)
-
-        if chuc >= 0 and donvi >= 0:
-            print(10 * chuc + donvi)
-        else:
-            print('Không tồn tại số')
+        print(f'Nhiệt độ cao nhất : {temp_max} độ, lúc {hour_max}h')
       </code>
     </pre>
   </div>
