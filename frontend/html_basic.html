@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/default.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <link href="https://fonts.googleapis.com/css?family=Noto+Serif:400,700&display=swap&subset=vietnamese" rel="stylesheet">
 <style>
@@ -1003,4 +1005,498 @@
     </tbody>
   </table>
 
+  <h1><u>III. Thư viện Bootstrap</u></h1>
+  <p><a target="_blank" href="https://getbootstrap.com/">Bootstrap</a> là thư viện CSS phổ biến (nhất) và dễ sử dụng cho người mới học HTML.
+    Sử dụng bootstrap giúp giảm nhẹ việc phải tự viết CSS cho một số UI cơ bản.
+  </p>
+  <p>Để sử dụng bootstrap, chỉ cần thêm khai báo stylesheet ở phần đầu file html:</p>
+  <pre>
+    <code class="language-html">
+      &lt;link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"&gt;
+    </code>
+  </pre>
+  <h2><u>1. Sử dụng Layout của Bootstrap</u></h2>
+  <p>Để chia màn hình thành các phần nhỏ cho việc bố trí nội dung (layout),bootstrap cung cấp các class sau:</p>
+  <ul>
+    <li class="mt-1"><code>container</code>: khung bao toàn trang</li>
+    <li class="mt-1"><code>row</code>: một dòng</li>
+    <li class="mt-1"><code>column</code>: một cột</li>
+  </ul>
+  <p>Bootstrap nổi tiếng với layout 12 cột, tức 1 dòng được chia thành 12 phần bằng nhau và mỗi 
+    cột có thể nhận độ rộng bằng bội số (1,2..12) của 1/12 màn hình. Để thể hiện độ rộng các cột,
+    Bootstrap cung cấp các class <code>col-n</code> trong đó n là các số 1,2...12.
+  </p>
+  <p><u>Ví dụ:</u></p>
+  <table class="table">
+    <thead>
+      <tr>
+        <th style="width:30%">Layout</th>
+        <th style="width:35%">Html</th>
+        <th style="width:35%">Hiển thị</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Chia đôi màn hình tỉ lệ 1:1</td>
+        <td class="code">
+          <div class="py-1">&lt;div class="row"&gt;</div>
+          <div class="py-1">&nbsp;&nbsp;&lt;div class="col-6"&gt;</div>
+          <div class="py-1">&nbsp;&nbsp;&lt;/div&gt;</div>
+          <div class="py-1">&nbsp;&nbsp;&lt;div class="col-6"&gt;</div>
+          <div class="py-1">&nbsp;&nbsp;&lt;/div&gt;</div>
+          <div class="py-1">&lt;/div&gt;</div>
+        </td>
+        <td>
+          <div class="row">
+            <div class="col-6 py-2" style="border:1px solid black">col-6</div>
+            <div class="col-6 py-2" style="border:1px solid black">col-6</div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>Chia ba màn hình tỉ lệ 1:1:1</td>
+        <td class="code">
+          <div class="py-1">&lt;div class="row"&gt;</div>
+          <div class="py-1">&nbsp;&nbsp;&lt;div class="col-4"&gt;</div>
+          <div class="py-1">&nbsp;&nbsp;&lt;/div&gt;</div>
+          <div class="py-1">&nbsp;&nbsp;&lt;div class="col-4"&gt;</div>
+          <div class="py-1">&nbsp;&nbsp;&lt;/div&gt;</div>
+          <div class="py-1">&nbsp;&nbsp;&lt;div class="col-4"&gt;</div>
+          <div class="py-1">&nbsp;&nbsp;&lt;/div&gt;</div>
+          <div class="py-1">&lt;/div&gt;</div>
+        </td>
+        <td>
+          <div class="row">
+            <div class="col-4 py-2" style="border:1px solid black">col-4</div>
+            <div class="col-4 py-2" style="border:1px solid black">col-4</div>
+            <div class="col-4 py-2" style="border:1px solid black">col-4</div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>Chia đôi màn hình tỉ lệ 1:3</td>
+        <td class="code">
+          <div class="py-1">&lt;div class="row"&gt;</div>
+          <div class="py-1">&nbsp;&nbsp;&lt;div class="col-3"&gt;</div>
+          <div class="py-1">&nbsp;&nbsp;&lt;/div&gt;</div>
+          <div class="py-1">&nbsp;&nbsp;&lt;div class="col-9"&gt;</div>
+          <div class="py-1">&nbsp;&nbsp;&lt;/div&gt;</div>
+          <div class="py-1">&lt;/div&gt;</div>
+        </td>
+        <td>
+          <div class="row">
+            <div class="col-3 py-2" style="border:1px solid black">col-3</div>
+            <div class="col-9 py-2" style="border:1px solid black">col-9</div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <p>Trong bootstrap, có thể sử dụng nested layout: Trong row có các column, trong column lại có các row, 
+    ví dụ:
+  </p>
+  <div class="row">
+    <div class="col-3 py-2" style="border:1px solid black">
+      col-3
+    </div>
+    <div class="col-9" style="border:1px solid black">
+      <div class="row py-2">
+        <div class="col text-center">row</div>
+      </div>
+      <div class="row py-2" style="border-top:1px solid black">
+        <div class="col text-center">row</div>
+      </div>
+      <div class="row">
+        <div class="col-6 py-2" style="border:1px solid black">col-6</div>
+        <div class="col-6 py-2" style="border:1px solid black">col-6</div>
+      </div>
+    </div>
+  </div>
+  <br/>
+  <h2><u>2. Màu sắc trong Bootstrap</u></h2>
+  <p>Bootstrap sử dụng các màu sắc để thể hiện tính chất của thông tin hiển thị:</p>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Nhóm class</th>
+        <th>Màu</th>
+        <th>Ví dụ</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="code">*-success</td>
+        <td>Xanh lá cây</td>
+        <td>
+          <table class="table">
+            <tbody>
+              <tr>
+                <td class="code">&lt;span class="<b>text-success</b>"&gt;Success&lt;/span&gt;</td>
+                <td style="width:25%"><span class="text-success">Success</span></td>
+              </tr>
+              <tr>
+                <td class="code">&lt;button class="btn btn-sm <b>btn-success</b>"&gt;Done&lt;/button&gt;</td>
+                <td><button class="btn btn-sm btn-success">Done</button>	</td>
+              </tr>
+              <tr>
+                <td class="code">&lt;div class="<b>bg-success</b>"&gt;&amp;nbsp;&lt;/div&gt;</td>
+                <td><div class="bg-success">&nbsp;</div></td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td class="code">*-primary</td>
+        <td>Xanh nước biển</td>
+        <td>
+          <table class="table">
+            <tbody>
+              <tr>
+                <td class="code">&lt;span class="<b>text-primary</b>"&gt;Primary&lt;/span&gt;</td>
+                <td style="width:25%"><span class="text-primary">Primary</span></td>
+              </tr>
+              <tr>
+                <td class="code">&lt;button class="btn btn-sm <b>btn-primary</b>"&gt;Continue&lt;/button&gt;</td>
+                <td><button class="btn btn-sm btn-primary">Continue</button>	</td>
+              </tr>
+              <tr>
+                <td class="code">&lt;div class="<b>bg-primary</b>"&gt;&amp;nbsp;&lt;/div&gt;</td>
+                <td><div class="bg-primary">&nbsp;</div></td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td class="code">*-secondary</td>
+        <td>Xám</td>
+        <td>
+          <table class="table">
+            <tbody>
+              <tr>
+                <td class="code">&lt;span class="<b>text-secondary</b>"&gt;Secondary&lt;/span&gt;</td>
+                <td style="width:25%"><span class="text-secondary">Secondary</span></td>
+              </tr>
+              <tr>
+                <td class="code">&lt;button class="btn btn-sm <b>btn-secondary</b>"&gt;Cancel&lt;/button&gt;</td>
+                <td><button class="btn btn-sm btn-secondary">Cancel</button>	</td>
+              </tr>
+              <tr>
+                <td class="code">&lt;div class="<b>bg-secondary</b>"&gt;&amp;nbsp;&lt;/div&gt;</td>
+                <td><div class="bg-secondary">&nbsp;</div></td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td class="code">*-warning</td>
+        <td>Vàng</td>
+        <td>
+          <table class="table">
+            <tbody>
+              <tr>
+                <td class="code">&lt;span class="<b>text-warning</b>"&gt;Warning&lt;/span&gt;</td>
+                <td style="width:25%"><span class="text-warning">Warning</span></td>
+              </tr>
+              <tr>
+                <td class="code">&lt;button class="btn btn-sm <b>btn-warning</b>"&gt;Ignore&lt;/button&gt;</td>
+                <td><button class="btn btn-sm btn-warning">Ignore</button>	</td>
+              </tr>
+              <tr>
+                <td class="code">&lt;div class="<b>bg-warning</b>"&gt;&amp;nbsp;&lt;/div&gt;</td>
+                <td><div class="bg-warning">&nbsp;</div></td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td class="code">*-danger</td>
+        <td>Đỏ</td>
+        <td>
+          <table class="table">
+            <tbody>
+              <tr>
+                <td class="code">&lt;span class="<b>text-danger</b>"&gt;Danger&lt;/span&gt;</td>
+                <td style="width:25%"><span class="text-danger">Danger</span></td>
+              </tr>
+              <tr>
+                <td class="code">&lt;button class="btn btn-sm <b>btn-danger</b>"&gt;Delete&lt;/button&gt;</td>
+                <td><button class="btn btn-sm btn-danger">Delete</button>	</td>
+              </tr>
+              <tr>
+                <td class="code">&lt;div class="<b>bg-danger</b>"&gt;&amp;nbsp;&lt;/div&gt;</td>
+                <td><div class="bg-danger">&nbsp;</div></td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <br/>
+  <h2><u>3. Một số class UI thông dụng</u></h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th style="width:10%">Class</th>
+        <th style="width:15%">Chức năng</th>
+        <th style="width:40%">Ví dụ</th>
+        <th style="width:35%">Hiển thị</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="code">form-control</td>
+        <td>Dùng để chuẩn hoá các thẻ nhập liệu</td>
+        <td class="code">
+          <div class="code py-1">&lt;input class="<b>form-control</b>"&gt;</div>
+          <div class="code pt-2 pb-1">&lt;select class="<b>form-control</b>"&gt;</div>
+          <div class="code py-1">&nbsp;&nbsp;&lt;option&gt;Male&lt;/option&gt;</div>
+          <div class="code py-1">&nbsp;&nbsp;&lt;option&gt;Female&lt;/option&gt;</div>
+          <div class="code py-1">&lt;/select&gt;</div>
+          <div class="code pt-2">&lt;textarea class="<b>form-control</b>"&gt;&lt;/textarea&gt;</div>
+        </td>
+        <td>
+          <input class="form-control">
+          <select class="form-control my-4">
+            <option>Male</option>
+            <option>Female</option>
+          </select>
+          <textarea class="form-control"></textarea>
+        </td>
+      </tr>
+      <tr>
+        <td class="code">form-group</td>
+        <td>Gộp thẻ nhập liệu và label thành một block</td>
+        <td class="code">
+          <div class="code py-1">&lt;div class="<b>form-group</b>"&gt;</div>
+          <div class="code py-1">&nbsp;&nbsp;&lt;label class="<b>form-label</b>"&gt;Name:&lt;/label&gt;</div>  
+          <div class="code py-1">&nbsp;&nbsp;&lt;input class="<b>form-control</b>"&gt;</div>  
+          <div class="code py-1">&lt;/div&gt;</div>
+        </td>
+        <td>
+          <div class="form-group">
+            <label class="form-label">Name:</label>
+            <input class="form-control">
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="code">btn</td>
+        <td>Button</td>
+        <td class="code">
+          <div class="code py-1">&lt;button class="<b>btn</b> btn-primary"&gt;</div>
+          <div class="code py-1">&nbsp;&nbsp;OK</div>
+          <div class="code py-1">&lt;/button&gt;</div>
+        </td>
+        <td>
+          <button class="btn btn-primary">OK</button>
+        </td>
+      </tr>
+      <tr>
+        <td class="code">btn-sm</td>
+        <td>Button nhỏ</td>
+        <td class="code">
+          <div class="code py-1">&lt;button class="btn <b>btn-sm</b> btn-primary"&gt;</div>
+          <div class="code py-1">&nbsp;&nbsp;OK</div>
+          <div class="code py-1">&lt;/button&gt;</div>
+        </td>
+        <td>
+          <button class="btn btn-sm btn-primary">OK</button>
+        </td>
+      </tr>
+      <tr>
+        <td class="code">table</td>
+        <td>Bảng dữ liệu</td>
+        <td class="code">
+          <div class="code py-1">&lt;table class="<b>table</b>"&gt;</div>
+          <div class="code py-1">&nbsp;&nbsp;&lt;thead&gt;</div>
+          <div class="code py-1">&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;</div>
+          <div class="code py-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th&gt;Sản phẩm&lt;/th&gt;</div>
+          <div class="code py-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th&gt;Giá&lt;/th&gt;</div>
+          <div class="code py-1">&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;</div>
+          <div class="code py-1">&nbsp;&nbsp;&lt;/thead&gt;</div>
+          <div class="code py-1">&nbsp;&nbsp;&lt;tbody&gt;</div>
+          <div class="code py-1">&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;</div>
+          <div class="code py-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;IPhone X&lt;/td&gt;</div>
+          <div class="code py-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;10.500.000đ&lt;/td&gt;</div>
+          <div class="code py-1">&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;</div>
+          <div class="code py-1">&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;</div>
+          <div class="code py-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;IPhone 11&lt;/td&gt;</div>
+          <div class="code py-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;11.500.000đ&lt;/td&gt;</div>
+          <div class="code py-1">&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;</div>
+          <div class="code py-1">&nbsp;&nbsp;&lt;/tbody&gt;</div>
+          <div class="code py-1">&lt;/table&gt;</div>
+        </td>
+        <td>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Sản phẩm</th>
+                <th>Giá</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>IPhone X</td>
+                <td>10.500.000đ</td>
+              </tr>
+              <tr>
+                <td>IPhone 11</td>
+                <td>11.500.000đ</td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td class="code">table-bordered</td>
+        <td>Bảng dữ liệu có viền bao</td>
+        <td class="code">
+          <div class="code py-1">&lt;table class="table <b>table-bordered</b>"&gt;</div>
+          <div class="code py-1">&nbsp;&nbsp;&lt;thead&gt;</div>
+          <div class="code py-1">&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;</div>
+          <div class="code py-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th&gt;Sản phẩm&lt;/th&gt;</div>
+          <div class="code py-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th&gt;Giá&lt;/th&gt;</div>
+          <div class="code py-1">&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;</div>
+          <div class="code py-1">&nbsp;&nbsp;&lt;/thead&gt;</div>
+          <div class="code py-1">&nbsp;&nbsp;&lt;tbody&gt;</div>
+          <div class="code py-1">&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;</div>
+          <div class="code py-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;IPhone X&lt;/td&gt;</div>
+          <div class="code py-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;10.500.000đ&lt;/td&gt;</div>
+          <div class="code py-1">&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;</div>
+          <div class="code py-1">&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;</div>
+          <div class="code py-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;IPhone 11&lt;/td&gt;</div>
+          <div class="code py-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;11.500.000đ&lt;/td&gt;</div>
+          <div class="code py-1">&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;</div>
+          <div class="code py-1">&nbsp;&nbsp;&lt;/tbody&gt;</div>
+          <div class="code py-1">&lt;/table&gt;</div>
+        </td>
+        <td>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Sản phẩm</th>
+                <th>Giá</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>IPhone X</td>
+                <td>10.500.000đ</td>
+              </tr>
+              <tr>
+                <td>IPhone 11</td>
+                <td>11.500.000đ</td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <br/>
+  <h2><u>4. Các class về margin và padding</u></h2>
+  <p>Các class về margin được bắt đầu bằng <code>m</code>, các class padding được bắt đầu bằng <code>p</code></p>
+  <p>Nếu chỉ padding theo 1 chiều/phương thì phía sau <code>m/p</code> là chiều/phương muốn thực hiện padding, margin:</p>
+  <ul>
+    <li class="py-1"><code>s (ps-*, ms-*)</code>: padding/margin left (start)</li>
+    <li class="py-1"><code>e (pe-*, me-*)</code>: padding/margin right (end)</li>
+    <li class="py-1"><code>t (pt-*, mt-*)</code>: padding/margin top</li>
+    <li class="py-1"><code>b (pb-*, mb-*)</code>: padding/margin bottom</li>
+    <li class="py-1"><code>x (px-*, mx-*)</code>: padding/margin theo chiều ngang (x)</li>
+    <li class="py-1"><code>y (py-*, my-*)</code>: padding/margin theo chiều dọc (y)</li>
+  </ul>
+  <p>Phần còn lại trong các class margin/padding (<code>-*</code>) là một con số thể hiện mức độ margin, padding</p>
+  <table class="table">
+    <thead>
+      <tr>
+        <td>Mức độ</td>
+        <td>Kích thước padding/margin</td>
+        <td>Các class tương ứng</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="code">1</td>
+        <td>0.25 rem</td>
+        <td class="code">m-1, ms-1, me-1, mt-1, mb-1, mx-1, my-1, p-1, ps-1, pe-1, pt-1, pb-1, px-1, py-1</td>
+      </tr>
+      <tr>
+        <td class="code">2</td>
+        <td>0.5 rem</td>
+        <td class="code">m-2, ms-2, me-2, mt-2, mb-2, mx-2, my-2, p-2, ps-2, pe-2, pt-2, pb-2, px-2, py-2</td>
+      </tr>
+      <tr>
+        <td class="code">3</td>
+        <td>1.0 rem</td>
+        <td class="code">m-3, ms-3, me-3, mt-3, mb-3, mx-3, my-3, p-3, ps-3, pe-3, pt-3, pb-3, px-3, py-3</td>
+      </tr>
+      <tr>
+        <td class="code">4</td>
+        <td>1.5 rem</td>
+        <td class="code">m-4, ms-4, me-4, mt-4, mb-4, mx-4, my-4, p-4, ps-4, pe-4, pt-4, pb-4, px-4, py-4</td>
+      </tr>
+      <tr>
+        <td class="code">5</td>
+        <td>3.0 rem</td>
+        <td class="code">m-5, ms-5, me-5, mt-5, mb-5, mx-5, my-5, p-5, ps-5, pe-5, pt-5, pb-5, px-5, py-5</td>
+      </tr>
+    </tbody>
+  </table>
+  <br/>
+  <h2><u>5. Các class về căn chỉnh text</u></h2>
+  <p>Có 3 loại căn chỉnh text: căn trái, căn phải, căn giữa.</p>
+  <table class="table">
+    <thead>
+      <tr>
+        <th style="width:12%">Class</th>
+        <th style="width:13%">Loại căn chỉnh</th>
+        <th style="width:42%">Ví dụ</th>
+        <th style="width:33%">Hiển thị</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="code">text-start</td>
+        <td>Căn trái</td>
+        <td class="code">
+          <div class="py-1">&lt;div class="text-start"&gt;Lorrem ipsum...&lt;/div&gt;</div>
+        </td>
+        <td>
+          <div style="width:100%; border: 1px solid black" class="p-1 text-start">
+            Lorrem ipsum...
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="code">text-center</td>
+        <td>Căn giữa</td>
+        <td class="code">
+          <div class="py-1">&lt;div class="text-center"&gt;Lorrem ipsum...&lt;/div&gt;</div>
+        </td>
+        <td>
+          <div style="width:100%; border: 1px solid black" class="p-1 text-center">
+            Lorrem ipsum...
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="code">text-end</td>
+        <td>Căn phải</td>
+        <td class="code">
+          <div class="py-1">&lt;div class="text-end"&gt;Lorrem ipsum...&lt;/div&gt;</div>
+        </td>
+        <td>
+          <div style="width:100%; border: 1px solid black" class="p-1 text-end">
+            Lorrem ipsum...
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
