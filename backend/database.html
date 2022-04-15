@@ -1,3 +1,4 @@
+<meta charset="UTF-8">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/default.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -37,6 +38,537 @@
     font-weight: 700;
   }
 </style>
-<script>hljs.highlightAll();</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+  $(document).ready(function(){
+    $("pre code").each(function(){
+        var html = $(this).html();
+        var pattern = html.match(/\s*\n[\t\s]*/);
+        $(this).html(html.replace(new RegExp(pattern, "g"),'\n'));
+    });
+    hljs.highlightAll();
+  })
+</script>
 <div class="container mt-3">
+  <h1><u>I. Giới thiệu SQL & Cơ sở dữ liệu quan hệ</u></h1>
+  <p>Cơ sở dữ liệu quan hệ là cách tổ chức dữ liệu dưới dạng các bảng (dòng x cột) kèm theo mối quan hệ
+    liên kết giữa các cột của các bảng với nhau. Mỗi dòng trong một bảng tương ứng với một bản ghi, mỗi
+    cột trong một bảng tương ứng với một trường dữ liệu, 
+    ngoài ra có các cột trung gian (liên kết) để thể hiện mối liên hệ giữa các bảng.
+  </p>
+  <div class="text-center my-4">
+    <img width="75%" src="images3/1.png" alt="">
+  </div>
+  <p>SQL là ngôn ngữ được sử dụng cho các truy vấn đến cơ sở dữ liệu quan hệ<p>
+  <p>Có nhiều engine Dữ liệu quan hệ khác nhau (MySQL/MariaDB, Oracle, MSSQL, PostgreSQL, SQLite, ...),
+    mỗi engine sử dụng một "biến thể" (dialect) của SQL để thực hiện các truy vẫn, tuy nhiên 
+    các cú pháp truy vấn cơ bản (thêm, sửa, cập nhật, xoá, tìm kiếm) của các biến thể SQL đều khá 
+    giống nhau.
+  </p>
+  <p>Các truy vấn trong các phần dưới đây được dùng cho MySQL/Maria DB nhưng cũng có thể dùng cho các CSDL khác mà không cần/cần rất ít sửa đổi</p>
+  <h1><u>II. Các truy vấn dữ liệu trên một bảng</u></h1>
+  <h2><u>1. Tạo bảng</u></h2>
+  <b>Cú pháp chung:</b>
+  <div class="offset-1 mt-3 mb-2">
+    <code>
+      <div><b>CREATE TABLE</b> <i>table_name</i>(</div>
+      <div>&nbsp;&nbsp;&nbsp;<i>field_1</i> <i>type_1</i>,</div>
+      <div>&nbsp;&nbsp;&nbsp;<i>field_2</i> <i>type_2</i>,...</div>
+      <div>&nbsp;&nbsp;&nbsp;<i>field_n</i> <i>type_n</i></div>
+      <div>&nbsp;&nbsp;&nbsp;<b>PRIMARY KEY</b>(<i>field_1</i>)</div>
+      <div>)</div>
+    </code>
+  </div>
+  <b>Giải thích:</b>
+  <ul>
+    <li class="py-1"><i class="code">table_name</i>: tên bảng cần tạo</li>
+    <li class="py-1"><i class="code">field_i</i>: tên các trường (cột) dữ liệu của bảng</li>
+    <li class="py-1">
+      <i class="code">type_i</i>: kiểu dữ liệu của các trường. Các kiểu dữ liệu trong SQL:
+      <table class="table mt-2">
+        <thead>
+          <tr>
+            <th>Kiểu dữ liệu</th>
+            <th>Ý nghĩa</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="code">TINYINT</td>
+            <td>Số nguyên từ 0-255</td>
+          </tr>
+          <tr>
+            <td class="code">BOOL/BOOLEAN</td>
+            <td>0/1</td>
+          </tr>
+          <tr>
+            <td class="code">SMALLINT</td>
+            <td>Số nguyên từ 0-65535</td>
+          </tr>
+          <tr>
+            <td class="code">INT</td>
+            <td>Số nguyên từ 0-2<sup>32</sup></td>
+          </tr>
+          <tr>
+            <td class="code">BIGINT</td>
+            <td>Số nguyên từ 0-2<sup>64</sup></td>
+          </tr>
+          <tr>
+            <td class="code">FLOAT</td>
+            <td>Số thập phân</td>
+          </tr>
+          <tr>
+            <td class="code">DOUBLE</td>
+            <td>Số thập phân độ chính xác kép</td>
+          </tr>
+          <tr>
+            <td class="code">DECIMAL</td>
+            <td>Số thập phân dấu phảy tĩnh</td>
+          </tr>
+          <tr>
+            <td class="code">CHAR(<i>size</i>)</td>
+            <td>Xâu có độ dài cố định bằng <i>size</i></td>
+          </tr>
+          <tr>
+            <td class="code">BINARY(<i>SIZE</i>)</td>
+            <td>Chuỗi byte có độ dài cố định bằng <i>size</i></td>
+          </tr>
+          <tr>
+            <td class="code">VARCHAR(<i>size</i>)</td>
+            <td>Xâu có độ dài thay đổi, tối đa bằng <i>size</i></td>
+          </tr>
+          
+          <tr>
+            <td class="code">TINYTEXT/TEXT/MEDIUMTEXT/LONGTEXT</td>
+            <td>Đoạn text với độ dài tối đa 2<sup>8</sup>/2<sup>16</sup>/2<sup>24</sup>/2<sup>32</sup> byte</td>
+          </tr>
+          <tr>
+            <td class="code">TINYBLOB/BLOB/MEDIUMBLOB/LONGBLOB</td>
+            <td>Chuỗi byte với độ dài tối đa 2<sup>8</sup>/2<sup>16</sup>/2<sup>24</sup>/2<sup>32</sup> byte</td>
+          </tr>
+          <tr>
+            <td class="code">DATE</td>
+            <td>Ngày/tháng/năm</td>
+          </tr>
+          <tr>
+            <td class="code">DATETIME</td>
+            <td>Ngày/tháng/năm giờ-phút-giây</td>
+          </tr>
+          <tr>
+            <td class="code">TIME</td>
+            <td>Giờ-phút-giây</td>
+          </tr>
+          <tr>
+            <td class="code">TIMESTAMP</td>
+            <td>Số giây kể từ 1/1/1970 UTC</td>
+          </tr>
+        </tbody>
+      </table>
+    </li>
+    <li><i class="code">PRIMARY KEY</i>: trường đóng vai trò là khoá chính trong bảng</li>
+  </ul>
+
+  <b>Ví dụ:</b>
+  <div class="offset-1 mt-3">
+    <code>
+      <div><b>CREATE TABLE</b> student(</div>
+      <div>&nbsp;&nbsp;&nbsp;id BIGINT NOT NULL AUTO_INCREMENT,</div>
+      <div>&nbsp;&nbsp;&nbsp;student_number VARCHAR(20),</div>
+      <div>&nbsp;&nbsp;&nbsp;student_name VARCHAR(50),</div>
+      <div>&nbsp;&nbsp;&nbsp;phone VARCHAR(20),</div>
+      <div>&nbsp;&nbsp;&nbsp;gpa FLOAT,</div>
+      <div>&nbsp;&nbsp;&nbsp;<b>PRIMARY KEY</b>(id)</div>
+      <div>)</div>
+    </code>
+  </div>
+  <p class="mt-3">Bảng dữ liệu được tạo ra có cấu trúc như sau:</p>
+  <div class="text-center my-4">
+    <img width="75%" src="images3/2.png" alt="">
+  </div>
+
+  <br/>
+  <h2><u>2. Thêm mới bản ghi</u></h2>
+  <b>Cú pháp chung:</b>
+  <div class="offset-1 mt-3 mb-2">
+    <code>
+      <div class="py-1"><b>INSERT INTO</b> <i>table_name</i>(<i>field_1</i>,<i>field_2</i>,..., <i>field_n</i>)</div>
+      <div class="py-1"><b>VALUES</b>(<i>value_1</i>,<i>value_2</i>,..., <i>value_n</i>)</div>
+    </code>
+  </div>
+  <b>Giải thích:</b>
+  <ul>
+    <li><i class="code">table_name</i>: tên bảng cần tạo</li>
+    <li><i class="code">field_i</i>: các trường (cột) dữ liệu của bảng</li>
+    <li><i class="code">value_i</i>: giá trị của từng trường dữ liệu của bản ghi sẽ thêm vào.</li>
+  </ul>
+  <b>Ví dụ:</b>
+  <div class="offset-1 mt-3">
+    <code>
+      <div><b>INSERT INTO</b> student(student_number, student_name, phone, gpa)</div>
+      <div><b>VALUES</b>('1001', 'Nguyễn Văn A', '012323214', 7.5);</div>
+    </code>
+  </div>
+  <p class="mt-3">Bản ghi mới được thêm vào bảng:</p>
+  <div class="text-center my-4">
+    <img width="40%" src="images3/3.png" alt="">
+  </div>
+
+  <br/>
+  <h2><u>2. Tìm kiếm bản ghi</u></h2>
+  <b>Cú pháp chung:</b>
+  <div class="offset-1 mt-3 mb-2">
+    <code>
+      <div><b>SELECT</b> <i>field_1</i>, <i>field_2</i>, ..., <i>field_n</i></div>
+      <div><b>FROM</b> <i>table_name</i></div>
+      <div><b>WHERE</b> <i>field_1</i>=<i>value_1</i> <b>AND</b> <i>field_2</i>=<i>value_2</i> AND ...</div>
+      <div><b>LIMIT</b> <i>offset</i>,<i>count</i></div>
+      <div><b>ORDER BY</b> <i>field_i</i> <b>ASC/DESC</b></div>
+    </code>
+  </div>
+  
+  <b>Giải thích:</b>
+  <ul>
+    <li class="py-1">
+      <i class="code">field_1</i>, <i class="code">field_2</i>, ..., <i class="code">field_n</i>: danh sách các cột muốn lấy về từ bảng dữ liệu.
+      Trường hợp muốn lấy về toàn bộ các cột của bảng thì sử dụng: <div class="bold code">SELECT * FROM ...</div>
+    </li>
+    <li class="py-1"><i class="code">table_name</i>: tên bảng muốn thực hiện truy vấn</li>
+    <li class="py-1">
+      <i class="code"><b>WHERE</b> dieu_kien</i>: điều kiện tìm kiếm, tổ hợp của các điều kiện logic (<span class="code">AND, OR, NOT, &gt;, &lt;, &gt;=, &lt;=, =, &lt;&gt;</span>) trên các cột.
+      Ngoài ra trong SQL có điều kiện <i class="code">LIKE</i> để tìm một trường chứa một cụm từ cho trước (xem ví dụ).
+    </li>
+    <li class="py-1">
+      <i class="code"><b>LIMIT</b> offset, count </i>: giới hạn số bản ghi lấy về (tối đa <i class="code">count</i> bản ghi), bỏ qua <i class="code">offset</i> bản ghi đầu.
+      Tính năng này chủ yếu phục vụ cho việc <b>phân trang</b> dữ liệu tìm kiếm.
+    </li>
+    <li class="py-1">
+      <i class="code"><b>ORDER BY</b> field_i <b>ASC/DESC</b></i> : sắp xếp các bản ghi theo chiều tăng (ASC) / giảm (DESC) của trường <i class="code">field_i</i>
+    </li>
+  </ul>
+    
+  <b>Ví dụ:</b>
+  <p class="mt-2">Lấy về 10 học sinh đầu tiên, sắp xếp theo tên (thứ tự tăng dần của bảng chữ cái):</p>
+  <div class="offset-1 mt-3">
+    <code>
+      SELECT * FROM student ORDER BY student_name LIMIT 10
+    </code>
+  </div>
+  <p class="mt-3">Tìm học sinh theo mã:</p>
+  <div class="offset-1 mt-3">
+    <code>
+      SELECT * FROM student WHERE student_number = '1001'
+    </code>
+  </div>
+
+  <p class="mt-3">Tìm học sinh theo số điện thoại:</p>
+  <div class="offset-1 mt-3">
+    <code>
+      SELECT * FROM student WHERE phone LIKE '%01234%'
+    </code>
+  </div>
+
+  <p class="mt-3">Liệt kê tên/điểm trung bình của các học sinh theo thứ tự điểm giảm dần:</p>
+  <div class="offset-1 mt-3">
+    <code>
+      SELECT student_name, gpa FROM student ORDER BY gpa DESC
+    </code>
+  </div>
+
+  <br/>
+  <h2><u>3. Cập nhật bản ghi</u></h2>
+  <b>Cú pháp chung:</b>
+  <div class="offset-1 mt-3 mb-2">
+    <code>
+      <div><b>UPDATE</b> <i>table_name</i> <b>SET</b> <i>field_1</i>=<i>value_1</i>,<i>field_2</i>=<i>value_2</i>,...</div>
+      <div><b>WHERE</b> <i>dieu_kien</i></div>
+    </code>
+  </div>
+
+  <b>Giải thích:</b>
+
+  <ul>
+    <li><i class="code">table_name</i>: tên bảng cần tạo</li>
+    <li><i class="code">field_i</i>: các trường (cột) dữ liệu của bảng</li>
+    <li><i class="code">value_i</i>: giá trị của từng trường dữ liệu của bản ghi sẽ cập nhật.</li>
+    <li><i>dieu_kien</i>: điều kiện tìm kiếm, tương tự như trong lệnh select</li>
+  </ul>
+  <b>Ví dụ:</b>
+  <div class="offset-1 mt-3">
+    <code>
+      <b>UPDATE</b> student <b>SET</b> student_name='Nguyen Van An', gpa=8.0 <b>WHERE</b> student_number='1001'
+    </code>
+  </div>
+
+  <br/>
+  <h2><u>4. Xoá bản ghi</u></h2>
+  <b>Cú pháp chung:</b>
+  <div class="offset-1 mt-3 mb-2">
+    <code>
+      <div><b>DELETE FROM</b> <i>table_name</i></div>
+      <div><b>WHERE</b> <i>dieu_kien</i></div>
+    </code>
+  </div>
+  <b>Giải thích:</b>
+
+  <ul>
+    <li><i class="code">table_name</i>: tên bảng cần tạo</li>
+    <li><i>dieu_kien</i>: điều kiện tìm kiếm, tương tự như trong lệnh select/update</li>
+  </ul>
+
+  <b>Ví dụ:</b>
+  <div class="offset-1 mt-3">
+    <code>
+      <b>DELETE FROM</b> student <b>WHERE</b> CHAR_LENGTH(phone) > 11
+    </code>
+  </div>
+
+  <br/>
+  <h1><u>III. Các truy vấn dữ liệu trên nhiều bảng (JOIN)</u></h1>
+  <h2><u>1. Các loại liên kết giữa các bảng</u></h2>
+  <h3><u>Liên kết một-một</u></h3>
+  <p>Mỗi bản ghi của bảng A chỉ liên kết với 1 bản ghi của bảng B và ngược lại.</p>
+
+  <b>Ví dụ:</b>
+  <div class="text-center my-4">
+    <img width="30%" src="images3/4.png" alt="">
+  </div>
+  <p>Mỗi sinh viên (Student) có 1 tài khoản (User), mỗi tài khoản chỉ có tối đa một sinh viên tương ứng.</p>
+  <h3><u>Liên kết một-nhiều</u></h3>
+  <p>Mỗi bản ghi của bảng A có thể liên kết với nhiều bản ghi của bảng B.
+     Mỗi bản ghi của bảng B chỉ liên kết với 1 bản ghi của bảng A.</p>
+  
+  <b>Ví dụ:</b>
+  <div class="text-center my-4">
+    <img width="30%" src="images3/5.png" alt="">
+  </div>
+  <p>Một tác giả (Author) có thể có nhiều sách (Book). Mỗi quyển sách chỉ có 1 tác giả.</p>
+
+  <h3><u>Liên kết nhiều-nhiều</u></h3>
+  <p>Một bản ghi của bảng A có thể liên kết với nhiều bản ghi của bảng B, một bản ghi của bảng B có thể liên kết với 
+    nhiều bản ghi của bảng A.
+  </p>
+
+  <b>Ví dụ:</b>
+  <div class="text-center my-4">
+    <img width="60%" src="images3/6.png" alt="">
+  </div>
+  <p>Một sinh viên có thể tham gia nhiều lớp học, mỗi lớp học có nhiều sinh viên.</p>
+  <h2><u>2. Join giữa các bảng</u></h2>
+  <p>Lệnh Join được dùng để mở rộng một bảng trong CSDL với 1 bảng liên kết để lấy thêm các trường thông tin
+    từ bảng liên kết.
+  </p>
+  <b>Ví dụ:</b>
+  <p>Trong bảng Book không chứa thông tin tên tác giả mà chỉ chứa id của tác giả (author_id).
+  </p>
+  <div class="text-center my-4">
+    <img width="30%" src="images3/7.png" alt="">
+  </div>
+  <p>Để lấy về thông tin tên tác giả cho mỗi cuốn sách, cần Join bảng <b class="code">Book</b> với bảng <b class="code">Author</b>
+      qua điều kiện liên kết <b class="code">book.author_id=author.id</b>
+    
+  <div class="offset-1 mt-3 mb-2">
+    <code>
+      <div><b>SELECT</b> book.*, author.name as author_name</div>
+      <div><b>FROM</b> book <b>JOIN</b> author <b>ON</b> book.author_id=author.id</div>
+    </code>
+  </div>
+  <p class="mt-3">Sau khi thực hiện join với bảng Author, thông tin tên tác giả sẽ được nối vào bên phải bảng Book  </p>
+  <div class="text-center my-4">
+    <img width="45%" src="images3/8.png" alt="">
+  </div>
+  <b>Left Join</b>
+  <p>Với lệnh Join ở trên (hay còn gọi là Inner Join), nếu bản ghi trong bảng liên kết không tồn tại, bản ghi thuộc bảng gốc sẽ <b>không được
+    trả về</b> trong danh sách kết quả. Với lệnh Left Join, nếu bản ghi trong bảng liên kết không tồn tại, bản ghi của bảng gốc
+    <b>vẫn được trả về trong danh sách kết quả</b>, nhưng <b>phần mở rộng (thuộc bảng liên kết) sẽ nhận giá trị NULL</b>. 
+  </p>
+  <div class="offset-1 mt-3 mb-2">
+    <code>
+      <div><b>SELECT</b> book.*, author.name as author_name</div>
+      <div><b>FROM</b> book <b>LEFT JOIN</b> author <b>ON</b> book.author_id=author.id</div>
+    </code>
+  </div>
+  <div class="text-center my-4">
+    <img width="45%" src="images3/9.png" alt="">
+  </div>
+
+  <br/>
+  <h1><u>IV. Các lệnh Aggregation và Group</u></h1>
+  <p>Các lệnh Aggregation được dùng để biến một tập bản ghi thành một bản ghi duy nhất thông qua một hàm kết hợp (aggregate/reduce function)</p>
+  <table class="table">
+    <thead>
+      <tr>
+        <th style="width: 10%;">Hàm Aggregate</th>
+        <th style="width: 35%;">Tác dụng</th>
+        <th style="width: 25%;">Ví dụ</th>
+        <th style="width: 30%;">Giải thích</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="code">SUM</td>
+        <td>Tính tổng của một trường từ danh sách bản ghi</td>
+        <td>
+          <code>
+            <div class="py-1">SELECT <b>SUM(qty)</b></div>
+            <div class="py-1">FROM order_detail </div>
+            <div class="py-1">WHERE product_id=1</div>
+          </code>
+        </td>
+        <td>Tổng số lượng sản phẩm có ID bằng 1 từ các đơn hàng</td>
+      </tr>
+      <tr>
+        <td class="code">MIN</td>
+        <td>Tính giá trị nhỏ nhất của một trường từ danh sách bản ghi</td>
+        <td>
+          <code>
+            <div class="py-1">SELECT <b>MIN(price)</b></div>
+            <div class="py-1">FROM product</div>
+            <div class="py-1">WHERE category_id=1</div>
+          </code>
+        </td>
+        <td>Giá thấp nhất của sản phẩm trong nhóm 1.</td>
+      </tr>
+      <tr>
+        <td class="code">MAX</td>
+        <td>Tính giá trị lớn nhất của một trường từ danh sách bản ghi</td>
+        <td>
+          <code>
+            <div class="py-1">SELECT <b>MAX(qty*price_unit)</b></div>
+            <div class="py-1">FROM order_detail</div>
+          </code>
+        </td>
+        <td>Đơn hàng có số tiền lớn nhất.</td>
+      </tr>
+      <tr>
+        <td class="code">GROUP_CONCAT</td>
+        <td>Gộp giá trị một trường của các bản ghi thành một</td>
+        <td>
+          <code>
+            <div class="py-1">SELECT <b>GROUP_CONCAT(
+            <div>&nbsp;&nbsp;&nbsp;student_name, ', '</div>
+            <div>)</b></div>
+            <div class="py-1">FROM student</div>
+            <div class="py-1">WHERE gpa>=8.0</div>
+          </code>
+        </td>
+        <td>Danh sách sinh viên có điểm trung bình từ 8.0 trở lên.</td>
+      </tr>
+    </tbody>
+  </table>
+  <b><u>GROUP BY</u></b>
+  <p class="mt-2">Các lệnh Aggregation thường đi kèm với lệnh <b>group by</b>: lệnh <b>group by</b> được dùng để chia tập bản ghi
+    thành các tập bản ghi nhỏ theo giá trị của một trường, sau đó lệnh Aggregation được dùng để tính các giá trị
+    đặc trưng cho các tập bản ghi con</p>
+  <b>Ví dụ:</b>
+  <div class="offset-1 mt-3 mb-2">
+    <code>
+      <div><b>SELECT</b> product_id, SUM(qty)</div>
+      <div><b>FROM</b> order_detail</div>
+      <div><b>GROUP BY</b> product_id</div>
+    </code>
+  </div>
+  <p>Lệnh trên chia danh sách các đơn hàng thành các nhóm theo từng sản phẩm, sau đó tính tổng số lượng sản phẩm của mỗi nhóm.</p>
+  <p>Lưu ý: các trường đơn (không Aggregate) trong mệnh đề WHERE phải nằm trong danh sách các trường group by</p>
+  <br/>
+  <b><u>HAVING</u></b>
+  <p class="mt-2">Mệnh đề <b>Having</b> được dùng trong lệnh <b>group by</b>, khi điều kiện tìm kiếm là một biểu thức Aggregation</p>
+  <b>Ví dụ:</b>
+  <div class="offset-1 mt-3 mb-2">
+    <code>
+      <div><b>SELECT</b> product_id, SUM(qty)</div>
+      <div><b>FROM</b> order_detail</div>
+      <div><b>GROUP BY</b> product_id</div>
+      <div><b>HAVING COUNT(customer_id) > 1</b></div>
+    </code>
+  </div>
+  <p>Lệnh trên lấy danh sách sản phẩm kèm số lượng từ các đơn hàng với điều kiện sản phẩm được mua bởi nhiều hơn 1 khách hàng.</p>
+  <br/>
+  <h1><u>V. Kết nối database server bằng Python</u></h1>
+  <p>Để kết nối với database server, cần cài đặt thư viện client tương ứng. Ví dụ, để kết nối MySQL từ Python, cần cài
+    đặt thư viện <span class="code">mysqlclient</span>
+  </p>
+  <div class="offset-1 mt-3 mb-2">
+    <code>
+      pip install mysqlclient
+    </code>
+  </div>
+  <br/>
+  <b>Kết nối với MySQL server từ Python</b>
+  <div class="offset-1 mt-3 mb-2">
+    <pre><code class="language-python">
+      import MySQLdb
+      db_server = "localhost"
+      db_username = "admin"
+      db_password = "abc@123"
+      db_name = "testdb"
+      db = MySQLdb.connect(db_server, db_username, db_password, db_name, charset='utf8')
+    </code></pre>
+  </div>
+  <p>Để kết nối tới MySQL server, cần truyền vào các tham số sau cho hàm <b class="code">MySQLdb.connect</b>:</p>
+  <ul>
+    <li class="py-1"><span class="code">db_server:</span> Địa chỉ IP của MySQL Server</li>
+    <li class="py-1"><span class="code">db_username:</span> Username của tài khoản truy nhập MySQL Server</li>
+    <li class="py-1"><span class="code">db_password:</span> Password của tài khoản truy nhập MySQL Server</li>
+    <li class="py-1"><span class="code">db_name:</span> Tên của database muốn truy nhập</li>
+  </ul>
+  <b>Thao tác thêm dữ liệu</b>
+  <div class="offset-1 mt-3 mb-2">
+    <pre><code class="language-python">
+      import MySQLdb
+      db_server = "localhost"
+      db_username = "admin"
+      db_password = "abc@123"
+      db_name = "testdb"
+      db = MySQLdb.connect(db_server, db_username, db_password, db_name, charset='utf8')
+      cursor = db.cursor()
+
+      student_list = [
+        {'student_number': '1001', 'student_name': 'Nguyen Van A', 'phone': '012345678', 'gpa': 7.5},
+        {'student_number': '1002', 'student_name': 'Nguyen Van B', 'phone': '012345679', 'gpa': 8.0},
+      ]
+
+      try:
+          for student in student_list:
+              cursor.execute(
+                'INSERT INTO student(student_number, student_name, phone, gpa) VALUE(%s,%s,%s,%s)',
+                  (
+                    student['student_number'], 
+                    student['student_name'], 
+                    student['phone'], 
+                    student['gpa']
+                  )
+                )
+          db.commit()
+
+      except Exception as e:
+          print(e)
+          db.rollback()
+
+      finally:
+          db.close()
+    </code></pre>
+  </div>
+
+  <b>Thao tác đọc dữ liệu</b>
+  <div class="offset-1 mt-3 mb-2">
+    <pre><code class="language-python">
+      import MySQLdb
+      db_server = "localhost"
+      db_username = "admin"
+      db_password = "abc@123"
+      db_name = "testdb"
+      db = MySQLdb.connect(db_server, db_username, db_password, db_name, charset='utf8')
+      cursor = db.cursor()
+
+      cursor.execute("SELECT student_number, student_name, gpa FROM student WHERE gpa >= %s", [7.0])
+                                      
+      results = cursor.fetchall()
+
+      for record in results:
+          student_number, student_name, gpa = record
+          print(student_number, student_name, gpa)
+          
+      db.close()
+    </code></pre>
+  </div>
 </div>
