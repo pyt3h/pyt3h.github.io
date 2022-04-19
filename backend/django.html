@@ -659,7 +659,7 @@
 
         class Product(models.Model):
             category = models.ForeignKey(Category, on_delete=models.PROTECT, null=True)
-            attributes = models.ManyToManyField(Attribute)
+            attributes = models.ManyToManyField(Attribute, blank=True)
             code = models.CharField(max_length=20, unique=True)
             name = models.CharField(max_length=100)
             price = models.FloatField()
@@ -699,7 +699,7 @@
   </p>
 
   <div class="offset-1">
-    <code><b>attributes = models.ManyToManyField(Attribute)</b></code>
+    <code><b>attributes = models.ManyToManyField(Attribute, blank=True)</b></code>
   </div>
 
   <p class="pt-3">Mối quan hệ này thể hiện: <i>mỗi sản phẩm có thể có nhiều thuộc tính.</i></p>
