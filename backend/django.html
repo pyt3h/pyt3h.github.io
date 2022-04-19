@@ -673,7 +673,7 @@
     <b>Category</b>:
   </p>
   <div class="offset-1">
-    <code><b>category = models.ForeignKey(Category, on_delete=models.PROTECT)</b></code>
+    <code><b>category = models.ForeignKey(Category, on_delete=models.PROTECT, null=True)</b></code>
   </div>
 
   <p class="pt-3">Mối quan hệ này thể hiện: <i>mỗi sản phẩm thuộc một nhóm nhất định.</i></p>
