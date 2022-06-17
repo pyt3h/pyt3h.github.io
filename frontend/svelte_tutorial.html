@@ -97,7 +97,7 @@
         &lt;main&gt;
           &lt;div&gt;Hello {name}&lt;/div&gt;
         &lt;/main&gt;
-      </code>
+      </code><br/><a target="_blank" href="https://codesandbox.io/s/admiring-bush-h8x9fq?file=/App.svelte"><small>Chạy thử chương trình</small></a>
     </pre>
   </div>
 
@@ -138,7 +138,7 @@
           &lt;div&gt;Married: &lt;input type="checkbox" checked={married} /&gt; &lt;/div&gt;
 
         &lt;/main&gt;
-      </code>
+      </code><br/><a target="_blank" href="https://codesandbox.io/s/hopeful-yalow-jtsq1u?file=/App.svelte"><small>Chạy thử chương trình</small></a>
     </pre>
   </div>
 
@@ -149,7 +149,7 @@
   <h2><u>Component</u></h2>
   <p>
     Tương tự các frame Frontend khác, Svelte dùng Component để chia ứng dụng thành các phần nhỏ.
-    Trong Svelte, mỗi Component tương ứng với một file (.svelte).
+    Trong Svelte, mỗi Component tương ứng với một file với tên mở rộng  <span class="code">.svelte</span>.
   </p>
   <p>Ví dụ: Trong thư mục <b>src</b> của project tạo thư mục <b>components</b> và thêm mới các file như bên dưới:</p>
   <div class="text-center my-4">
@@ -162,19 +162,13 @@
         &lt;!-- File: App.svelte--&gt;
 
         &lt;script&gt;
-          import Footer from "./components/Footer.svelte";
           import Header from "./components/Header.svelte";
-          import Main from "./components/Main.svelte";
-          let body = "Lorem ipsum dolor sit amet, ...";
+          import Body from "./components/Body.svelte";
         &lt;/script&gt;
-
+        
         &lt;main&gt;
-          &lt;Header title="Demo App" /&gt;
-          &lt;Main body={body} /&gt;
-          &lt;Footer
-            privatePolicy="Private Policy"
-            termAndConditions="Term and Conditions"
-          /&gt;
+          &lt;Header title="Title" /&gt;
+          &lt;Body/&gt;
         &lt;/main&gt;
       </code>
       <code class="language-html">
@@ -184,48 +178,31 @@
           export let title;
         &lt;/script&gt;
         
-        &lt;h1&gt;{title}&lt;/h1&gt;
+        &lt;main&gt;
+          &lt;h1&gt;{title}&lt;/h1&gt;
+        &lt;/main&gt;
       </code>
 
       <code class="language-html">
-        &lt;!-- File: components/Main.svelte--&gt;
+        &lt;!-- File: components/Body.svelte--&gt;
 
-        &lt;script&gt;
-          export let body;
-        &lt;/script&gt;
-        
-        &lt;p&gt;{body}&lt;/p&gt;
-      </code>
-
-      <code class="language-html">
-        &lt;!-- File: components/Footer.svelte--&gt;
-
-        &lt;script>
-          export let privatePolicy;
-          export let termAndConditions;
-          &lt;/script&gt;
-        
-        &lt;div style="display: flex;"&gt;
-          &lt;a href="#/"&gt;{privatePolicy}&lt;/a&gt;&amp;nbsp;|&amp;nbsp;
-          &lt;a href="#/"&gt;{termAndConditions}&lt;/a&gt;
-        &lt;/div>
-      </code>
+        &lt;main&gt;
+          &lt;p&gt;Line 1&lt;/p&gt;
+          &lt;p&gt;Line 2&lt;/p&gt;
+        &lt;/main&gt;
+      </code><br/><a target="_blank" href="https://codesandbox.io/s/nice-noether-gu60fg?file=/App.svelte"><small>Chạy thử chương trình</small></a>
     </pre>
   </div>
 
   <p>
-    Mỗi component chứa một phần của ứng dụng: Header, Main, Footer, ..., file <b>Appp.svelte</b>
+    Mỗi component chứa một phần của ứng dụng: Header, Body, ..., file <b>App.svelte</b>
     import các component và ghép lại thành ứng dụng đầy đủ:
   </p>
   <div class="offset-1">
     <code>
       <div>&lt;main&gt;</div>
-      <div>&nbsp;&nbsp;&lt;Header title="Demo App" /&gt;</div>
-      <div>&nbsp;&nbsp;&lt;Main body={body} /&gt;</div>
-      <div>&nbsp;&nbsp;&lt;Footer</div>
-      <div>&nbsp;&nbsp;&nbsp;&nbsp;privatePolicy="Private Policy"</div>
-      <div>&nbsp;&nbsp;&nbsp;&nbsp;termAndConditions="Term and Conditions"</div>
-      <div>&nbsp;&nbsp;/&gt;</div>
+      <div>&nbsp;&nbsp;&lt;Header title="Title" /&gt;</div>
+      <div>&nbsp;&nbsp;&lt;Body /&gt;</div>
       <div>&lt;/main&gt;</div>
     </code>
   </div>
@@ -233,36 +210,41 @@
   <b><u>Thuộc tính của Component:</u></b>
   <p>
     Thuộc tính dùng để truyền dữ liệu từ ứng dụng (hoăc Component lớn) sang các Component nhỏ hơn.
-    Thuộc tính của các Component được viết giống như cách viết thuộc tính của các thẻ HTML, nhưng
-    giá trị là một biểu thức javascript và được đặt trong cặp dấu ngoặc nhọn.
+    Thuộc tính của các Component được viết giống như cách viết thuộc tính của các thẻ HTML.
   </p>
-  <p>Ví dụ, trong file <b>App.svelte</b>, dữ liệu được được truyền từ biến <b>body</b> 
-    sang cho Component <b>Main</b> theo cú pháp:</p>
+  <p>Ví dụ, trong file <b>App.svelte</b>, dữ liệu được được truyền 
+    sang cho Component <b>Header</b> theo cú pháp:</p>
   <div class="offset-1">
-    <code>&lt;Main body={body} /&gt;</code>
+    <code>&lt;Header title="Title" /&gt;</code>
+  </div>
+  <p class="mt-3">Thuộc tính của Component cũng có thể nhận giá trị là một biểu thức javascript, khi đó giá trị được
+    đặt trong cặp ngoặc nhọn {}:
+  </p>
+  <div class="offset-1">
+    <code>&lt;Header title=<b>{"Hello " + username}</b> /&gt;</code>
   </div>
   <p class="pt-3">
-    Trong file <b>Main.svelte</b>, dữ liệu được lấy ra bằng cách thêm từ khoá <b>export</b>
-    trước khai báo của biến <b>body</b> trong phần script:
+    Trong file <b>Header.svelte</b>, dữ liệu được lấy ra bằng cách thêm từ khoá <b>export</b>
+    trước khai báo của biến <b>title</b> trong phần script:
   </p>
   <div class="offset-1">
     <code>
       <div>&lt;script&gt;</div>
-      <div>&nbsp;&nbsp;<b>export</b> let body;</div>
+      <div>&nbsp;&nbsp;<b>export</b> let title;</div>
       <div>&lt;/script&gt;</div>
     </code>
   </div>
-  <p class="pt-3">Sau đó, trong phần html của <b>Main.svelte</b>, biến <b>body</b> này được dùng để hiển thị nội dung:</p>
+  <p class="pt-3">Sau đó, trong phần html của <b>Header.svelte</b>, biến <b>title</b> này được dùng để hiển thị nội dung:</p>
   <div class="offset-1">
     <code>
-      &lt;p&gt;{body}&lt;/p&gt;
+      &lt;h1&gt;{title}&lt;/h1&gt;
     </code>
   </div>
   <br/>
   <h2><u>Xử lý sự kiện</u></h2>
-  <p>Tương tự như javascript thông thường, có thể gắn các hàm xử lý sự kiện cho các thẻ html.</p>
+  <p>Tương tự như javascript thông thường, có thể gắn các hàm xử lý sự kiện cho các phần tử html.</p>
   <p>
-    Hàm xử lý sự kiện của Svelte được bắt đầu với ký hiện <b>on:</b> (on:change, on:click) để
+    Hàm xử lý sự kiện của Svelte được bắt đầu với ký hiện <b>on:</b> (<span class="code">on:change</span>, <span class="code">on:click</span>, ...) để
     phân biệt với các hàm xử lý sự kiện của javascript.
   </p>
   <p>Ví dụ:</p>
@@ -271,34 +253,148 @@
     <pre>
       <code class="language-html">
         &lt;!-- File: App.svelte--&gt;
+        
         &lt;script&gt;
-          let name = "Nguyen Van A";
-          let gender = "male";
-
-          function handleNameChange(e) {
-            name = e.target.value;
+          function btnHandler() {
+            alert("Click");
+          }
+        
+          function changeHandler(event) {
+            alert(event.target.value);
           }
         &lt;/script&gt;
         
         &lt;main&gt;
-          &lt;div&gt;Name: &lt;input value={name} on:change={handleNameChange}/&gt; &lt;/div&gt;
-          
-          &lt;div&gt;
-            Gender:
-            &lt;input name="gender" type="radio" checked={gender == "male"} 
-              on:click={() => (gender = "male")}/&gt; Male
-            
-            &lt;input name="gender" type="radio" checked={gender == "female"} 
-              on:click={() => (gender = "female")}/&gt; Female
-          &lt;/div&gt; 
-          
-          &lt;br/&gt; 
-          &lt;div&gt; Your name: {name}&lt;/div&gt; 
-          &lt;div&gt; Your gender: {gender}&lt;/div&gt; 
+          &lt;input on:change={changeHandler} /&gt;
+          &lt;button on:click={btnHandler}&gt;Ok&lt;/button&gt;
         &lt;/main&gt;
-      </code>
+      </code><br/><a target="_blank" href="https://codesandbox.io/s/great-waterfall-0xgufi?file=/App.svelte"><small>Chạy thử chương trình</small></a>
     </pre>
   </div>
+
+  <p class="pt-3">Thuộc tính <span class="code">event.target.value</span> chứa dữ liệu của phần tử khi xảy ra sự kiện <span class="code">on:change</span>:</p>
+  <div class="offset-1">
+    <code>
+      <div class="py-1">function changeHandler(event) {</div>
+      <div class="py-1">&nbsp;&nbsp;alert(<b>event.target.value</b>);</div>
+      <div class="py-1">}</div>
+    </code>
+  </div>
+
+  <br/>
+
+  <h3><u>Dùng on:change để lấy lấy dữ liệu người dùng</u></h3>
+  <p class="pt-2">Để lấy dữ liệu người dùng nhập vào các phần tử control (input, textarea, select, ...),
+    sử dụng sự kiện <b>on:change</b> của các phần tử để
+    cập nhật dữ liệu vào các biến Javascript.
+  </p>
+
+  <div><b>Lấy dữ liệu từ input/textarea:</b></div>
+  <div class="offset-1">
+    <pre>
+      <code class="language-html">
+        &lt;!-- File: App.svelte--&gt;
+
+        &lt;script&gt;
+          let text = "";
+        &lt;/script&gt;
+        &lt;main&gt;
+          &lt;input
+            placeholder="Enter some text..."
+            value={text}
+            on:change={(event) => text = event.target.value}
+          /&gt;
+          &lt;br /&gt;
+          {text}
+        &lt;/main&gt;
+      </code><br/><a target="_blank" href="https://codesandbox.io/s/jovial-volhard-5xgudr?file=/App.svelte"><small>Chạy thử chương trình</small></a>
+    </pre>
+  </div>
+  <br/>
+
+  <div><b>Lấy dữ liệu từ select:</b></div>
+  <div class="offset-1">
+    <pre>
+      <code class="language-html">
+        &lt;!-- File: App.svelte--&gt;
+
+        &lt;script&gt;
+          let gender = "";
+        &lt;/script&gt;
+        &lt;main&gt;
+          &lt;select
+            value={gender}
+            on:change={(event) => gender = event.target.value}
+          &gt;
+            &lt;option value=""&gt;--Choose your gender---&lt;/option&gt;
+            &lt;option value="M"&gt;Male&lt;/option&gt;
+            &lt;option value="F"&gt;Female&lt;/option&gt;
+            &lt;option value="O"&gt;Other&lt;/option&gt;
+          &lt;/select&gt;
+          &lt;br /&gt;
+          {gender}
+        &lt;/main&gt;
+      </code><br/><a target="_blank" href="https://codesandbox.io/s/prod-dew-1bvw43?file=/App.svelte"><small>Chạy thử chương trình</small></a>
+    </pre>
+  </div>
+  <br/>
+
+  <div><b>Lấy dữ liệu từ checkbox:</b></div>
+  <div class="offset-1">
+    <pre>
+      <code class="language-html">
+        &lt;script&gt;
+          let agree = false;
+        &lt;/script&gt;
+        
+        &lt;main&gt;
+          &lt;input
+            type="checkbox"
+            checked={agree}
+            on:change={event => agree = event.target.checked}
+          /&gt;{" "}
+          Agree with terms & conditions
+          &lt;br /&gt;
+          {agree ? "Checked" : "Unchecked"}
+        &lt;/main&gt;
+      </code><br/><a target="_blank" href="https://codesandbox.io/s/happy-nash-mt122d?file=/App.svelte"><small>Chạy thử chương trình</small></a>
+    </pre>
+  </div>
+  <br/>
+
+  <div><b>Lấy dữ liệu từ radiobox:</b></div>
+  <div class="offset-1">
+    <pre>
+      <code class="language-html">
+        &lt;script&gt;
+          let gender = "";
+        &lt;/script&gt;
+        
+        &lt;main&gt;
+          Your gender:
+          &lt;input
+            type="radio"
+            name="gender"
+            value="M"
+            checked={gender === "M"}
+            on:change={(event) => gender = event.target.value}
+          /&gt;{" "}
+          Male
+          &lt;input
+            type="radio"
+            name="gender"
+            value="F"
+            checked={gender === "F"}
+            on:change={(event) => gender = event.target.value}
+          /&gt;{" "}
+          Female
+          &lt;br /&gt;
+          {gender}
+        &lt;/main&gt;
+      </code><br/><a target="_blank" href="https://codesandbox.io/s/priceless-black-r0v44q?file=/App.svelte"><small>Chạy thử chương trình</small></a>
+    </pre>
+  </div>
+  <br/>
 
   <h2><u>Hiện thị theo điều kiện (if-else)</u></h2>
   <p>Cú pháp <b>if</b> được dùng để hiện/ẩn một block theo một điều kiện logic:</p>
@@ -318,18 +414,27 @@
       <code class="language-html">
         &lt;!-- File: App.svelte--&gt;
         &lt;script&gt;
-          let loggedIn = false;
+          let show = true;
+          const message = "Hello world!";
         &lt;/script&gt;
         
         &lt;main&gt;
-          {#if !loggedIn}
-            &lt;button on:click={() =>; (loggedIn = true)}&gt;Log in&lt;/button&gt;
+          {#if show}
+            {message}
+            &lt;button 
+              on:click={() => show=false}
+            &gt;
+              Hide
+            &lt;/button&gt;
           {:else}
-            &lt;button on:click={() =>; (loggedIn = false)}&gt;Log out&lt;/button&gt;
+            &lt;button 
+              on:click={() => show=true}
+            &gt;
+              Show
+            &lt;/button&gt;
           {/if}
         &lt;/main&gt;
-        
-      </code>
+      </code><br/><a target="_blank" href="https://codesandbox.io/s/funny-star-vmg3de?file=/App.svelte"><small>Chạy thử chương trình</small></a>
     </pre>
   </div>
 
@@ -350,35 +455,35 @@
         &lt;!-- File: App.svelte--&gt;
 
         &lt;script&gt;
-          let productList = [
-            {name: "IPhone X", price: 10500000},
-            {name: "IPhone 11", price: 11500000},
-            {name: "IPhone 12", price: 12500000},
-            {name: "IPhone 13", price: 13500000},
-          ]
+          const productList = [
+            { code: "IPX", name: "IPhone X", price: 10.5 },
+            { code: "IP11", name: "IPhone 11", price: 11.5 },
+            { code: "IP12", name: "IPhone 12", price: 12.5 }
+          ];
         &lt;/script&gt;
         
+        
         &lt;main&gt;
-          &lt;table border="1" style="width: 40%;"&gt;
+          &lt;table border="1"&gt;
             &lt;thead&gt;
               &lt;tr&gt;
-                &lt;th&gt;#&lt;/th&gt;
-                &lt;th&gt;Sản phẩm&lt;/th&gt;
-                &lt;th&gt;Giá&lt;/th&gt;
+                &lt;th&gt;Code&lt;/th&gt;
+                &lt;th&gt;Name&lt;/th&gt;
+                &lt;th&gt;Price&lt;/th&gt;
               &lt;/tr&gt;
             &lt;/thead&gt;
             &lt;tbody&gt;
-              {#each productList as product, index}
+              {#each productList as product}
                 &lt;tr&gt;
-                  &lt;td&gt;{index+1}&lt;/td&gt;
+                  &lt;td&gt;{product.code}&lt;/td&gt;
                   &lt;td&gt;{product.name}&lt;/td&gt;
-                  &lt;td&gt;{product.price} đ&lt;/td&gt;
+                  &lt;td&gt;{product.price} M&lt;/td&gt;
                 &lt;/tr&gt;
               {/each}
             &lt;/tbody&gt;
           &lt;/table&gt;
         &lt;/main&gt;
-      </code>
+      </code><br/><a target="_blank" href="https://codesandbox.io/s/crazy-field-xw1ysk?file=/App.svelte"><small>Chạy thử chương trình</small></a>
     </pre>
   </div>
 
@@ -571,7 +676,7 @@
       </code>
       <code class="language-html">
         &lt;script&gt;
-          &lt!-- File: App.svelete --&gt
+          &lt!-- File: App.svelte --&gt
 
           import { counter } from "./store";
           

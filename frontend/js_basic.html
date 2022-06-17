@@ -1002,7 +1002,7 @@
           console.log('Xin chào !!!!');        
           alert('Xin chào');                
         &lt;/script&gt;
-      </code>
+      </code><br/><a target="_blank" href="https://codesandbox.io/s/spring-architecture-3vp77x?file=/index.html"><small>Chạy thử chương trình</small></a>
     </pre>
   </div>
   <p>
@@ -1060,7 +1060,7 @@
           let div2 = document.getElementById('div2');
           div2.innerHTML = 'Thẻ 2';
         &lt;/script&gt;
-      </code>
+      </code><br/><a target="_blank" href="https://codesandbox.io/s/wild-night-whu5di?file=/index.html"><small>Chạy thử chương trình</small></a>
     </pre>
   </div>
   <p>Việc đọc nội dung thẻ được thực hiện qua việc đọc thuộc tính <b>innerHTML</b>:</p>
@@ -1114,7 +1114,7 @@
             genderElem.value = '';
           }
         &lt;/script&gt;
-      </code>
+      </code><br/><a target="_blank" href="https://codesandbox.io/s/gallant-wood-0h3875?file=/index.html"><small>Chạy thử chương trình</small></a>
     </pre>
   </div>
   <p>
@@ -1136,7 +1136,7 @@
             alert(agree?'Đã đồng ý': 'Chưa đồng ý');
           }
         &lt;/script&gt;
-      </code>
+      </code><br/><a target="_blank" href="https://codesandbox.io/s/pedantic-wing-fd10e9?file=/index.html"><small>Chạy thử chương trình</small></a>
     </pre>
   </div>
   <h2><u>4. Xử lý sự kiện</u></h2>
@@ -1162,7 +1162,7 @@
             alert("OK");
           }
         &lt;/script&gt;
-      </code>
+      </code><br/><a target="_blank" href="https://codesandbox.io/s/adoring-morning-l9v078?file=/index.html"><small>Chạy thử chương trình</small></a>
     </pre>
   </div>
 
@@ -1184,7 +1184,132 @@
             alert(options[index].value);
           }
         &lt;/script&gt;
-      </code>
+      </code><br/><a target="_blank" href="https://codesandbox.io/s/gallant-gwen-5zrwez?file=/index.html"><small>Chạy thử chương trình</small></a>
     </pre>
   </div>
+
+  <h2><u>5. Trao đổi dữ liệu với server</u></h2>
+  <p>Javascript dùng hàm <b>fetch</b> để lấy dữ liệu từ server xuống client (qua phương thức GET http), và
+    đẩy dữ liệu từ client lên server (qua phương thức POST của http)
+  </p>
+  <h3><u>Lấy dữ liệu từ server xuống client:</u></h3>
+  <p>Để lấy dữ liệu từ server về client, sử dụng hàm fetch theo một trong 2 cách:</p>
+  <ul>
+    <li class="py-1">Sử dụng callback : Do hàm fetch là hàm không đồng bộ (sau khi thực hiện gọi hàm, kết quả 
+      chưa trả về ngay mà sau một thời gian mới có kết quả), nên phải dùng <i>callback</i> của javascript để xử lý 
+      kết quả. Bản chất của callback là một function có tham số đầu vào là kết quả trả về từ server.
+      <div class="mt-3">
+        <code>
+          <div class="py-1">&nbsp;&nbsp;fetch(url)</div>
+          <div class="py-2">&nbsp;&nbsp;&nbsp;&nbsp;.then(resp => resp.json())</div>
+          <div class="py-1">&nbsp;&nbsp;&nbsp;&nbsp;.then(result => {</div>
+          <div class="py-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//TODO: Process result</div>
+          <div class="py-1">&nbsp;&nbsp;&nbsp;&nbsp;})</div>
+        </code>
+      </div>
+
+      <br/>
+      <p>Ví dụ:</p>
+      <pre>
+        <code class="language-html">
+          &lt;script&gt;
+            //Ví dụ dùng hàm fetch lấy dữ liệu từ server
+            const url = "https://api.openweathermap.org/data/2.5/weather?id=1581129&units=metric&appid=d6477696b63c2e661af64eead58c11d9";
+
+            fetch(url)
+              .then((resp) => resp.json())
+              .then((result) => {
+                let temp = result.main.temp;
+                alert(`Current temperature : ${temp} °C`);
+              });
+
+            &lt;/script&gt;
+        </code><br/><a target="_blank" href="https://codesandbox.io/s/romantic-euclid-kf0d27?file=/index.html"><small>Chạy thử chương trình</small></a>
+      </pre>
+    </li>
+    <li class="py-1">
+      Sử dụng cơ chế gọi hàm không đồng bộ qua <b>await</b>. Từ khoá <b>await</b> của javascript giúp chuyển một
+      hàm không đồng bộ thành hàm đồng bộ, và giúp việc gọi hàm không đồng bộ tương tự cách gọi các hàm thông
+      thường. Muốn sử dụng <b>await</b> thì hàm không đồng bộ phải được khai báo với từ khoá <b>async</b> ở đầu.
+      <div class="mt-3">
+        <code>
+          <div class="py-1">&nbsp;&nbsp;<b>async</b> function getDataFromServer() {</div>
+          <div class="py-1">&nbsp;&nbsp;&nbsp;&nbsp;let resp = <b>await</b> fetch(url);</div>
+          <div class="py-1">&nbsp;&nbsp;&nbsp;&nbsp;let result = <b>await</b> resp.json();</div>
+          <div class="py-1">&nbsp;&nbsp;&nbsp;&nbsp;//TODO: Process result</div>
+          <div class="py-1">&nbsp;&nbsp;}</div>
+        </code>
+      </div>
+
+      <br/>
+      <p>Ví dụ:</p>
+      <pre>
+        <code class="language-html">
+          &lt;script&gt;
+            const url = "https://api.openweathermap.org/data/2.5/weather?id=1581129&units=metric&appid=d6477696b63c2e661af64eead58c11d9";
+            
+            async function getTemperature() {
+              let resp = await fetch(url);
+              let result = await resp.json();
+              let temp = result.main.temp;
+              alert(`Current temperature : ${temp} °C`);
+            }
+          
+            getTemperature();
+
+          &lt;/script&gt;
+        </code><br/><a target="_blank" href="https://codesandbox.io/s/distracted-liskov-17zrlv?file=/index.html"><small>Chạy thử chương trình</small></a>
+      </pre>
+    </li>
+  </ul>
+  <br/>
+  <h3><u>Đẩy dữ liệu từ client lên server:</u></h3>
+  <p>Để đẩy dữ liệu lên server, cũng sử dụng hàm <b>fetch</b>, nhưng truyền vào thêm các tham số:</p>
+  <ul>
+    <li class="py-1"><span class="code">method</span> : <span class="code">"POST"</span></li>
+    <li class="py-1"><span class="code">body</span> : Dữ liệu gửi về server, thường dùng 1 trong 2 dạng là FormData hoặc Json String</li>
+    <li class="py-1"><span class="code">Content-Type</span>: Nếu dùng dữ liệu dạng Json String thì phải chọn <span class="code">Content-Type</span> là <span class="code">application/json</span></li>
+  </ul>
+  <p>Ví dụ:</p>
+  <pre>
+    <code class="language-html">
+      &lt;script&gt;
+        // Đẩy dữ liệu lên server theo dạng FormData
+
+        function sendMessage(message){
+          const url = "http://&lt;SERVER_URL&gt;/send-messsage";
+          let data = new FormData();
+          data.append("message", message);
+
+          fetch(url, {method: "POST", body: data})
+            .then(resp => resp.json())
+            .then(result => console.log(result));
+        }
+
+      &lt;/script&gt;
+    </code>
+  </pre>
+
+  <pre>
+    <code class="language-html">
+      &lt;script&gt;
+        // Đẩy dữ liệu lên server theo dạng JSON
+
+        function sendMessage(message){
+          const url = "http://&lt;SERVER_URL&gt;/send-messsage";
+          let data = {message: message};
+          data = JSON.stringify(data);
+
+          let headers = {
+            'Content-Type': 'application/json'
+          };
+
+          fetch(url, {method: "POST", body: data, headers: headers})
+            .then(resp => resp.json())
+            .then(result => console.log(result));
+        }
+
+      &lt;/script&gt;
+    </code>
+  </pre>
 </div>

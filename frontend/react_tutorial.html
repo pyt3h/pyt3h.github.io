@@ -84,24 +84,26 @@
   <h1><u>II. Một số khái niệm cơ bản trong React</u></h1>
   <h2><u>Khung ứng dụng</u></h2>
   <div class="col-10 offset-1 mt-3">
-    <pre><code class="language-javascript">
-      &lt;script src="https://unpkg.com/babel-standalone@6/babel.min.js"&gt;&lt;/script&gt;
-      &lt;script src="https://unpkg.com/react@17/umd/react.development.js"&gt;&lt;/script&gt;
-      &lt;script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"&gt;&lt;/script&gt;
+    <pre>
+        <code class="language-javascript">
+        &lt;script src="https://unpkg.com/babel-standalone@6/babel.min.js"&gt;&lt;/script&gt;
+        &lt;script src="https://unpkg.com/react@17/umd/react.development.js"&gt;&lt;/script&gt;
+        &lt;script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"&gt;&lt;/script&gt;
 
-      &lt;script type="text/babel"&gt;
-      function App() {
-        let name = 'world';
-        return &lt;div&gt;Hello {name}!&lt;/div&gt;;
-      }
+        &lt;script type="text/babel"&gt;
+        function App() {
+          let name = 'world';
+          return &lt;div&gt;Hello {name}!&lt;/div&gt;;
+        }
 
-      ReactDOM.render(&lt;App /&gt;, document.getElementById('app'));
-      &lt;/script&gt;
+        ReactDOM.render(&lt;App /&gt;, document.getElementById('app'));
+        &lt;/script&gt;
 
-      &lt;body&gt;
-      &nbsp;&nbsp;&lt;div id="app"&gt;&lt;/div&gt;
-      &lt;/body&gt;
-    </code></pre>
+        &lt;body&gt;
+        &nbsp;&nbsp;&lt;div id="app"&gt;&lt;/div&gt;
+        &lt;/body&gt;
+      </code><br/><a target="_blank" href="https://codesandbox.io/s/silent-fire-f3ersd?file=/src/App.js"><small>Chạy thử chương trình</small></a>
+    </pre>
   </div>
   <p class="pt-3">Nội dung ứng dụng được hiển thị trong một element gốc 
     <span class="code">(&lt;div id="app"&gt;&lt;/div&gt;)</span> thông qua hàm 
@@ -202,31 +204,33 @@
   </p>
 
   <div class="offset-1">
-    <pre><code class="language-javascript">
-      function Header(props) {
-        return &lt;h1&gt;{props.title}&lt;/h1&gt;;
-      }
-
-      class Body extends React.Component {
-        render(){
-          let content = this.props.content;
-          return &lt;div&gt;{content}&lt;/div&gt;;
+    <pre>
+        <code class="language-javascript">
+        function Header(props) {
+          return &lt;h1&gt;{props.title}&lt;/h1&gt;;
         }
-      }
 
-      function App() {
-        return (&lt;div&gt;
-          &lt;Header title="Title"/&gt;
-          &lt;Body content={
-            &lt;div&gt;
-              &lt;p&gt;Line 1&lt;/p&gt;
-              &lt;p&gt;Line 2&lt;/p&gt;
-            &lt;/div&gt;
-          }/&gt;
-        &lt;/div&gt;);
-      }
-      ReactDOM.render(&lt;App /&gt;, document.getElementById('app'));
-    </code></pre>
+        class Body extends React.Component {
+          render(){
+            let content = this.props.content;
+            return &lt;div&gt;{content}&lt;/div&gt;;
+          }
+        }
+
+        function App() {
+          return (&lt;div&gt;
+            &lt;Header title="Title"/&gt;
+            &lt;Body content={
+              &lt;div&gt;
+                &lt;p&gt;Line 1&lt;/p&gt;
+                &lt;p&gt;Line 2&lt;/p&gt;
+              &lt;/div&gt;
+            }/&gt;
+          &lt;/div&gt;);
+        }
+        ReactDOM.render(&lt;App /&gt;, document.getElementById('app'));
+      </code><br/><a target="_blank" href="https://codesandbox.io/s/romantic-breeze-85f9x2?file=/src/App.js"><small>Chạy thử chương trình</small></a>
+    </pre>
   </div>
 
   <br/>
@@ -241,17 +245,19 @@
   <p>Với class-based component, trạng thái được khai báo trong <b>constructor</b> của class:</p>
   
   <div class="offset-1">
-    <pre><code class="language-javascript">
-      class Counter extends React.Component {
-        constructor() {
-          super();
-          this.state = { value: 0 }
+    <pre>
+      <code class="language-javascript">
+        class Counter extends React.Component {
+          constructor() {
+            super();
+            this.state = { value: 0 }
+          }
+          render(){
+            return &lt;div&gt;{this.state.value}&lt;/div&gt;;
+          }
         }
-        render(){
-          return &lt;div&gt;{this.state.value}&lt;/div&gt;;
-        }
-      }
-    </code></pre>
+      </code><br/><a target="_blank" href="https://codesandbox.io/s/small-cache-zyw70b?file=/src/App.js"><small>Chạy thử chương trình</small></a>
+    </pre>
   </div>
 
   <p>
@@ -263,12 +269,14 @@
   <p>Với function-based component, trạng thái được khai báo bằng cách sử dụng <i>hook</i> <b>useState</b> của React:</p>
 
   <div class="offset-1">
-    <pre><code class="language-javascript">
-      function Counter() {
-        const [value, setValue] = React.useState(0);
-        return &lt;div&gt;{value}&lt;/div&gt;;
-      }
-    </code></pre>
+    <pre>
+        <code class="language-javascript">
+        function App() {
+          const [value, setValue] = React.useState(0);
+          return &lt;div&gt;{value}&lt;/div&gt;;
+        }
+      </code><br/><a target="_blank" href="https://codesandbox.io/s/zen-mestorf-4q9nh3?file=/src/App.js"><small>Chạy thử chương trình</small></a>
+    </pre>
   </div>
 
 
@@ -300,30 +308,32 @@
   <p>Ví dụ:</p>
 
   <div class="offset-1">
-    <pre><code class="language-javascript">
-      class Counter extends React.Component {
+    <pre>
+        <code class="language-javascript">
+        class App extends React.Component {
 
-        constructor(){
-          super();
-          this.state = {value: 0};
+          constructor(){
+            super();
+            this.state = {value: 0};
+          }
+
+          increase = () => {
+            this.setState({value: this.state.value + 1});
+          }
+
+          render(){
+            return(
+              &lt;div&gt;
+                &lt;span&gt;{this.state.value}&lt;/span&gt;
+                &lt;button onClick={this.increase}&gt;Increase&lt;/button&gt;
+              &lt;/div&gt;
+            );
+          }
         }
 
-        increase = () => {
-          this.setState({value: this.state.value + 1});
-        }
-
-        render(){
-          return(
-            &lt;div&gt;
-              &lt;span&gt;{this.state.value}&lt;/span&gt;
-              &lt;button onClick={this.increase}&gt;Increase&lt;/button&gt;
-            &lt;/div&gt;
-          );
-        }
-      }
-
-      ReactDOM.render(&lt;Counter /&gt;, document.getElementById('app'));
-    </code></pre>
+        ReactDOM.render(&lt;Counter /&gt;, document.getElementById('app'));
+      </code><br/><a target="_blank" href="https://codesandbox.io/s/pedantic-herschel-ve7064?file=/src/App.js"><small>Chạy thử chương trình</small></a>
+    </pre>
   </div>
 
   <p>Ở ví dụ trên, biến trạng thái <b>value</b> được cập nhật khi người dùng click vào button <b>Increase</b>:</p>
@@ -363,20 +373,22 @@
   <p>Ví dụ:</p>
 
   <div class="offset-1">
-    <pre><code class="language-javascript">
-      function Counter() {
-        const [value, setValue] = React.useState(0);
-        const increase = () => setValue(value + 1);
-        return (
-          &lt;div&gt;
-            &lt;span&gt;{value}&lt;/span&gt;
-            &lt;button onClick={increase}&gt;Increase&lt;/button&gt;
-          &lt;/div&gt;
-        );
-      }
+    <pre>
+        <code class="language-javascript">
+        function App() {
+          const [value, setValue] = React.useState(0);
+          const increase = () => setValue(value + 1);
+          return (
+            &lt;div&gt;
+              &lt;span&gt;{value}&lt;/span&gt;
+              &lt;button onClick={increase}&gt;Increase&lt;/button&gt;
+            &lt;/div&gt;
+          );
+        }
 
-      ReactDOM.render(&lt;Counter /&gt;, document.getElementById('app'));
-    </code></pre>
+        ReactDOM.render(&lt;Counter /&gt;, document.getElementById('app'));
+      </code><br/><a target="_blank" href="https://codesandbox.io/s/great-fermi-1mrupv?file=/src/App.js"><small>Chạy thử chương trình</small></a>
+    </pre>
   </div>
 
   <p>Ở ví dụ trên, biến trạng thái <b>value</b> được cập nhật ở dòng: </p>
@@ -393,72 +405,166 @@
   <p>Hai sự kiện thường dùng là <b>onClick</b> và <b>onChange:</b></p>
 
   <div class="offset-1">
-    <pre><code class="language-javascript">
-      function App() {
-        const btnHandler = () => {
-          alert('Click');
+    <pre>
+      <code class="language-javascript">
+        function App() {
+          function btnHandler() {
+            alert("Click");
+          }
+
+          function changeHandler(event) {
+            alert(event.target.value);
+          }
+          
+          return (
+            &lt;div&gt;
+              &lt;input onChange={changeHandler}/&gt;
+              &lt;button onClick={btnHandler}&gt;Ok&lt;/button&gt;
+            &lt;/div&gt;
+          );
         }
 
-        const changeHandler = (e) => {
-          alert(e.target.value);
-        }
-        
-        return (
-          &lt;div&gt;
-            &lt;input onChange={changeHandler}/&gt;
-            &lt;button onClick={btnHandler}&gt;Ok&lt;/button&gt;
-          &lt;/div&gt;
-        );
-      }
-
-      ReactDOM.render(&lt;App /&gt;, document.getElementById('app'));
-    </code></pre>
+        ReactDOM.render(&lt;App /&gt;, document.getElementById('app'));
+      </code><br/><a target="_blank" href="https://codesandbox.io/s/vibrant-shamir-u9ed2d?file=/src/App.js"><small>Chạy thử chương trình</small></a>
+    </pre>
   </div>
 
-  <div><b>Dùng onChange để lấy lấy dữ liệu người dùng</b></div>
+  <p class="pt-3">Thuộc tính <span class="code">event.target.value</span> chứa dữ liệu của phần tử khi xảy ra sự kiện <span class="code">on:change</span>:</p>
+  <div class="offset-1">
+    <code>
+      <div class="py-1">function changeHandler(event) {</div>
+      <div class="py-1">&nbsp;&nbsp;alert(<b>event.target.value</b>);</div>
+      <div class="py-1">}</div>
+    </code>
+  </div>
+  
+  <br/>
+
+  <h3><u>Dùng onChange để lấy lấy dữ liệu người dùng</u></h3>
   <p class="pt-2">Trong React, để lấy dữ liệu người dùng nhập vào các phần tử control (input, textarea, select, ...),
     cách thường dùng là khai báo biến trạng thái cho các element, sau đó khi có sự kiện <b>onChange</b>
     thì cập nhật dữ liệu vào biến trạng thái.
   </p>
-  <p>Ví dụ:</p>
+  <div><b>Lấy dữ liệu từ input/textarea:</b></div>
 
   <div class="offset-1">
-    <pre><code class="language-javascript">
-      function App() {
-        const [name, setName] = React.useState('');
-        const [gender, setGender] = React.useState('');
-        
-        const nameChangeHandler = (e) => {
-          setName(e.target.value);
+    <pre>
+      <code class="language-javascript">
+        function App(props) {
+          const [text, setText] = React.useState("");
+          return (
+            &lt;div className="App"&gt;
+              &lt;input
+                placeholder="Enter some text..."
+                value={text}
+                onChange={(event) => setText(event.target.value)}
+              /&gt;
+              &lt;br /&gt;
+              {text}
+            &lt;/div&gt;
+          );
         }
 
-        const genderChangeHandler = (e) => {
-          setGender(e.target.value);
-        }
-        return (
-          &lt;div&gt;
-          &lt;p&gt;Name: &lt;input 
-              onChange={nameChangeHandler}
-              value={name}
-            /&gt; {name}
-            &lt;/p&gt;
-            &lt;p&gt;
-              Gender: &lt;select 
-                onChange={genderChangeHandler}
+        ReactDOM.render(&gt;App /&gt;, document.getElementById('app'));
+      </code><br/><a target="_blank" href="https://codesandbox.io/s/fast-leaf-es836j?file=/src/App.js"><small>Chạy thử chương trình</small></a>
+    </pre>
+  </div>
+
+  <br/>
+  <div><b>Lấy dữ liệu từ select:</b></div>
+  <div class="offset-1">
+    <pre>
+      <code class="language-javascript">
+        function App(props) {
+          const [gender, setGender] = React.useState("");
+        
+          return (
+            &lt;div className="App"&gt;
+              &lt;select
                 value={gender}
+                onChange={(event) => setGender(event.target.value)}
               &gt;
-                &lt;option value=""&gt;----&lt;/option&gt;
+                &lt;option value=""&gt;--Choose your gender---&lt;/option&gt;
                 &lt;option value="M"&gt;Male&lt;/option&gt;
                 &lt;option value="F"&gt;Female&lt;/option&gt;
                 &lt;option value="O"&gt;Other&lt;/option&gt;
-              &lt;/select&gt; {gender}
-            &lt;/p&gt;
-          &lt;/div&gt;
-        );
-      }
+              &lt;/select&gt;
+              &lt;br /&gt;
+              {gender}
+            &lt;/div&gt;
+          );
+        }
 
-      ReactDOM.render(&gt;App /&gt;, document.getElementById('app'));
-    </code></pre>
+        ReactDOM.render(&gt;App /&gt;, document.getElementById('app'));
+      </code><br/><a target="_blank" href="https://codesandbox.io/s/compassionate-darkness-1nwyo1?file=/src/App.js"><small>Chạy thử chương trình</small></a>
+    </pre>
+  </div>
+
+  <br/>
+  <div><b>Lấy dữ liệu từ checkbox:</b></div>
+  <div class="offset-1">
+    <pre>
+      <code class="language-javascript">
+        function App(props) {
+          const [agree, setAgree] = React.useState(false);
+        
+          return (
+            &lt;div className="App"&gt;
+              &lt;input
+                type="checkbox"
+                checked={agree}
+                onChange={(event) => setAgree(event.target.checked)}
+              /&gt;{" "}
+              Agree with terms & conditions
+              &lt;br /&gt;
+              {agree ? "Checked" : "Unchecked"}
+            &lt;/div&gt;
+          );
+        }
+
+        ReactDOM.render(&gt;App /&gt;, document.getElementById('app'));
+      </code><br/><a target="_blank" href="https://codesandbox.io/s/kind-snyder-d8f675?file=/src/App.js"><small>Chạy thử chương trình</small></a>
+    </pre>
+  </div>
+
+  <br/>
+  <div><b>Lấy dữ liệu từ radiobox:</b></div>
+  <div class="offset-1">
+    <pre>
+      <code class="language-javascript">
+        function App() {
+          const [gender, setGender] = React.useState("");
+        
+          return (
+            &lt;div className="App"&gt;
+              Your gender:
+
+              &lt;input
+                type="radio"
+                name="gender"
+                value="M"
+                checked={gender === "M"}
+                onChange={(event) => setGender(event.target.value)}
+              /&gt;{" "}
+              Male
+
+              &lt;input
+                type="radio"
+                name="gender"
+                value="F"
+                checked={gender === "F"}
+                onChange={(event) => setGender(event.target.value)}
+              /&gt;{" "}
+              Female
+              
+              {gender}
+            &lt;/div&gt;
+          );
+        }
+
+        ReactDOM.render(&gt;App /&gt;, document.getElementById('app'));
+      </code><br/><a target="_blank" href="https://codesandbox.io/s/objective-tree-ih1i4y?file=/src/App.js"><small>Chạy thử chương trình</small></a>
+    </pre>
   </div>
 
   <br>
@@ -467,23 +573,23 @@
   <p>Ví dụ:</p>
 
   <div class="offset-1">
-    <pre><code class="language-javascript">
-      function App() {
-        const [show, setShow] = React.useState(true);
-        const message = "Hello world!";
+    <pre>
+      <code class="language-javascript">
+        function App() {
+          const [show, setShow] = React.useState(true);
+          const message = "Hello world!";
+        
+          return (
+            &lt;div&gt;
+              {show && &lt;div&gt;{message}&lt;/div&gt;}
+              &lt;button onClick={() =&gt; setShow(!show)}&gt;Toggle message&lt;/button&gt;
+            &lt;/div&gt;
+          );
+        }
 
-        return (
-          &lt;div&gt;
-            {show && &lt;div&gt;{message}&lt;/div&gt;}
-            &lt;button 
-              onClick={() => setShow(!show)}
-            >Toggle message&lt;/button&gt;
-          &lt;/div&gt;
-        )
-      }
-
-      ReactDOM.render(&lt;App /&gt;, document.getElementById('app'));
-    </code></pre>
+        ReactDOM.render(&lt;App /&gt;, document.getElementById('app'));
+      </code><br/><a target="_blank" href="https://codesandbox.io/s/eager-blackwell-by43rv?file=/src/App.js"><small>Chạy thử chương trình</small></a>
+    </pre>
   </div>
 
   <p class="pt-3">Ở ví dụ trên, dòng điều khiển hiện/ẩn message là:</p>
@@ -503,38 +609,40 @@
   <p>Ví dụ:</p>
 
   <div class="offset-1">
-    <pre><code class="language-javascript">
-      const productList = [
-        {code: 'IPX', name: 'IPhone X', price: 10.5},
-        {code: 'IP11', name: 'IPhone 11', price: 11.5},
-        {code: 'IP12', name: 'IPhone 12', price: 12.5},
-      ];
+    <pre>
+        <code class="language-javascript">
+        const productList = [
+          {code: 'IPX', name: 'IPhone X', price: 10.5},
+          {code: 'IP11', name: 'IPhone 11', price: 11.5},
+          {code: 'IP12', name: 'IPhone 12', price: 12.5},
+        ];
 
-      function App() {
-        return (
-          &lt;table border="1">
-            &lt;thead&gt;
-              &lt;tr&gt;
-                &lt;th&gt;Code&lt;/th&gt;
-                &lt;th&gt;Name&lt;/th&gt;
-                &lt;th&gt;Price&lt;/th&gt;
-              &lt;/tr&gt;
-            &lt;/thead&gt;
-            &lt;tbody&gt;
-              {productList.map((product,index) =>
-                &lt;tr key={index}&gt;
-                  &lt;td&gt;{product.code}&lt;/td&gt;
-                  &lt;td&gt;{product.name}&lt;/td&gt;
-                  &lt;td&gt;{product.price} M&lt;/td&gt;
+        function App() {
+          return (
+            &lt;table border="1">
+              &lt;thead&gt;
+                &lt;tr&gt;
+                  &lt;th&gt;Code&lt;/th&gt;
+                  &lt;th&gt;Name&lt;/th&gt;
+                  &lt;th&gt;Price&lt;/th&gt;
                 &lt;/tr&gt;
-              )}
-            &lt;/tbody&gt;
-          &lt;/table&gt;
-        )
-      }
+              &lt;/thead&gt;
+              &lt;tbody&gt;
+                {productList.map((product,index) =>
+                  &lt;tr key={index}&gt;
+                    &lt;td&gt;{product.code}&lt;/td&gt;
+                    &lt;td&gt;{product.name}&lt;/td&gt;
+                    &lt;td&gt;{product.price} M&lt;/td&gt;
+                  &lt;/tr&gt;
+                )}
+              &lt;/tbody&gt;
+            &lt;/table&gt;
+          )
+        }
 
-      ReactDOM.render(&lt;App /&gt;, document.getElementById('app'));
-    </code></pre>
+        ReactDOM.render(&lt;App /&gt;, document.getElementById('app'));
+      </code><br/><a target="_blank" href="https://codesandbox.io/s/magical-bouman-ir1155?file=/src/App.js"><small>Chạy thử chương trình</small></a>
+    </pre>
   </div>
 
   <p class="pt-3">Ở ví dụ trên, đoạn code sinh ra danh sách các sản phẩm trong bảng là:</p>
